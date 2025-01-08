@@ -1,8 +1,8 @@
-const DailyNormWater = () => {
+const WaterDailyNorma = () => {
   return (
     <div>
       <h1>DailyNorm water</h1>
     </div>
   );
 };
-export default DailyNormWater;
+export default WaterDailyNorma;

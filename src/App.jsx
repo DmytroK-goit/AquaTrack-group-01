@@ -1,14 +1,23 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home";
-import HeadPage from "./pages/HeadPage";
+
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import SignInPage from "./pages/SignInPage";
+import TrackerPage from "./pages/TrackerPage";
+import SharedLayout from "./components/SharedLayout";
 import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/head-page" element={<HeadPage />} />
+      <Route path="/" element={<SharedLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="signup" element={<SignUpPage />} />
+        <Route path="signin" element={<SignInPage />} />
+        <Route path="tracker" element={<TrackerPage />} />
+      </Route>
+
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
