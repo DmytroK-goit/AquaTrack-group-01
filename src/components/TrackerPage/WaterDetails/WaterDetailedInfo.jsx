@@ -1,5 +1,5 @@
 import DailyInfo from "./RightPart/DailyInfo";
-import MonthInfo from "./RightPart/MonthInfo";
+import MonthInfo from "../WaterDetails/RightPart/MonthInfo/MonthInfo";
 import UserPanel from "./RightPart/UserPanel";
 
 const WaterDetailedInfo = () => {
