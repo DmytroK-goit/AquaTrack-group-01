@@ -1,0 +1,335 @@
+.userSettingsWraper {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+}
+.userSettings__Form {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+.userSettings__title {
+	font-family: var(--font-family);
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 120%;
+	letter-spacing: -0.01em;
+	color: #323f47;
+}
+.userProfile {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+.userProfile img {
+	width: 75px;
+	height: 75px;
+}
+.userProfileUpload {
+	display: inline-flex;
+	gap: 8px;
+}
+.profileText {
+	font-family: var(--font-family);
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 129%;
+	letter-spacing: -0.01em;
+	color: #2f2f2f;
+}
+.uploadIcon {
+	cursor: pointer;
+	background-color: transparent;
+	border: none;
+	stroke: #2f2f2f;
+	fill: none;
+	width: 18px;
+	height: 18px;
+}
+
+.UserSettingsButton {
+	border-radius: 30px;
+	padding: 14px 40px;
+	width: 116px;
+	/* height: 46px; */
+	background: #9be1a0;
+	font-family: var(--font-family);
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 126%;
+	letter-spacing: -0.01em;
+	text-align: center;
+	color: #323f47;
+	transition: background 0.3s ease;
+}
+.UserSettingsButton:hover {
+	background: #87d28d;
+}
+
+/* Form */
+.userSettings__form_item_one {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+}
+
+/* block_radio */
+
+.userSettings__label_title {
+	font-family: var(--font-family);
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 125%;
+	letter-spacing: -0.01em;
+	text-align: left;
+	color: #323f47;
+}
+.userSettings__label_text {
+	font-family: var(--font-family);
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 129%;
+	letter-spacing: -0.01em;
+	color: #2f2f2f;
+}
+.userSettings__block_radio {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 14px;
+}
+.userSettings__radioBtnContainer {
+	display: flex;
+	gap: 20px;
+}
+.userSettings__btn_radio[type="radio"] {
+	display: none;
+}
+.userSettings__radioBtnLabel {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	cursor: pointer;
+}
+.userSettings__radioBtn {
+	width: 20px;
+	height: 20px;
+	border: 3px solid #8fdcae;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.3s ease;
+}
+.userSettings__radioBtn::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: transparent;
+	transition: background-color 0.3s ease;
+}
+.userSettings__btn_radio:checked + .userSettings__radioBtn::before {
+	background-color: #8fdcae;
+}
+
+/* block_person */
+
+.userSettings__block_person {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 14px;
+	width: 100%;
+}
+.userSettings__blokNameEmail {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 8px;
+	width: 100%;
+}
+.userSettings__blokInputNameEmail {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 14px;
+	margin-bottom: 24px;
+	width: 100%;
+}
+.userSettings__inputStyle {
+	border: 1px solid rgba(47, 47, 47, 0.15);
+	border-radius: 15px;
+	padding: 16px;
+	width: 100%;
+	height: 46px;
+	background: transparent;
+}
+.userSettings__textInput {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.28571;
+	letter-spacing: -0.01em;
+	color: #2f2f2f;
+}
+
+/* containerInfo */
+.userSettings__formula_text {
+	font-weight: 700;
+	font-size: 14px;
+	line-height: 1.28571;
+	letter-spacing: -0.01em;
+	color: #9be1a0;
+}
+.userSettings__containerInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.userSettings__infoFormula {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	align-items: start;
+}
+.userSettings__infoText {
+	border: 1px solid rgba(47, 47, 47, 0.15);
+	border-radius: 15px;
+	padding: 16px;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.28571;
+	letter-spacing: -0.01em;
+	color: rgba(47, 47, 47, 0.6);
+}
+.userSettings__textInput {
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.28571;
+	letter-spacing: -0.01em;
+	color: #2f2f2f;
+}
+.userSettings__infoSimbol {
+	color: #9be1a0;
+}
+.userSettings__emojiIcon {
+	display: inline-flex;
+
+	width: 18px;
+	height: 18px;
+	fill: #9be1a0;
+}
+
+/* containerInfo */
+
+/* containerWeight */
+
+.userSettings__form_item_two {
+	padding-top: 0;
+}
+
+.userSettings__containerWater {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 14px;
+}
+.required {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	gap: 5px;
+}
+
+/* containerWeight */
+
+/* Form */
+
+@media screen and (min-width: 768px) {
+	.userSettings__inputStyle {
+		width: 568px;
+		height: 56px;
+	}
+	.userSettings__textInput {
+		font-size: 16px;
+		line-height: 1.5;
+	}
+	.userSettings__formula_text {
+		font-size: 16px;
+		line-height: 1.5;
+	}
+	.userSettings__blockInfo {
+		display: flex;
+		flex-direction: row;
+		gap: 28px;
+	}
+	.userSettings__infoText {
+		width: 568px;
+		height: 128px;
+		font-size: 16px;
+		line-height: 1.5;
+	}
+	.userSettings__textInput {
+		font-size: 16px;
+		line-height: 1.5;
+	}
+	.required {
+		display: block;
+		width: 408px;
+	}
+}
+@media screen and (min-width: 1440px) {
+	.userSettings__Form {
+		display: flex;
+		flex-direction: row;
+		gap: 24px;
+	}
+	.userSettings__title {
+		font-size: 28px;
+		line-height: 114%;
+	}
+	.userSettings__label_text {
+		font-size: 16px;
+		line-height: 150%;
+	}
+	.profileText {
+		font-size: 16px;
+		line-height: 150%;
+	}
+	.userSettings__form_item_one,
+	.userSettings__form_item_two {
+		width: 50%;
+	}
+	.userSettings__inputStyle {
+		width: 400px;
+	}
+	.userSettings__label_title {
+		font-size: 18px;
+		line-height: 133%;
+	}
+	.uploadIcon {
+		width: 21px;
+		height: 21px;
+	}
+	.userProfile img {
+		width: 100px;
+		height: 100px;
+	}
+	.userSettings__emojiIcon {
+		width: 21px;
+		height: 21px;
+	}
+	.userSettings__infoText {
+		padding: 16px;
+		width: 400px;
+		height: 152px;
+	}
+	.userSettings__form_item_two {
+		padding-top: 86px;
+	}
+	.required {
+		width: 400px;
+	}
+}

@@ -1,7 +1,7 @@
 .modal {
 	position: absolute;
 	box-sizing: border-box;
-	max-width: 90%;
+	width: 90%;
 	margin: 0 16px;
 	display: flex;
 	top: 80px;
@@ -9,6 +9,7 @@
 	justify-content: center;
 	background-color: white;
 	border-radius: 15px;
+	padding: 40px 20px;
 }
 .backdrop {
 	background-color: rgba(0, 0, 0, 0.7);
@@ -37,5 +38,17 @@
 	background-color: transparent;
 	border: none;
 	stroke: #2f2f2f;
-	fill: #000;
+}
+
+@media screen and (min-width: 768px) {
+	.modal {
+		width: 85%;
+		padding: 40px;
+	}
+}
+@media screen and (min-width: 1440px) {
+	.modal {
+		width: 920px;
+		padding: 40px;
+	}
 }
