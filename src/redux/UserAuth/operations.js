@@ -1,4 +1,4 @@
-import { CreateAsyncThunk, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookies";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -52,5 +52,31 @@ export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
     setAuthHeader("");
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
+  }
+});
+
+export const refresh = createAsyncThunk("refresh", async (_, thunkApi) => {
+  try {
+    const { auth } = thunkApi.getState();
+    const token = auth.token;
+
+    if (!token) {
+      throw new Error("No token available for refresh");
+    }
+
+    const { data } = await aquaTrack.get("user/refresh", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setAuthHeader(data.accessToken);
+    toast.success("Session refreshed");
+    return data;
+  } catch (error) {
+    toast.error(error.message || "Failed to refresh session");
+    return thunkApi.rejectWithValue(
+      error.message || "Failed to refresh session"
+    );
   }
 });

@@ -35,16 +35,16 @@ const slice = createSlice({
         state.user = null;
         state.token = null;
         state.isLoggedIn = false;
+      })
+      .addCase(refresh.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refresh.rejected, (state) => {
+        state.isRefreshing = false;
       });
-    //   .addCase(refresh.fulfilled, (state, action) => {
-    //     state.user = action.payload.user;
-    //     state.token = action.payload.accessToken;
-    //     state.isLoggedIn = true;
-    //     state.isRefreshing = false;
-    //   })
-    //   .addCase(refresh.rejected, (state) => {
-    //     state.isRefreshing = false;
-    //   });
   },
 });
 export const authSlice = slice.reducer;
