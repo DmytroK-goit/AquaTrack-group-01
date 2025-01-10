@@ -9,7 +9,7 @@ export const aquaTrack = axios.create({
 
 const setAuthHeader = (token) => {
   if (token) {
-    aquaTrack.defaults.headers.common.Authorization = `Bearer${token}`;
+    aquaTrack.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
     delete aquaTrack.defaults.headers.common.Authorization;
   }
@@ -45,7 +45,19 @@ export const login = createAsyncThunk(
     }
   }
 );
-
+export const updateUser = createAsyncThunk(
+  "updateUser",
+  async (updateData, thunkApi) => {
+    try {
+      const { data } = await aquaTrack.patch("users/update", updateData);
+      toast.success(`User updated ${data.name}`);
+      return data;
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update user");
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
 export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
   try {
     await aquaTrack.post("users/logout");
