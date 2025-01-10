@@ -2,12 +2,12 @@ import WaterDetailedInfo from "../components/TrackerPage/WaterDetails/WaterDetai
 import WaterMainInfo from "../components/TrackerPage/WaterMain/WaterMainInfo";
 
 const TrackerPage = () => {
-	return (
-		<div className="flex justify-between">
-			<WaterMainInfo />
-			<WaterDetailedInfo />
-		</div>
-	);
+  return (
+    <div className="flex justify-between">
+      <WaterMainInfo />
+      <WaterDetailedInfo />
+    </div>
+  );
 };
 
 export default TrackerPage;
