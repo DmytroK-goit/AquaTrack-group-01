@@ -27,11 +27,11 @@ const UserBar = ({ user }) => {
     <div className={s.userBarContainer} ref={userBarRef}>
       <button className={s.userBar} onClick={togglePopover}>
         <span className={s.userName}>
-          {user?.name || user?.email.split("@")[0]}
+          {user?.name || user?.email.split("@")[0] || "User"}
         </span>
         <img
           className={s.avatar}
-          src={user?.avatar || "/default-avatar.png"}
+          src={user?.avatar || user?.name[0] || "U"}
           alt={`${user?.name || "User"} avatar`}
         />
       </button>

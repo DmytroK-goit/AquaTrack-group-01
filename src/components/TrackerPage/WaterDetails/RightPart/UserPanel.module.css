@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 40px;
+  padding-left: 20px;
+  background-color: var(--light-gray);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.greeting {
+  font-family: "Gilroy", sans-serif;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  color: var(--main);
+}
+
+.greeting strong {
+  font-weight: 700;
+  color: var(--primary-color);
+}
