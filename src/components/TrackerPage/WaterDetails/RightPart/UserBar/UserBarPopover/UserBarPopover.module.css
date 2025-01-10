@@ -1,0 +1,46 @@
+.popover {
+  position: absolute;
+  top: 100%;
+  border-radius: 15px;
+  padding: 14px 57px 14px 20px;
+  width: 157px;
+  height: 82px;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background-color: white;
+  z-index: 100;
+}
+
+.popoverButtonSettings {
+  display: block;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 149%;
+  color: var(--main);
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popoverButtonSettings:hover {
+  color: black;
+}
+
+.popoverButtonLogOut {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 149%;
+  text-align: left;
+  color: rgba(50, 63, 71, 0.4);
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.popoverButtonLogOut:hover {
+  color: var(--dark-gray);
+  border: none;
+}
