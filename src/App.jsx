@@ -7,7 +7,7 @@ import SignInPage from "./pages/SignInPage";
 import TrackerPage from "./pages/TrackerPage";
 import SharedLayout from "./components/SharedLayout";
 import NotFound from "./pages/NotFound";
-
+import PrivateRoute from "./components/PrivateRoute";
 function App() {
   return (
     <Routes>
@@ -15,7 +15,12 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="signup" element={<SignUpPage />} />
         <Route path="signin" element={<SignInPage />} />
-        <Route path="tracker" element={<TrackerPage />} />
+        <Route
+          path="tracker"
+          element={
+            <PrivateRoute component={<TrackerPage />} redirectTo="/signin" />
+          }
+        />
       </Route>
 
       <Route path="*" element={<NotFound />} />

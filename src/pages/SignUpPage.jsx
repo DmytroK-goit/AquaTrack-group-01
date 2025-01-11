@@ -4,11 +4,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-// import { register } from "../redux/UserAuth/operations";
 import css from "./SignUpPage.module.css";
 import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { registerUser } from "../redux/UserAuth/operations.js";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -43,8 +43,11 @@ const SignUpForm = () => {
   const notify = (message) => toast.error(message);
 
   const onSubmit = async (data) => {
-    const result = await dispatch(register(data));
-    if (register.fulfilled.match(result)) {
+    const { email, password } = data;
+    console.log({ email, password });
+    const result = await dispatch(registerUser({ email, password }));
+    console.log("ssss");
+    if (registerUser.fulfilled.match(result)) {
       navigate("/tracker");
     } else {
       console.error(result.error.message);

@@ -17,13 +17,13 @@ const setAuthHeader = (token) => {
 
 axios.defaults.withCredentials = true;
 
-export const register = createAsyncThunk(
-  "register",
+export const registerUser = createAsyncThunk(
+  "registerUser",
   async (credentials, thunkApi) => {
     try {
-      const { data } = await aquaTrack.post("user/register", credentials);
+      const { data } = await aquaTrack.post("users/register", credentials);
       toast.success("Success");
-      setAuthHeader(data.accessToken);
+      setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
       toast.error(error.message);
@@ -35,9 +35,9 @@ export const login = createAsyncThunk(
   "login",
   async (credentials, thunkApi) => {
     try {
-      const { data } = await aquaTrack.post("user/login", credentials);
+      const { data } = await aquaTrack.post("users/login", credentials);
       toast.success("Success");
-      setAuthHeader(data.accessToken);
+      setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
       toast.error(error.message);
