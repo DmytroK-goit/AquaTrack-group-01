@@ -15,9 +15,9 @@ const WelcomeSection = () => {
   };
   return (
     <div className={css.conteiner}>
-      <p className={css.logo}>
+      <div className={css.logo}>
         <Logo />
-      </p>
+      </div>
       <p className={css.paragraf}>Record daily water intake and track</p>
       <h2 className={css.h2}>Water consumption tracker</h2>
       <div>
