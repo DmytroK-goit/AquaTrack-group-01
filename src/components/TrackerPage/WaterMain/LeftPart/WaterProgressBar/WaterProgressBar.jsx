@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { selectTotalWater } from "";
+import { selectTotalWater } from "../../redux/water/selectors";
 import { selectDailyNorma } from "../../../../../redux/UserAuth/selectors";
 import styles from "./WaterProgressBar.module.css";
 
