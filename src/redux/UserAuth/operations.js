@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import Cookies from "js-cookies";
+// import Cookies from "js-cookies";
 import axios from "axios";
 import toast from "react-hot-toast";
 
