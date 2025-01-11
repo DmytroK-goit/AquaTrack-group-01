@@ -40,7 +40,7 @@ export const login = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/login", credentials);
-      toast.success("Login succsesful");
+      toast.success("Login successful");
       localStorage.setItem("token", data.data.accessToken);
       return data;
     } catch (error) {

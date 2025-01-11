@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     if (token) {
-      dispatch(refresh({ key: "value" }));
+      dispatch(refresh());
     }
   }, [dispatch, token]);
   return (
