@@ -22,9 +22,9 @@ export const registerUser = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/register", credentials);
-      toast.success("Success");
-      setAuthHeader(data.data.accessToken);
-      return data;
+      toast.success("Registration successful");
+      const loginResponse = await thunkApi.dispatch(login(credentials));
+      return loginResponse.payload;
     } catch (error) {
       toast.error(error.message);
       return thunkApi.rejectWithValue(error.message);
@@ -36,7 +36,7 @@ export const login = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/login", credentials);
-      toast.success("Success");
+      toast.success("Loggin succsesful");
       setAuthHeader(data.data.accessToken);
       return data;
     } catch (error) {
