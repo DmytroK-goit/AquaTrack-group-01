@@ -8,23 +8,27 @@ import TrackerPage from "./pages/TrackerPage";
 import SharedLayout from "./components/SharedLayout";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
+import UniversalModal from "./components/TrackerPage/modal/UniversalModal/UniversalModal";
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<SharedLayout />}>
-        <Route index element={<HomePage />} />
-        <Route path="signup" element={<SignUpPage />} />
-        <Route path="signin" element={<SignInPage />} />
-        <Route
-          path="tracker"
-          element={
-            <PrivateRoute component={<TrackerPage />} redirectTo="/signin" />
-          }
-        />
-      </Route>
+    <>
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="signin" element={<SignInPage />} />
+          <Route
+            path="tracker"
+            element={
+              <PrivateRoute component={<TrackerPage />} redirectTo="/signin" />
+            }
+          />
+        </Route>
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <UniversalModal />
+    </>
   );
 }
 
