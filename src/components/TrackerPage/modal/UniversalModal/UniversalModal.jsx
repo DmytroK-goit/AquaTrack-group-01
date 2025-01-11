@@ -16,7 +16,7 @@ const UniversalModal = () => {
       overlayClassName={`${css.modalBackdrop} ${modalStyles.overlayClassName}`}
     >
       <button className={css.modalCloseButton} onClick={closeModal}>
-        <Iconsvg iconName="close" className={css.iconClose} />
+        <Iconsvg iconName="icon-x" className={css.iconClose} />
       </button>
       {modalContent}
     </Modal>

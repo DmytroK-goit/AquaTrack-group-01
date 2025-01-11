@@ -15,7 +15,7 @@ const UserBarPopover = () => {
           openModal(<LogOutModal closePopover={closePopover} />);
         }}
       >
-        <Iconsvg className={css.userPopoverBtnIcon} iconName={"log-out"} />
+        <Iconsvg className={css.userPopoverBtnIcon} iconName={"icon-log-out"} />
       </button>
     </div>
   );
