@@ -3,34 +3,37 @@ import css from "./LogOutModal.module.css";
 import { logout } from "../../../../redux/UserAuth/operations";
 import { useModalContext } from "../../../../context/useModalContext";
 
-const LogOutModal = ({ closePopover }) => {
+const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
   const { closeModal } = useModalContext();
 
-  const onLogOut = () => {
+  const handleLogOut = () => {
     dispatch(logout());
     closeModal();
-    closePopover();
+    if (onClose) onClose();
   };
 
-  const handleClose = () => {
-    closePopover();
+  const handleCancel = () => {
     closeModal();
+    if (onClose) onClose();
   };
 
   return (
     <div className={css.logOutModal}>
       <p className={css.title}>Log out</p>
-      <p className={css.subtitle}>Do you really want to leave ?</p>
+      <p className={css.subtitle}>Do you really want to leave?</p>
       <div className={css.boxButton}>
-        <button className={css.buttonLogOut} type="button" onClick={onLogOut}>
+        <button
+          className={css.buttonLogOut}
+          type="button"
+          onClick={handleLogOut}
+        >
           Log out
         </button>
-
         <button
           className={css.buttonCancel}
           type="button"
-          onClick={handleClose}
+          onClick={handleCancel}
         >
           Cancel
         </button>

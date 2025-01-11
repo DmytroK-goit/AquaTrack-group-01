@@ -47,7 +47,9 @@ const UserBar = ({}) => {
           alt={`${user?.name || "User"} avatar`}
         />
       </button>
-      {isPopoverOpen && <UserBarPopover />}
+      {isPopoverOpen && (
+        <UserBarPopover onClose={() => setIsPopoverOpen(false)} />
+      )}
     </div>
   );
 };

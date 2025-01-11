@@ -2,22 +2,21 @@ import { useModalContext } from "../../../context/useModalContext";
 import LogOutModal from "../modal/LogOutModal/LogOutModal";
 import Iconsvg from "../../../components/Icon/Icon";
 
-const UserBarPopover = (closePopover) => {
+const UserBarPopover = ({ onClose }) => {
   const { openModal } = useModalContext();
 
-  return (
-    <div>
-      <h1>UserBarPopover </h1>
+  const handleLogOutClick = () => {
+    openModal(<LogOutModal onClose={onClose} />);
+    onClose();
+  };
 
-      <button
-        className={css.userPopoverBtn}
-        onClick={() => {
-          openModal(<LogOutModal closePopover={closePopover} />);
-        }}
-      >
-        <Iconsvg className={css.userPopoverBtnIcon} iconName={"icon-log-out"} />
+  return (
+    <div className={css.userPopover}>
+      <button className={css.userPopoverBtn} onClick={handleLogOutClick}>
+        <Iconsvg className={css.userPopoverBtnIcon} iconName="icon-log-out" />
       </button>
     </div>
   );
 };
+
 export default UserBarPopover;
