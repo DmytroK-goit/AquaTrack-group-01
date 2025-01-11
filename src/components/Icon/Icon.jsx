@@ -1,4 +1,4 @@
-import sprite from "";
+import sprite from "../../../public/icons.svg";
 
 const Iconsvg = ({ width, height, iconName, className }) => {
   return (
