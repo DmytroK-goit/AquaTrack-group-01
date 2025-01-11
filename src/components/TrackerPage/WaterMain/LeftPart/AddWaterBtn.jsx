@@ -1,8 +1,11 @@
-const AddWaterBtn = () => {
+import styles from "../WaterMainInfo.module.css";
+import plus from "../../../../images/WaterMainInfoSection/plus-icon.svg";
+
+export default function AddWaterBtn() {
   return (
-    <div>
-      <h1>AddWaterBtn </h1>
-    </div>
+    <button type="button" className={styles.addWaterBtn}>
+      <img src={plus} alt="plus" className={styles.plusIcon} />
+      <span>Add water</span>
+    </button>
   );
-};
-export default AddWaterBtn;
+}
