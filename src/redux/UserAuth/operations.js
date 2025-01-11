@@ -14,6 +14,10 @@ const setAuthHeader = (token) => {
     delete aquaTrack.defaults.headers.common.Authorization;
   }
 };
+const token = localStorage.getItem("token");
+if (token) {
+  setAuthHeader(token);
+}
 
 axios.defaults.withCredentials = true;
 
@@ -36,8 +40,8 @@ export const login = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/login", credentials);
-      toast.success("Loggin succsesful");
-      setAuthHeader(data.data.accessToken);
+      toast.success("Login successful");
+      localStorage.setItem("token", data.data.accessToken);
       return data;
     } catch (error) {
       toast.error(error.message);
@@ -61,34 +65,27 @@ export const updateUser = createAsyncThunk(
 export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
   try {
     await aquaTrack.post("users/logout");
-    setAuthHeader("");
+    localStorage.removeItem("token");
+    setAuthHeader(null);
   } catch (error) {
     return thunkApi.rejectWithValue(error.message);
   }
 });
 
-export const refresh = createAsyncThunk("refresh", async (_, thunkApi) => {
+export const refresh = createAsyncThunk("auth/refresh", async (_, thunkApi) => {
   try {
-    const { auth } = thunkApi.getState();
-    const token = auth.token;
-
+    const token = localStorage.getItem("token");
     if (!token) {
-      throw new Error("No token available for refresh");
+      throw new Error("No token found");
     }
-
-    const { data } = await aquaTrack.get("user/refresh", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const { data } = await aquaTrack.get("users/refresh", {
+      headers: { Authorization: `Bearer ${token}` },
     });
-
+    localStorage.setItem("token", data.accessToken);
     setAuthHeader(data.accessToken);
-    toast.success("Session refreshed");
     return data;
   } catch (error) {
-    toast.error(error.message || "Failed to refresh session");
-    return thunkApi.rejectWithValue(
-      error.message || "Failed to refresh session"
-    );
+    localStorage.removeItem("token");
+    return thunkApi.rejectWithValue(error.message);
   }
 });

@@ -10,6 +10,14 @@ import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
 import UniversalModal from "./components/TrackerPage/modal/UniversalModal/UniversalModal";
 function App() {
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(refresh());
+    }
+  }, [dispatch, token]);
   return (
     <>
       <Routes>
