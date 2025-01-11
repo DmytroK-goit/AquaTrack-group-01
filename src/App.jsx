@@ -4,7 +4,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
-import TrackerPage from "./pages/TrackerPage";
+import TrackerPage from "./pages/TrackerPage/TrackerPage";
 import SharedLayout from "./components/SharedLayout";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
