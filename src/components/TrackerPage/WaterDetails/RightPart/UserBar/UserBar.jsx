@@ -1,8 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import s from "./UserBar.module.css";
 import UserBarPopover from "./UserBarPopover/UserBarPopover";
+import { useSelector } from "react-redux";
+import {
+  selectUser,
+  selectUserName,
+} from "../../../../../redux/UserAuth/selectors";
 
-const UserBar = ({ user }) => {
+const UserBar = ({}) => {
+  // Діма я додав тут стан користувача
+  const user = useSelector(selectUser);
+  const userName = useSelector(selectUserName);
+  console.log(user);
+  console.log(`userName ${userName}`);
+  //
+
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const userBarRef = useRef(null);
 

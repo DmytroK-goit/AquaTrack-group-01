@@ -1,9 +1,16 @@
 import s from "./UserPanel.module.css";
 import UserBar from "./UserBar/UserBar.jsx";
+import { useSelector } from "react-redux";
+import {
+  selectUser,
+  selectUserName,
+} from "../../../../redux/UserAuth/selectors.js";
 
-const UserPanel = ({ user }) => {
+const UserPanel = () => {
+  const userName = useSelector(selectUserName);
+  const user = useSelector(selectUser);
   const getUserName = () => {
-    return user?.name || user?.email.split("@")[0] || "User";
+    return userName || user?.email.split("@")[0] || "User";
   };
 
   return (

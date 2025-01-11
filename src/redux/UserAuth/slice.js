@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout, register, refresh, updateUser } from "./operations";
+import { login, logout, refresh, registerUser, updateUser } from "./operations";
 
 const initialState = {
   user: {
@@ -21,14 +21,15 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(register.fulfilled, (state, action) => {
+      .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.accessToken;
+        const { user, accessToken } = action.payload.data;
+        state.user = user;
+        state.token = accessToken;
         state.isLoggedIn = true;
       })
       .addCase(logout.fulfilled, (state) => {
@@ -36,17 +37,29 @@ const slice = createSlice({
         state.token = null;
         state.isLoggedIn = false;
       })
+      .addCase(refresh.pending, (state) => {
+        state.isRefreshing = true;
+      })
       .addCase(refresh.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.user = { ...state.user, ...action.payload };
-      })
       .addCase(refresh.rejected, (state) => {
         state.isRefreshing = false;
+      })
+      .addCase(login.rejected, (state, action) => {
+        console.error("Login failed", action.error);
+        state.isLoggedIn = false;
+      })
+
+      .addCase(registerUser.rejected, (state, action) => {
+        console.error("Registration failed", action.error);
+        state.isLoggedIn = false;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
       });
   },
 });

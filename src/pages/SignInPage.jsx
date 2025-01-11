@@ -10,12 +10,12 @@ import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const schema = yup.object().shape({
-  email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup.string().required("Password is required"),
-});
-
 const SignInForm = () => {
+  const schema = yup.object().shape({
+    email: yup.string().email("Invalid email").required("Email is required"),
+    password: yup.string().required("Password is required"),
+  });
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -36,7 +36,9 @@ const SignInForm = () => {
   }, [isLoggedIn, navigate]);
 
   const onSubmit = async (data) => {
+    console.log(data);
     const result = await dispatch(login(data));
+    console.log("Login result:", result);
     if (login.fulfilled.match(result)) {
       navigate("/tracker");
     } else {
