@@ -1,0 +1,22 @@
+.logo {
+  display: block;
+  color: #323f47;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.18px;
+  text-transform: uppercase;
+}
+
+.logo:hover {
+  color: #323f47;
+}
+
+@media screen and (min-width: 768px) {
+  .logo {
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: -0.24px;
+  }
+}

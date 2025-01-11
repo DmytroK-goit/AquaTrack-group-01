@@ -1,8 +1,15 @@
-const WaterProgressBar = () => {
+import styles from "../WaterMainInfo.module.css";
+
+export default function WaterProgressBar() {
   return (
-    <div>
-      <h1>ProgressDailyWater water</h1>
-    </div>
+    <>
+      <p className={styles.waterRangeDescr}>Today</p>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        className={styles.waterRangeScale}
+      />
+    </>
   );
-};
-export default WaterProgressBar;
+}
