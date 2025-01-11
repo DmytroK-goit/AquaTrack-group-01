@@ -2,9 +2,9 @@ import { useModalContext } from "../../../context/useModalContext";
 import LogOutModal from "../modal/LogOutModal/LogOutModal";
 import Iconsvg from "../../../components/Icon/Icon";
 
-const { openModal } = useModalContext();
+const UserBarPopover = (closePopover) => {
+  const { openModal } = useModalContext();
 
-const UserBarPopover = () => {
   return (
     <div>
       <h1>UserBarPopover </h1>
