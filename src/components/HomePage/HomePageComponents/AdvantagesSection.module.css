@@ -1,7 +1,8 @@
 .conteiner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  max-width: 343px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: flex-start; */
   justify-content: center;
   border-radius: 30px;
   color: #f0eff4;
@@ -10,11 +11,12 @@
 
 .background {
   width: 100%;
-  height: 100vh;
+  height: 353px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 30px;
+  width: 343px;
   background-image: url("../../../images/AdvantagesSection/AdvantagesSection_mobil_1x.webp");
 }
 
@@ -22,12 +24,16 @@
   (min-resolution: 192dpi),
   (min-resolution: 2dppx) {
   .background {
+    width: 343px;
+    height: 446px;
     background-image: url(../../../images/AdvantagesSection/AdvantagesSection_mobil_2x.webp);
   }
 }
 
 @media screen and (min-width: 768px) {
   .background {
+    width: 704px;
+    height: 446px;
     background-image: url("../../../images/AdvantagesSection/AdvantagesSection_tab_1x.webp");
   }
 
@@ -35,6 +41,7 @@
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
     .background {
+      width: 704px;
       background-image: url(../../../images/AdvantagesSection/AdvantagesSection_tab_2x.webp);
     }
   }
@@ -42,6 +49,8 @@
 
 @media screen and (min-width: 1440px) {
   .background {
+    width: 672px;
+    height: 736px;
     background-image: url("../../../images/AdvantagesSection/AdvantagesSection_pc_1x.webp");
   }
 
@@ -49,6 +58,8 @@
     (min-resolution: 192dpi),
     (min-resolution: 2dppx) {
     .background {
+      width: 672px;
+      height: 736px;
       background-image: url(../../../images/AdvantagesSection/AdvantagesSection_pc_2x.webp);
     }
   }

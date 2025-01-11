@@ -15,16 +15,16 @@ const WelcomeSection = () => {
   };
   return (
     <div className={css.conteiner}>
-      <div className={css.logo}>
+      <p className={css.logo}>
         <Logo />
-      </div>
+      </p>
       <p className={css.paragraf}>Record daily water intake and track</p>
       <h2 className={css.h2}>Water consumption tracker</h2>
-      <div>
-        <button onClick={handleSignInClick} className={css.signIn}>
+      <div className={css.divButton}>
+        <button onClick = { handleSignInClick }; className={css.signIn}>
           <SignIn />
         </button>
-        <button onClick={handleSignUpClick} className={css.signUp}>
+        <button onClick = { handleSignUpClick }; className={css.signUp}>
           <SignUp />
         </button>
       </div>
