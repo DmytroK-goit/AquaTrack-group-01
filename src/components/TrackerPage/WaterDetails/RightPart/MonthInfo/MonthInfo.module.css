@@ -1,27 +1,71 @@
-.name_manth {
-  display: flex;
+.month_info {
+  max-width: 608px;
 }
 
-.name_manth_year {
+.block_manth {
   display: flex;
+  justify-content: space-between;
+}
+.title {
+  color: #323f47;
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.block_manth_year {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #323f47;
+}
+.block_manth_year button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.name_manth {
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .calendar {
-  grid-template-columns: repeat(8, 1fr);
-  grid-gap: 5px;
+  display: flex;
+
+  flex-wrap: wrap;
+  column-gap: 5px;
+  row-gap: 15px;
 }
+/* .calendar > a:hover {
+  color: red;
+  text-decoration: none;
+} */
 .date_block {
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 .calendar_date {
   justify-content: center;
-
+  color: #323f47;
+  font-weight: 700;
+  font-size: 16px;
   align-items: center;
   display: flex;
-  height: 40px;
-  width: 40px;
+  height: 38px;
+  width: 38px;
   border-radius: 50%;
-  background-color: lightgreen;
+  background-color: #ffffff;
+}
+
+.date_block span {
+  padding: 4px 0;
+  color: #2f2f2f99;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.svg_pie {
+  width: 24px;
+  height: 24px;
 }
