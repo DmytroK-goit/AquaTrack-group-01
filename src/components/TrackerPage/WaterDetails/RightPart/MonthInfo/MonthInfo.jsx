@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
 import s from "../MonthInfo/MonthInfo.module.css";
 
 const MonthInfo = () => {
@@ -20,11 +19,6 @@ const MonthInfo = () => {
     return days;
   };
 
-  const getStartDayOfMonth = () => {
-    const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    return date.getDay();
-  };
-
   const monthNames = [
     "January",
     "February",
@@ -42,33 +36,33 @@ const MonthInfo = () => {
   const monthName = monthNames[currentDate.getMonth()];
   const year = currentDate.getFullYear();
   const daysInMonth = getDaysInMonth();
-  const startDay = getStartDayOfMonth();
+
   return (
-    <div>
-      <div className={s.name_manth}>
-        <h2>{`${monthName}`}</h2>
-        <div className={s.name_manth_year}>
+    <di className={s.month_info}>
+      <div className={s.block_manth}>
+        <h2 className={s.title}>Month</h2>
+        <div className={s.block_manth_year}>
           <button onClick={() => changeMonth(-1)}>{"<"}</button>
-          <h2>{`${monthName} ${year}`}</h2>
+          <h2 className={s.name_manth}>{`${monthName} ${year}`}</h2>
           <button onClick={() => changeMonth(1)}>{">"}</button>
+          <a href="">
+            <svg className={s.svg_pie}>
+              <use href="../../../../../../public/icons.svg#icon-pie-chart-02" />
+            </svg>
+          </a>
         </div>
       </div>
-
-      {daysInMonth.map((date, index) => (
-        <a className={s.calendar}>
-          <div className={s.date_block}>
-            <p key={index} className={s.calendar_date}>
-              {date.getDate()}
-            </p>
-            <span>100%</span>
-          </div>
-        </a>
-      ))}
-
-      {/* {Array.from({ length: startDay }).map((_, index) => (
-          <p key={`empty-${index}`} />
-        ))} */}
-    </div>
+      <div className={s.calendar}>
+        {daysInMonth.map((date, index) => (
+          <a key={index} className={s.a}>
+            <div className={s.date_block}>
+              <p className={s.calendar_date}>{date.getDate()}</p>
+              <span>100%</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </di>
   );
 };
 export default MonthInfo;
