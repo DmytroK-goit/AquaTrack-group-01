@@ -1,7 +1,7 @@
 const SignIn = () => {
   return (
     <div>
-      <p>SignInPage</p>
+      <p>Try tracker</p>
     </div>
   );
 };
