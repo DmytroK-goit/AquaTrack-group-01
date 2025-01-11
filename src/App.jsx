@@ -8,7 +8,19 @@ import TrackerPage from "./pages/TrackerPage/TrackerPage";
 import SharedLayout from "./components/SharedLayout";
 import NotFound from "./pages/NotFound";
 import PrivateRoute from "./components/PrivateRoute";
+import { useDispatch, useSelector } from "react-redux";
+import { refresh } from "./redux/UserAuth/operations";
+import { useEffect } from "react";
+import { selectToken } from "./redux/UserAuth/selectors";
 function App() {
+  const dispatch = useDispatch();
+  const token = useSelector(selectToken);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(refresh({ key: "value" }));
+    }
+  }, [dispatch, token]);
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
