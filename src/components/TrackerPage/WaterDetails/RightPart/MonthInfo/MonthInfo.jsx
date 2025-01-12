@@ -1,8 +1,11 @@
 import { useState } from "react";
 import s from "../MonthInfo/MonthInfo.module.css";
+import Schedule from "./Schedule";
 
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [showSchedule, setShowShedule] = useState(true);
+
   const changeMonth = (direction) => {
     const newDate = new Date(currentDate);
     newDate.setMonth(currentDate.getMonth() + direction);
@@ -37,32 +40,47 @@ const MonthInfo = () => {
   const year = currentDate.getFullYear();
   const daysInMonth = getDaysInMonth();
 
+  const toggleView = () => {
+    setShowShedule(!showSchedule);
+  };
+
   return (
-    <di className={s.month_info}>
-      <div className={s.block_manth}>
-        <h2 className={s.title}>Month</h2>
-        <div className={s.block_manth_year}>
-          <button onClick={() => changeMonth(-1)}>{"<"}</button>
-          <h2 className={s.name_manth}>{`${monthName} ${year}`}</h2>
-          <button onClick={() => changeMonth(1)}>{">"}</button>
-          <a href="">
-            <svg className={s.svg_pie}>
-              <use href="../../../../../../public/icons.svg#icon-pie-chart-02" />
-            </svg>
-          </a>
+    <>
+      <div className={s.month_info}>
+        <div className={s.block_manth}>
+          {showSchedule ? (
+            <h2 className={s.title}>Month</h2>
+          ) : (
+            <h2 className={s.title}>Statistics</h2>
+          )}
+
+          <div className={s.block_manth_year}>
+            <button onClick={() => changeMonth(-1)}>{"<"}</button>
+            <h2 className={s.name_manth}>{`${monthName} ${year}`}</h2>
+            <button onClick={() => changeMonth(1)}>{">"}</button>
+            <button onClick={toggleView}>
+              <svg className={s.svg_pie}>
+                <use href="../../../../../../public/icons.svg#icon-pie-chart-02" />
+              </svg>
+            </button>
+          </div>
         </div>
+        {showSchedule ? (
+          <div className={s.calendar}>
+            {daysInMonth.map((date, index) => (
+              <a key={index} className={s.a}>
+                <div className={s.date_block}>
+                  <p className={s.calendar_date}>{date.getDate()}</p>
+                  <span>100%</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <Schedule />
+        )}
       </div>
-      <div className={s.calendar}>
-        {daysInMonth.map((date, index) => (
-          <a key={index} className={s.a}>
-            <div className={s.date_block}>
-              <p className={s.calendar_date}>{date.getDate()}</p>
-              <span>100%</span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </di>
+    </>
   );
 };
 export default MonthInfo;
