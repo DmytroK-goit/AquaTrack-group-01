@@ -12,7 +12,7 @@ const UserBar = ({}) => {
   const user = useSelector(selectUser);
   const userName = useSelector(selectUserName);
   console.log(user);
-  console.log(`userName ${userName}`);
+  console.log(`userName UserBar ${userName}`);
   //
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);

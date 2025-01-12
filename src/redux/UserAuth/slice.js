@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { login, logout, refresh, registerUser, updateUser } from "./operations";
+import {
+  currentUser,
+  login,
+  logout,
+  refresh,
+  registerUser,
+  updateUser,
+} from "./operations";
 
 const initialState = {
   user: {
@@ -58,6 +65,10 @@ const slice = createSlice({
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.user = { ...state.user, ...action.payload };
+        state.isLoggedIn = true;
+      })
+      .addCase(currentUser.fulfilled, (state, action) => {
+        state.user = action.payload.data;
       });
   },
 });
