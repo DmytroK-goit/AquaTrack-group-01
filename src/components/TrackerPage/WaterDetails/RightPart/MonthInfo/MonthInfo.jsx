@@ -4,7 +4,8 @@ import Schedule from "./Schedule";
 
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [showSchedule, setShowShedule] = useState(true);
+  const [showSchedule, setShowShedule] = useState("schedule");
+  const [title, setTitle] = useState("Month");
 
   const changeMonth = (direction) => {
     const newDate = new Date(currentDate);
@@ -60,7 +61,7 @@ const MonthInfo = () => {
             <button onClick={() => changeMonth(1)}>{">"}</button>
             <button onClick={toggleView}>
               <svg className={s.svg_pie}>
-                <use href="../../../../../../public/icons.svg#icon-pie-chart-02" />
+                <use href="././././../public/icons.svg#icon-pie-chart-02" />
               </svg>
             </button>
           </div>

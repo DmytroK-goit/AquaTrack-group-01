@@ -1,5 +1,5 @@
 .month_info {
-  max-width: 608px;
+  margin-top: 72px;
 }
 
 .block_manth {
@@ -18,9 +18,14 @@
   gap: 20px;
   color: #323f47;
 }
+
 .block_manth_year button {
-  padding: 5px 10px;
   cursor: pointer;
+}
+
+.block_schedule {
+  display: flex;
+  text-align: center;
 }
 
 .name_manth {
@@ -29,22 +34,21 @@
 }
 
 .calendar {
-  display: flex;
-
-  flex-wrap: wrap;
-  column-gap: 5px;
-  row-gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-row-gap: 15px;
+  grid-column-gap: 45px;
+  padding: 24px 0;
 }
-/* .calendar > a:hover {
-  color: red;
-  text-decoration: none;
-} */
+
 .date_block {
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
 }
+
 .calendar_date {
   justify-content: center;
   color: #323f47;
@@ -68,4 +72,34 @@
 .svg_pie {
   width: 24px;
   height: 24px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+  }
+  .block_manth_year {
+    gap: 16px;
+  }
+  .name_manth {
+    font-size: 14px;
+  }
+  .svg_pie {
+    width: 24px;
+    height: 24px;
+  }
+  .calendar {
+    grid-template-columns: repeat(7, 1fr);
+    grid-row-gap: 20px;
+    grid-column-gap: 18px;
+  }
+  .calendar_date {
+    font-size: 14px;
+    height: 28px;
+    width: 28px;
+  }
+  .date_block span {
+    padding-top: 6px;
+    font-size: 10px;
+  }
 }
