@@ -41,6 +41,7 @@ export const login = createAsyncThunk(
     try {
       const { data } = await aquaTrack.post("users/login", credentials);
       toast.success("Login successful");
+      setAuthHeader(data.data.accessToken);
       localStorage.setItem("token", data.data.accessToken);
       return data;
     } catch (error) {
@@ -53,6 +54,11 @@ export const updateUser = createAsyncThunk(
   "updateUser",
   async (updateData, thunkApi) => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+      setAuthHeader(token);
       const { data } = await aquaTrack.patch("users/update", updateData);
       toast.success(`User updated ${data.name}`);
       return data;
@@ -64,10 +70,21 @@ export const updateUser = createAsyncThunk(
 );
 export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
   try {
-    await aquaTrack.post("users/logout");
+    const token = localStorage.getItem("token");
+    if (token) {
+      await aquaTrack.post(
+        "users/logout",
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    }
     localStorage.removeItem("token");
     setAuthHeader(null);
+    toast.success("Logout successful");
   } catch (error) {
+    toast.error(error.message || "Logout failed");
     return thunkApi.rejectWithValue(error.message);
   }
 });
@@ -86,6 +103,7 @@ export const refresh = createAsyncThunk("auth/refresh", async (_, thunkApi) => {
     return data;
   } catch (error) {
     localStorage.removeItem("token");
+    setAuthHeader(null);
     return thunkApi.rejectWithValue(error.message);
   }
 });
