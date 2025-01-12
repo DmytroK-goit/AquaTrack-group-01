@@ -1,0 +1,52 @@
+.modal {
+  padding: 40px 20px;
+  margin: 80px auto auto;
+  position: relative;
+  border-radius: 15px;
+  background-color: white;
+  z-index: 1050;
+}
+.overlay {
+  position: fixed;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  overflow-y: auto;
+  z-index: 999;
+  background-color: rgba(47, 47, 47, 0.6);
+  animation: fadeIn 0.2s ease-in-out forwards;
+}
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.closeButton svg {
+  width: 28px;
+  height: 28px;
+  color: #2f2f2f;
+  outline: transparent;
+  border-color: transparent;
+}
+
+.closeButton:hover svg,
+.closeButton:focus svg,
+.closeButton:active svg {
+  color: #000;
+  outline: transparent;
+  border-color: transparent;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    padding: 40px;
+  }
+}

@@ -5,7 +5,7 @@ import waterBottleTab from "../../../images/WaterMainInfoSection/water-bottle-ta
 import waterBottleMob from "../../../images/WaterMainInfoSection/water-bottle-mobile.png";
 import AddWaterBtn from "./LeftPart/AddWaterBtn";
 import WaterDailyNorma from "./LeftPart/WaterDailyNorma";
-import WaterProgressBar from "./LeftPart/WaterProgressBar";
+import WaterProgressBar from "./LeftPart/WaterProgressBar/WaterProgressBar";
 
 export default function WaterMainInfo() {
   return (

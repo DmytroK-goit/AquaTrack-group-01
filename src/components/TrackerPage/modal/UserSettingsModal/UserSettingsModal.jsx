@@ -1,36 +1,16 @@
-import ReactModal from "react-modal";
+import React from "react";
+import Modal from "../../../../components/TrackerPage/modal/Modal/Modal.jsx"; // Новий компонент модалки
 import s from "./UserSettingsModal.module.css";
 import UserSettingsForm from "../UserSettingsForm/UserSettingsForm.jsx";
-import { useState } from "react";
 
-ReactModal.setAppElement("#root");
-
-const UserSettingsModal = () => {
-	const [isOpen, setIsOpen] = useState(true);
-	const handleSubmit = () => {
-		setIsOpen(false);
-	};
-
-	return (
-		<div className={s.modal}>
-			<ReactModal
-				overlayClassName={s.backdrop}
-				className={s.modal}
-				isOpen={isOpen}
-				// onRequestClose=""
-				ariaHideApp={false}
-			>
-				<button onClick={() => handleSubmit()} className={s.button}>
-					<svg className={s.closeIcon} width={28} height={28}>
-						<use href="/icons.svg#icon-x"></use>
-					</svg>
-				</button>
-				<div className={s.settingsModal}>
-					<UserSettingsForm />
-				</div>
-			</ReactModal>
-		</div>
-	);
+const UserSettingsModal = ({ isOpen, onClose }) => {
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <div className={s.modalContent}>
+        <UserSettingsForm />
+      </div>
+    </Modal>
+  );
 };
 
 export default UserSettingsModal;

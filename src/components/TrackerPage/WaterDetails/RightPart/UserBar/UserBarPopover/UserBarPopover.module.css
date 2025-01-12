@@ -16,7 +16,7 @@
   font-weight: 700;
   font-size: 15px;
   line-height: 149%;
-  color: var(--main);
+  color: rgba(50, 63, 71, 0.4);
   width: 100%;
   text-align: left;
   background: none;
@@ -27,6 +27,7 @@
 
 .popoverButtonSettings:hover {
   color: black;
+  outline: none;
 }
 
 .popoverButtonLogOut {
@@ -41,6 +42,7 @@
 }
 
 .popoverButtonLogOut:hover {
-  color: var(--dark-gray);
+  color: black;
   border: none;
+  outline: none;
 }
