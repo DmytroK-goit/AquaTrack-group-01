@@ -1,20 +1,20 @@
-import ReactModal from "react-modal";
+import React, { useRef } from "react";
 import css from "./Modal.module.css";
-import { IoCloseSharp } from "react-icons/io5";
 
 export default function Modal({ isOpen, onClose, children }) {
+  const modalRef = useRef(null);
+
+  const handleOverlayClick = (e) => {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
+      onClose();
+    }
+  };
+
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      className={css.modal}
-      ariaHideApp={false}
-      overlayClassName={css.overlay}
-    >
-      <div className={css.closeIcon} onClick={onClose}>
-        <IoCloseSharp size={28} />
+    <div className={css.overlay} onClick={handleOverlayClick}>
+      <div ref={modalRef} className={css.modal}>
+        {children}
       </div>
-      {children}
-    </ReactModal>
+    </div>
   );
 }

@@ -10,36 +10,55 @@ const UserBarPopover = () => {
   const dispatch = useDispatch();
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
   const [isOpenSetting, setIsOpenSetting] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(true);
 
-  const openLogOutModal = () => setIsLogOutModalOpen(true);
+  const openLogOutModal = () => {
+    setIsLogOutModalOpen(true);
+    setIsOpenSetting(false);
+    setIsPopoverOpen(false);
+  };
 
   const closeLogOutModal = () => setIsLogOutModalOpen(false);
 
-  const handleSettingClick = () => setIsOpenSetting(true);
+  const handleSettingClick = () => {
+    setIsOpenSetting(true);
+    setIsLogOutModalOpen(false);
+    setIsPopoverOpen(false);
+  };
 
   const handleCloseSetting = () => setIsOpenSetting(false);
 
   return (
-    <div className={s.popover}>
-      <button onClick={handleSettingClick} className={s.popoverButtonSettings}>
-        Settings
-      </button>
+    <>
+      {isPopoverOpen && (
+        <div className={s.popover}>
+          <button
+            onClick={handleSettingClick}
+            className={s.popoverButtonSettings}
+          >
+            Settings
+          </button>
 
-      <button onClick={openLogOutModal} className={s.popoverButtonLogOut}>
-        Log out
-      </button>
-
-      {isOpenSetting && (
-        <div className={s.settingsPlaceholder}>
-          isOpenSetting && <UserSettingsModal onClose={handleCloseSetting} />;
+          <button onClick={openLogOutModal} className={s.popoverButtonLogOut}>
+            Log out
+          </button>
         </div>
       )}
+
+      {isOpenSetting && (
+        <UserSettingsModal
+          isOpen={isOpenSetting}
+          onClose={handleCloseSetting}
+        />
+      )}
+
+      {/* Модалка для LogOut */}
       {isLogOutModalOpen && (
         <Modal isOpen={isLogOutModalOpen} onClose={closeLogOutModal}>
           <LogOutModal onClose={closeLogOutModal} />
         </Modal>
       )}
-    </div>
+    </>
   );
 };
 

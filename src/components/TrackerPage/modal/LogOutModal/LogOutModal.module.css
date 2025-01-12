@@ -1,68 +1,70 @@
 .title {
-    margin-bottom: 16px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    color: rgb(50, 63, 71);
-    font-family: Poppins;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 24px;
-    text-align: center;
+  margin-bottom: 16px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  color: rgb(50, 63, 71);
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+.LogOutModalContainer {
+  z-index: 1060;
 }
 
 .caption {
-    color: rgb(50, 63, 71);
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    text-align: center;
-    margin-bottom: 28px;
-
+  color: rgb(50, 63, 71);
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: center;
+  margin-bottom: 28px;
 }
 .btnCont {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
 }
 @media only screen and (min-width: 768px) {
-    .btnCont {
+  .btnCont {
     flex-direction: row;
     width: 100%;
-    }
+  }
 }
 .logButton,
 .cancelButton {
-    padding: 14px 0;
-    text-align: center;
-    flex-grow: 0;
-    border-radius: 30px;
-    font-family: Poppins;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 18px;
+  padding: 14px 0;
+  text-align: center;
+  flex-grow: 0;
+  border-radius: 30px;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
 }
 @media only screen and (min-width: 768px) {
-    .logButton,
-    .cancelButton{
+  .logButton,
+  .cancelButton {
     padding: 18px 57px;
-    }
+  }
 }
 .logButton {
-    order: 0;
-    background: rgb(155, 225, 160);
-    color: rgb(50, 63, 71);
+  order: 0;
+  background: rgb(155, 225, 160);
+  color: rgb(50, 63, 71);
 }
 
 .cancelButton {
-    order: 1;
-    border-radius: 30px;
-    background: rgb(240, 239, 244);
-    color: #323f474d;
-    transition: color 200ms ease-in-out
+  order: 1;
+  border-radius: 30px;
+  background: rgb(240, 239, 244);
+  color: #323f474d;
+  transition: color 200ms ease-in-out;
 }
 .cancelButton:hover {
-    color: #323f47
+  color: #323f47;
 }
