@@ -1,30 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux/UserAuth/operations";
 import css from "./SignUpPage.module.css";
 import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { registerUser } from "../redux/UserAuth/operations.js";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup.string().required("Password is required"),
-  repeatPassword: yup
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Repeat password is required"),
+    .required("Confirm password is required"),
 });
 
 const SignUpForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -34,27 +36,12 @@ const SignUpForm = () => {
     resolver: yupResolver(schema),
   });
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/tracker");
-    }
-  }, [isLoggedIn, navigate]);
-
-  const notify = (message) => toast.error(message);
-
   const onSubmit = async (data) => {
-    const { email, password } = data;
-    console.log({ email, password });
-    const result = await dispatch(registerUser({ email, password }));
-    console.log("ssss");
-    if (registerUser.fulfilled.match(result)) {
-      navigate("/tracker");
+    const result = await dispatch(registerUser(data));
+    if (register.fulfilled.match(result)) {
+      navigate("/signin");
     } else {
-      console.error(result.error.message);
-      notify("Sign-up failed. Please try again."),
-        {
-          className: css["toast-error"],
-        };
+      toast.error("Sign-up failed. Please try again.");
     }
   };
 
@@ -94,12 +81,27 @@ const SignUpForm = () => {
                 }`}
                 placeholder="Enter your password"
                 {...register("password")}
+                autoComplete="new-password"
               />
+
               <svg
-                className={css["input__icon"]}
+                className={`${css["input__icon"]} ${
+                  showPassword ? css["active"] : ""
+                }`}
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex="0"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    setShowPassword(!showPassword);
+                }}
               >
-                👁️
+                <use
+                  href={`/icons.svg#${
+                    showPassword ? "icon-eye-off" : "icon-eye"
+                  }`}
+                />
               </svg>
             </div>
             {errors.password && (
@@ -108,27 +110,44 @@ const SignUpForm = () => {
           </div>
 
           <div className={css["input__wrapper"]}>
-            <label>Repeat Password</label>
+            <label>Confirm Password</label>
             <div className={css["input-password"]}>
               <input
-                id="repeatPassword"
-                type={showRepeatPassword ? "text" : "password"}
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
                 className={`${css["input__field"]} ${
-                  errors.repeatPassword ? css["input__field--error"] : ""
+                  errors.confirmPassword ? css["input__field--error"] : ""
                 }`}
-                placeholder="Repeat your password"
-                {...register("repeatPassword")}
+                placeholder="Confirm your password"
+                {...register("confirmPassword")}
+                autoComplete="new-password"
               />
+
               <svg
-                className={css["input__icon"]}
-                onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                className={`${css["input__icon"]} ${
+                  showConfirmPassword ? css["active"] : ""
+                }`}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                aria-label={
+                  showConfirmPassword ? "Hide password" : "Show password"
+                }
+                role="button"
+                tabIndex="0"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    setShowConfirmPassword(!showConfirmPassword);
+                }}
               >
-                👁️
+                <use
+                  href={`/icons.svg#${
+                    showConfirmPassword ? "icon-eye-off" : "icon-eye"
+                  }`}
+                />
               </svg>
             </div>
-            {errors.repeatPassword && (
+            {errors.confirmPassword && (
               <p className={css["error-text"]}>
-                {errors.repeatPassword.message}
+                {errors.confirmPassword.message}
               </p>
             )}
           </div>

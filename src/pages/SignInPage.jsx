@@ -10,12 +10,12 @@ import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignInForm = () => {
-  const schema = yup.object().shape({
-    email: yup.string().email("Invalid email").required("Email is required"),
-    password: yup.string().required("Password is required"),
-  });
+const schema = yup.object().shape({
+  email: yup.string().email("Invalid email").required("Email is required"),
+  password: yup.string().required("Password is required"),
+});
 
+const SignInForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -36,17 +36,15 @@ const SignInForm = () => {
   }, [isLoggedIn, navigate]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const result = await dispatch(login(data));
-    console.log("Login result:", result);
     if (login.fulfilled.match(result)) {
       navigate("/tracker");
     } else {
-      console.error(result.error.message);
-      toast.error("Sign-in failed. Please try again."),
-        {
-          className: css["toast-error"],
-        };
+      if (result.error.message === "Request failed with status code 401") {
+        toast.error("Email or password is incorrect.");
+      } else {
+        toast.error("Sign-in failed. Please try again.");
+      }
     }
   };
 
@@ -75,29 +73,42 @@ const SignInForm = () => {
             )}
           </div>
 
-          <div className={css["input__wrapper"]}>
-            <label>Password</label>
-            <div className={css["input-password"]}>
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                className={`${css["input__field"]} ${
-                  errors.password ? css["input__field--error"] : ""
+          <div className={css["input-password"]}>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              className={`${css["input__field"]} ${
+                errors.password ? css["input__field--error"] : ""
+              }`}
+              placeholder="Enter your password"
+              {...register("password")}
+              autoComplete="current-password"
+            />
+
+            <svg
+              className={`${css["input__icon"]} ${
+                showPassword ? css["active"] : ""
+              }`}
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+              role="button"
+              tabIndex="0"
+              onKeyPress={(e) => {
+                if (e.key === "Enter" || e.key === " ")
+                  setShowPassword(!showPassword);
+              }}
+            >
+              <use
+                href={`/icons.svg#${
+                  showPassword ? "icon-eye-off" : "icon-eye"
                 }`}
-                placeholder="Enter your password"
-                {...register("password")}
               />
-              <svg
-                className={css["input__icon"]}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                👁️
-              </svg>
-            </div>
-            {errors.password && (
-              <p className={css["error-text"]}>{errors.password.message}</p>
-            )}
+            </svg>
           </div>
+
+          {errors.password && (
+            <p className={css["error-text"]}>{errors.password.message}</p>
+          )}
         </div>
 
         <button type="submit" className={css["submit-button"]}>
