@@ -46,6 +46,14 @@
   font-weight: 700;
   line-height: 18px;
 }
+.logButton:hover {
+  color: rgb(118, 118, 118);
+}
+.logButton:hover,
+.cancelButton:hover {
+  cursor: pointer;
+  border-color: transparent;
+}
 @media only screen and (min-width: 768px) {
   .logButton,
   .cancelButton {
