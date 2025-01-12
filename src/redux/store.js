@@ -6,7 +6,7 @@ import { authSlice } from "./UserAuth/slice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "token", "isLoggedIn"],
+  whitelist: ["user", "isLoggedIn"],
 };
 
 const persistedReducer = persistReducer(persistConfig, authSlice);

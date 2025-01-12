@@ -15,12 +15,13 @@ import { selectToken } from "./redux/UserAuth/selectors";
 function App() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
-
+  console.log(`token in APP ${token}`);
   useEffect(() => {
     if (token) {
       dispatch(refresh());
     }
-  }, [dispatch, token]);
+  }, [dispatch]);
+
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>

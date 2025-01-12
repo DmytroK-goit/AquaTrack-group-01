@@ -43,6 +43,7 @@ export const login = createAsyncThunk(
       toast.success("Login successful");
       setAuthHeader(data.data.accessToken);
       localStorage.setItem("token", data.data.accessToken);
+      console.log(localStorage.getItem("token"));
       return data;
     } catch (error) {
       toast.error(error.message);
@@ -50,19 +51,38 @@ export const login = createAsyncThunk(
     }
   }
 );
+export const currentUser = createAsyncThunk(
+  "user/currentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await aquaTrack.get("users/current");
+
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch user data");
+      }
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 export const updateUser = createAsyncThunk(
   "updateUser",
   async (updateData, thunkApi) => {
     try {
+      console.log(localStorage.getItem("token"));
       const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("No token found");
       }
       setAuthHeader(token);
       const { data } = await aquaTrack.patch("users/update", updateData);
-      toast.success(`User updated ${data.name}`);
+      toast.success(`User updated ${data.data.name}`);
+      await thunkApi.dispatch(currentUser());
       return data;
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || "Failed to update user");
       return thunkApi.rejectWithValue(error.message);
     }
