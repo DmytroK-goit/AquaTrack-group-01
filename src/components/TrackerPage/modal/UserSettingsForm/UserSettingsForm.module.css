@@ -104,35 +104,50 @@
 	display: flex;
 	gap: 20px;
 }
-.userSettings__btn_radio[type="radio"] {
+.userSettings__btn_radio {
 	display: none;
 }
-.userSettings__radioBtnLabel {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	cursor: pointer;
-}
+
 .userSettings__radioBtn {
 	width: 20px;
 	height: 20px;
-	border: 3px solid #8fdcae;
+	border: 2px solid #8fdcae;
 	border-radius: 50%;
+	display: inline-block;
+	position: relative;
+	transition: border-color 0.2s ease;
+	margin-right: 8px;
+	cursor: pointer;
+}
+
+.userSettings__btn_radio:checked + .userSettings__radioBtn {
+	border-color: #8fdcae; /* Цвет обводки для активной радиокнопки */
+	background-color: #fff; /* Цвет заполнения для активной радиокнопки */
+}
+
+.userSettings__btn_radio:checked + .userSettings__radioBtn::after {
+	content: "";
+	width: 10px;
+	height: 10px;
+	background-color: #8fdcae;
+	border-radius: 50%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.userSettings__radioBtnLabel {
 	display: flex;
 	align-items: center;
-	justify-content: center;
-	transition: all 0.3s ease;
+	margin-bottom: 10px;
+	cursor: pointer;
 }
-.userSettings__radioBtn::before {
-	content: "";
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background-color: transparent;
-	transition: background-color 0.3s ease;
-}
-.userSettings__btn_radio:checked + .userSettings__radioBtn::before {
-	background-color: #8fdcae;
+
+.userSettings__label_text {
+	margin-left: 10px;
+	font-size: 16px;
+	color: #333;
 }
 
 /* block_person */
