@@ -4,6 +4,8 @@ import css from "./Modal.module.css";
 export default function Modal({ isOpen, onClose, children }) {
   const modalRef = useRef(null);
 
+  if (!isOpen) return null;
+
   const handleOverlayClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       onClose();

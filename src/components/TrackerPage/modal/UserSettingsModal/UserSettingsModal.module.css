@@ -1,4 +1,3 @@
-/* Це фон, при кліку на який модалка повинна закритися */
 .backdrop {
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -9,9 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000; /* Високий пріоритет для фону */
 }
 
-/* Контейнер модалки */
 .modalContainer {
   background: white;
   border-radius: 10px;
@@ -19,14 +18,13 @@
   position: relative;
   width: 500px;
   max-width: 90%;
+  z-index: 1001; /* Вищий за фон */
 }
 
-/* Якщо потрібно, можна додати для кнопки закриття */
-.closeButton {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
+.modalContent {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  width: 500px;
+  max-width: 90%;
 }
