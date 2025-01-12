@@ -37,18 +37,28 @@ const SignUpForm = () => {
   });
 
   const onSubmit = async (data) => {
-    const result = await dispatch(registerUser(data));
-    if (register.fulfilled.match(result)) {
-      navigate("/signin");
-    } else {
-      toast.error("Sign-up failed. Please try again.");
+    try {
+      const result = await dispatch(registerUser(data));
+      if (result.meta.requestStatus === "fulfilled") {
+        navigate("/signin");
+      } else {
+        toast.error("Sign-up failed. Please try again.");
+        console.error("Registration failed with response:", result);
+      }
+    } catch (error) {
+      console.error("Registration failed with error:", error);
+      toast.error(error?.message || "An error occurred during registration.");
     }
+  };
+
+  const handleLogoClick = () => {
+    navigate("/");
   };
 
   return (
     <section className={css["sign-up-page"]}>
       <ToastContainer />
-      <div className={css["logo"]}>
+      <div className={css["logo"]} onClick={handleLogoClick}>
         <Logo />
       </div>
       <form className={css["sign-up-form"]} onSubmit={handleSubmit(onSubmit)}>

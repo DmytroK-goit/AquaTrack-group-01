@@ -48,10 +48,14 @@ const SignInForm = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    navigate("/");
+  };
+
   return (
     <section className={css["sign-in-page"]}>
       <ToastContainer />
-      <div className={css["logo"]}>
+      <div className={css["logo"]} onClick={handleLogoClick}>
         <Logo />
       </div>
       <form className={css["sign-in-form"]} onSubmit={handleSubmit(onSubmit)}>
