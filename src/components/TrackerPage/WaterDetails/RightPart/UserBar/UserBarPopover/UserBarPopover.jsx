@@ -36,10 +36,16 @@ const UserBarPopover = () => {
             onClick={handleSettingClick}
             className={s.popoverButtonSettings}
           >
+            <svg className={s.icon}>
+              <use href="../../../../../../../public/icons.svg#icon-settings"></use>
+            </svg>
             Settings
           </button>
 
           <button onClick={openLogOutModal} className={s.popoverButtonLogOut}>
+            <svg className={s.icon}>
+              <use href="../../../../../../../public/icons.svg#icon-log-out"></use>
+            </svg>
             Log out
           </button>
         </div>
