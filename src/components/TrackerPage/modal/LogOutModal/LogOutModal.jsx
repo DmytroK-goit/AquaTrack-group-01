@@ -1,7 +1,7 @@
-import css from "./LogOutModal.module.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../../redux/UserAuth/operations";
+import css from "./LogOutModal.module.css";
 
 const LogOutModal = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -10,11 +10,12 @@ const LogOutModal = ({ onClose }) => {
   const handleLogout = async () => {
     try {
       await dispatch(logout()).unwrap();
+      localStorage.clear();
+      navigate("/");
     } catch (error) {
       console.error("Logout request failed:", error);
     } finally {
-      localStorage.clear();
-      navigate("/");
+      onClose();
     }
   };
 
@@ -33,4 +34,5 @@ const LogOutModal = ({ onClose }) => {
     </div>
   );
 };
+
 export default LogOutModal;
