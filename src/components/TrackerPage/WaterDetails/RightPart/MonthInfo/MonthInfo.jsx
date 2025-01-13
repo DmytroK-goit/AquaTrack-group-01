@@ -4,8 +4,18 @@ import Schedule from "./Schedule";
 
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [showSchedule, setShowShedule] = useState("schedule");
-  const [title, setTitle] = useState("Month");
+  const [showSchedule, setShowShedule] = useState(true);
+  const [percent, setPercent] = useState(0);
+
+  const getButtonClass = (percent) => {
+    if (percent === 0) {
+      return s.white;
+    } else if (percent > 0 && percent <= 99) {
+      return s.grey;
+    } else {
+      return s.green;
+    }
+  };
 
   const changeMonth = (direction) => {
     const newDate = new Date(currentDate);
@@ -61,7 +71,7 @@ const MonthInfo = () => {
             <button onClick={() => changeMonth(1)}>{">"}</button>
             <button onClick={toggleView}>
               <svg className={s.svg_pie}>
-                <use href="././././../public/icons.svg#icon-pie-chart-02" />
+                <use href="/icons.svg#icon-pie-chart-02" />
               </svg>
             </button>
           </div>
@@ -71,8 +81,12 @@ const MonthInfo = () => {
             {daysInMonth.map((date, index) => (
               <a key={index} className={s.a}>
                 <div className={s.date_block}>
-                  <p className={s.calendar_date}>{date.getDate()}</p>
-                  <span>100%</span>
+                  <p
+                    className={`${s.calendar_date} ${getButtonClass(percent)}`}
+                  >
+                    {date.getDate()}
+                  </p>
+                  <span>{percent}%</span>
                 </div>
               </a>
             ))}

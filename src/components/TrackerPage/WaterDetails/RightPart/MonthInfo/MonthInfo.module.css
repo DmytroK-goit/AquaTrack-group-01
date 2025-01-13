@@ -59,7 +59,21 @@
   height: 38px;
   width: 38px;
   border-radius: 50%;
+}
+.calendar_date:hover {
+  color: #9be1a0;
+  background-color: #323f47;
+}
+.white {
   background-color: #ffffff;
+}
+
+.grey {
+  background-color: #323f4733;
+}
+
+.green {
+  background-color: #9be1a0;
 }
 
 .date_block span {
