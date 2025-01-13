@@ -4,12 +4,13 @@ import Logo from "../../Logo/Logo";
 import waterBottleDesk from "../../../images/WaterMainInfoSection/water-bottle-desktop.png";
 import waterBottleTab from "../../../images/WaterMainInfoSection/water-bottle-tablet.png";
 import waterBottleMob from "../../../images/WaterMainInfoSection/water-bottle-mobile.png";
+import waterBottleDeskDouble from "../../../images/WaterMainInfoSection/water-bottle-desktop-2x.png";
+import waterBottleTabDouble from "../../../images/WaterMainInfoSection/water-bottle-tablet-2x.png";
+import waterBottleMobDouble from "../../../images/WaterMainInfoSection/water-bottle-mobile-2x.png";
 import AddWaterBtn from "./LeftPart/AddWaterBtn";
 import WaterDailyNorma from "./LeftPart/WaterDailyNorma";
 import WaterProgressBar from "./LeftPart/WaterProgressBar";
 import TestModal from "../../TestModal/TestModal";
-// import Modal from "react-modal";
-// import s from "../../../components/TestModal/TestModal.module.css";
 
 export default function WaterMainInfo() {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -32,9 +33,18 @@ export default function WaterMainInfo() {
       </div>
 
       <picture>
-        <source srcSet={waterBottleDesk} media="(min-width: 1280px)" />
-        <source srcSet={waterBottleTab} media="(min-width: 768px)" />
-        <source srcSet={waterBottleMob} media="(max-width: 767px)" />
+        <source
+          srcSet={`${waterBottleDesk}, ${waterBottleDeskDouble}`}
+          media="(min-width: 1440px)"
+        />
+        <source
+          srcSet={`${waterBottleTab}, ${waterBottleTabDouble}`}
+          media="(min-width: 768px)"
+        />
+        <source
+          srcSet={`${waterBottleMob}, ${waterBottleMobDouble}`}
+          media="(max-width: 767px)"
+        />
         <img
           src={waterBottleDesk}
           alt="Bottle of water"
