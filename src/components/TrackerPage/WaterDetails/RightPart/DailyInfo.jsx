@@ -5,6 +5,7 @@ const DailyInfo = () => {
     <div className={s.container}>
       <div className={s.qwe}>
         <h2 className={s.header}>Today</h2>
+
         <button className={s.btn}>
           <svg className={s.iconPlus}>
             <use href="icons.svg#icon-plus"></use>

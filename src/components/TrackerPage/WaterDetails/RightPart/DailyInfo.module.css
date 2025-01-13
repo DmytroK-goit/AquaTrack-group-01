@@ -8,6 +8,8 @@
 
 .addContainer{
   
+  display: flex;
+  gap: 10px;
   margin-left: 80px;
 }
 
@@ -40,8 +42,6 @@ display: flex;
 }
 
 .btn:hover .iconPlus{
-  fill: #323F47;
-  stroke: #323F47;
 }
 
 .qwe{
@@ -111,6 +111,7 @@ position:relative;
   border-radius: 9px;
 height: 8px;
 }
+
 .icon{
   fill: #9BE1A0;
   width: 38px;
@@ -127,8 +128,6 @@ height: 8px;
 .iconPlus{
   width: 30px;
   height: 30px;
-  stroke: #323F47;
-  fill: #323F47;
 }
 
 .info{
