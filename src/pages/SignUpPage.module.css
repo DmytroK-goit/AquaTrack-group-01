@@ -131,8 +131,10 @@
   margin-bottom: 16px;
 }
 
-.sign-up-page .submit-button:hover {
+.sign-up-page .submit-button:hover,
+.sign-up-page .submit-button:focus {
   background-color: #87d28d;
+  cursor: pointer;
 }
 
 .sign-up-page .text-link {
@@ -152,9 +154,21 @@
   text-decoration: none;
 }
 
-.sign-up-page .sign-in-link {
-  color: #9be1a0;
+.sign-up-page .sign-up-link {
   text-decoration: none;
+  color: #2f2f2f;
+}
+.sign-up-link:focus {
+  text-decoration: none; 
+}
+.sign-up-page .logo:focus {
+  outline: none; 
+  transform: scale(1.05); 
+  transition: transform 0.2s ease; 
+}
+.sign-up-page .logo:hover {
+  transform: scale(1.05); 
+  transition: transform 0.2s ease; 
 }
 
 @media screen and (min-width: 768px) {
