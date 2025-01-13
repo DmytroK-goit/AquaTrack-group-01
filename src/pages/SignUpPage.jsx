@@ -10,7 +10,6 @@ import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// Валідація за допомогою yup
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
@@ -38,10 +37,10 @@ const SignUpForm = () => {
   });
 
   useEffect(() => {
-    const form = document.querySelector("form"); // Отримуємо форму
+    const form = document.querySelector("form");
     const focusableElements = form.querySelectorAll(
       'input, button, a, [tabindex]:not([tabindex="-1"])'
-    ); // Вибираємо всі елементи, які можуть отримувати фокус
+    );
 
     const handleTab = (event) => {
       const elements = Array.from(focusableElements);
@@ -50,13 +49,11 @@ const SignUpForm = () => {
 
       if (event.key === "Tab") {
         if (event.shiftKey) {
-          // Shift + Tab (перехід назад)
           if (document.activeElement === firstElement) {
             event.preventDefault();
             lastElement.focus();
           }
         } else {
-          // Tab (перехід вперед)
           if (document.activeElement === lastElement) {
             event.preventDefault();
             firstElement.focus();
@@ -74,15 +71,15 @@ const SignUpForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const result = await dispatch(registerUser(data)); // Відправка даних
-      console.log("Result from backend:", result); // Додайте консольний лог для перевірки відповіді
+      const result = await dispatch(registerUser(data));
+      console.log("Result from backend:", result);
 
       if (registerUser.fulfilled.match(result)) {
         toast.success("Registration successful! 🎉");
-        navigate("/tracker"); // Перенаправлення на TrackerPage
+        navigate("/tracker");
       } else {
         const errorMessage = result.payload?.message;
-        console.log("Error message from backend:", errorMessage); // Додайте лог для перевірки тексту помилки
+        console.log("Error message from backend:", errorMessage);
 
         if (
           errorMessage?.includes("email already exists") ||

@@ -23,13 +23,13 @@
   font-size: 18px;
 }
 .logo:focus {
-  outline: none; /* Видаляємо стандартне обведення */
-  transform: scale(1.05); /* Легке збільшення при фокусі */
-  transition: transform 0.2s ease; /* Плавний ефект */
+  outline: none;
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
 }
 .sign-in-page .logo:hover {
-  transform: scale(1.05); /* Легке збільшення при ховері */
-  transition: transform 0.2s ease; /* Плавний ефект */
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
 }
 
 .sign-in-form {
