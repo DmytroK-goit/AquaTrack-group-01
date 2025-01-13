@@ -34,15 +34,15 @@ export default function WaterMainInfo() {
 
       <picture>
         <source
-          srcSet={`${waterBottleDesk}, ${waterBottleDeskDouble}`}
+          srcSet={`${waterBottleDesk} 1x, ${waterBottleDeskDouble} 2x`}
           media="(min-width: 1440px)"
         />
         <source
-          srcSet={`${waterBottleTab}, ${waterBottleTabDouble}`}
+          srcSet={`${waterBottleTab} 1x, ${waterBottleTabDouble} 2x`}
           media="(min-width: 768px)"
         />
         <source
-          srcSet={`${waterBottleMob}, ${waterBottleMobDouble}`}
+          srcSet={`${waterBottleMob} 1x, ${waterBottleMobDouble} 2x`}
           media="(max-width: 767px)"
         />
         <img
