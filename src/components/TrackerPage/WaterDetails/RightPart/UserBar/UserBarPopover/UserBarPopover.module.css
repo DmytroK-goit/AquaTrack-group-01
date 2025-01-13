@@ -3,8 +3,7 @@
   top: 100%;
   border-radius: 15px;
   padding: 14px 57px 14px 20px;
-  width: 157px;
-  height: 82px;
+  width: 100%;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
   background-color: white;
   z-index: 100;
@@ -16,7 +15,7 @@
   font-weight: 700;
   font-size: 15px;
   line-height: 149%;
-  color: var(--main);
+  color: #323f47;
   width: 100%;
   text-align: left;
   background: none;
@@ -25,8 +24,19 @@
   transition: background-color 0.3s ease;
 }
 
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: transparent;
+  margin-right: 8px;
+}
+
 .popoverButtonSettings:hover {
   color: black;
+  outline: none;
 }
 
 .popoverButtonLogOut {
@@ -41,6 +51,7 @@
 }
 
 .popoverButtonLogOut:hover {
-  color: var(--dark-gray);
+  color: black;
   border: none;
+  outline: none;
 }

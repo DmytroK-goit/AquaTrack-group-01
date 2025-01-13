@@ -3,28 +3,30 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux/UserAuth/operations";
 import css from "./SignUpPage.module.css";
 import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { registerUser } from "../redux/UserAuth/operations.js";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup.string().required("Password is required"),
-  repeatPassword: yup
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match")
-    .required("Repeat password is required"),
+    .required("Confirm password is required"),
 });
 
 const SignUpForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
   const [showPassword, setShowPassword] = useState(false);
-  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const {
     register,
@@ -35,33 +37,73 @@ const SignUpForm = () => {
   });
 
   useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/tracker");
-    }
-  }, [isLoggedIn, navigate]);
+    const form = document.querySelector("form");
+    const focusableElements = form.querySelectorAll(
+      'input, button, a, [tabindex]:not([tabindex="-1"])'
+    );
 
-  const notify = (message) => toast.error(message);
+    const handleTab = (event) => {
+      const elements = Array.from(focusableElements);
+      const firstElement = elements[0];
+      const lastElement = elements[elements.length - 1];
+
+      if (event.key === "Tab") {
+        if (event.shiftKey) {
+          if (document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+
+    return () => {
+      document.removeEventListener("keydown", handleTab);
+    };
+  }, []);
 
   const onSubmit = async (data) => {
-    const { email, password } = data;
-    console.log({ email, password });
-    const result = await dispatch(registerUser({ email, password }));
-    console.log("ssss");
-    if (registerUser.fulfilled.match(result)) {
-      navigate("/tracker");
-    } else {
-      console.error(result.error.message);
-      notify("Sign-up failed. Please try again."),
-        {
-          className: css["toast-error"],
-        };
+    try {
+      const result = await dispatch(registerUser(data));
+      console.log("Result from backend:", result);
+
+      if (registerUser.fulfilled.match(result)) {
+        toast.success("Registration successful! 🎉");
+        navigate("/tracker");
+      } else {
+        const errorMessage = result.payload?.message;
+        console.log("Error message from backend:", errorMessage);
+
+        if (
+          errorMessage?.includes("email already exists") ||
+          errorMessage?.includes("Email in use")
+        ) {
+          toast.error("Email in use. Please try another email.");
+        } else {
+          toast.error(errorMessage || "Registration failed.");
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      toast.error("An unexpected error occurred.");
     }
+  };
+
+  const handleLogoClick = () => {
+    navigate("/");
   };
 
   return (
     <section className={css["sign-up-page"]}>
       <ToastContainer />
-      <div className={css["logo"]}>
+      <div className={css["logo"]} onClick={handleLogoClick} tabIndex="0">
         <Logo />
       </div>
       <form className={css["sign-up-form"]} onSubmit={handleSubmit(onSubmit)}>
@@ -77,6 +119,7 @@ const SignUpForm = () => {
               }`}
               placeholder="Enter your email"
               {...register("email")}
+              tabIndex="1"
             />
             {errors.email && (
               <p className={css["error-text"]}>{errors.email.message}</p>
@@ -94,12 +137,28 @@ const SignUpForm = () => {
                 }`}
                 placeholder="Enter your password"
                 {...register("password")}
+                autoComplete="new-password"
+                tabIndex="2"
               />
+
               <svg
-                className={css["input__icon"]}
+                className={`${css["input__icon"]} ${
+                  showPassword ? css["active"] : ""
+                }`}
                 onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+                role="button"
+                tabIndex="0"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    setShowPassword(!showPassword);
+                }}
               >
-                👁️
+                <use
+                  href={`/icons.svg#${
+                    showPassword ? "icon-eye-off" : "icon-eye"
+                  }`}
+                />
               </svg>
             </div>
             {errors.password && (
@@ -108,39 +167,57 @@ const SignUpForm = () => {
           </div>
 
           <div className={css["input__wrapper"]}>
-            <label>Repeat Password</label>
+            <label>Confirm Password</label>
             <div className={css["input-password"]}>
               <input
-                id="repeatPassword"
-                type={showRepeatPassword ? "text" : "password"}
+                id="confirmPassword"
+                type={showConfirmPassword ? "text" : "password"}
                 className={`${css["input__field"]} ${
-                  errors.repeatPassword ? css["input__field--error"] : ""
+                  errors.confirmPassword ? css["input__field--error"] : ""
                 }`}
-                placeholder="Repeat your password"
-                {...register("repeatPassword")}
+                placeholder="Confirm your password"
+                {...register("confirmPassword")}
+                autoComplete="new-password"
+                tabIndex="3"
               />
+
               <svg
-                className={css["input__icon"]}
-                onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                className={`${css["input__icon"]} ${
+                  showConfirmPassword ? css["active"] : ""
+                }`}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                aria-label={
+                  showConfirmPassword ? "Hide password" : "Show password"
+                }
+                role="button"
+                tabIndex="0"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter" || e.key === " ")
+                    setShowConfirmPassword(!showConfirmPassword);
+                }}
               >
-                👁️
+                <use
+                  href={`/icons.svg#${
+                    showConfirmPassword ? "icon-eye-off" : "icon-eye"
+                  }`}
+                />
               </svg>
             </div>
-            {errors.repeatPassword && (
+            {errors.confirmPassword && (
               <p className={css["error-text"]}>
-                {errors.repeatPassword.message}
+                {errors.confirmPassword.message}
               </p>
             )}
           </div>
         </div>
 
-        <button type="submit" className={css["submit-button"]}>
+        <button type="submit" className={css["submit-button"]} tabIndex="4">
           Sign Up
         </button>
 
         <p className={css["text-link"]}>
           Already have an account?{" "}
-          <a href="/signin" className={css["sign-in-link"]}>
+          <a href="/signin" className={css["sign-in-link"]} tabIndex="5">
             Sign In
           </a>
         </p>

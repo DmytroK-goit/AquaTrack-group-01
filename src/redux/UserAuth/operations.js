@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import Cookies from "js-cookies";
 import axios from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 export const aquaTrack = axios.create({
   baseURL: "https://aquatrack-01.onrender.com/",
@@ -14,6 +15,10 @@ const setAuthHeader = (token) => {
     delete aquaTrack.defaults.headers.common.Authorization;
   }
 };
+const token = localStorage.getItem("token");
+if (token) {
+  setAuthHeader(token);
+}
 
 axios.defaults.withCredentials = true;
 
@@ -22,26 +27,61 @@ export const registerUser = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/register", credentials);
-      toast.success("Success");
-      setAuthHeader(data.data.accessToken);
-      return data;
+      console.log("Registration response:", data);
+
+      toast.success("Registration successful");
+      const loginResponse = await thunkApi.dispatch(login(credentials));
+      return loginResponse.payload;
     } catch (error) {
-      toast.error(error.message);
+      console.error("Registration error details:", error.response?.data);
+
+      if (error.response && error.response.status === 409) {
+        toast.error("Email is already in use. Please try another one.");
+      } else {
+        toast.error("Sign-up failed. Please try again.");
+      }
+
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
+
 export const login = createAsyncThunk(
   "login",
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/login", credentials);
-      toast.success("Success");
+      toast.success("Login successful");
       setAuthHeader(data.data.accessToken);
+      localStorage.setItem("token", data.data.accessToken);
+      console.log(localStorage.getItem("token"));
       return data;
     } catch (error) {
-      toast.error(error.message);
+      console.error("Login error details:", error.response?.data);
+
+      if (error.response && error.response.status === 401) {
+        toast.error("Email or password is incorrect.");
+      } else {
+        toast.error("Login failed. Please try again.");
+      }
+
       return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+export const currentUser = createAsyncThunk(
+  "user/currentUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await aquaTrack.get("users/current");
+
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch user data");
+      }
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -49,10 +89,18 @@ export const updateUser = createAsyncThunk(
   "updateUser",
   async (updateData, thunkApi) => {
     try {
+      console.log(localStorage.getItem("token"));
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+      setAuthHeader(token);
       const { data } = await aquaTrack.patch("users/update", updateData);
-      toast.success(`User updated ${data.name}`);
+      toast.success(`User updated ${data.data.name}`);
+      await thunkApi.dispatch(currentUser());
       return data;
     } catch (error) {
+      console.log(error);
       toast.error(error.response?.data?.message || "Failed to update user");
       return thunkApi.rejectWithValue(error.message);
     }
@@ -60,35 +108,40 @@ export const updateUser = createAsyncThunk(
 );
 export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
   try {
-    await aquaTrack.post("users/logout");
-    setAuthHeader("");
+    const token = localStorage.getItem("token");
+    if (token) {
+      await aquaTrack.post(
+        "users/logout",
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    }
+    localStorage.removeItem("token");
+    setAuthHeader(null);
+    toast.success("Logout successful");
   } catch (error) {
+    toast.error(error.message || "Logout failed");
     return thunkApi.rejectWithValue(error.message);
   }
 });
 
-export const refresh = createAsyncThunk("refresh", async (_, thunkApi) => {
+export const refresh = createAsyncThunk("auth/refresh", async (_, thunkApi) => {
   try {
-    const { auth } = thunkApi.getState();
-    const token = auth.token;
-
+    const token = localStorage.getItem("token");
     if (!token) {
-      throw new Error("No token available for refresh");
+      throw new Error("No token found");
     }
-
-    const { data } = await aquaTrack.get("user/refresh", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const { data } = await aquaTrack.get("users/refresh", {
+      headers: { Authorization: `Bearer ${token}` },
     });
-
+    localStorage.setItem("token", data.accessToken);
     setAuthHeader(data.accessToken);
-    toast.success("Session refreshed");
     return data;
   } catch (error) {
-    toast.error(error.message || "Failed to refresh session");
-    return thunkApi.rejectWithValue(
-      error.message || "Failed to refresh session"
-    );
+    localStorage.removeItem("token");
+    setAuthHeader(null);
+    return thunkApi.rejectWithValue(error.message);
   }
 });

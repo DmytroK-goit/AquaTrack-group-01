@@ -9,9 +9,8 @@ import waterBottleTabDouble from "../../../images/WaterMainInfoSection/water-bot
 import waterBottleMobDouble from "../../../images/WaterMainInfoSection/water-bottle-mobile-2x.png";
 import AddWaterBtn from "./LeftPart/AddWaterBtn";
 import WaterDailyNorma from "./LeftPart/WaterDailyNorma";
-import WaterProgressBar from "./LeftPart/WaterProgressBar";
+import WaterProgressBar from "./LeftPart/WaterProgressBar/WaterProgressBar";
 import TestModal from "../../TestModal/TestModal";
-
 export default function WaterMainInfo() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
