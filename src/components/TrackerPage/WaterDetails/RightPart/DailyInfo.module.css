@@ -1,0 +1,212 @@
+/* Общие стили для контейнера */
+.container {
+  width: 100%;
+  /* max-width: 303px; */
+  height: 128px;
+  /* overflow: hidden; */
+}
+
+.addContainer{
+  
+  margin-left: 80px;
+}
+
+.header{
+    color: #323F47;
+    font-weight: 700;
+font-size: 20px;
+line-height: 120%;
+letter-spacing: -0.01em;
+font-family: "Poppins", sans-serif;
+}
+
+.btn{
+font-family: "Poppins", sans-serif; 
+color: #323F47;
+font-weight: 700;
+font-size: 16px;
+line-height: 150%;
+letter-spacing: -0.01em;
+text-align: center;
+
+display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn:hover{
+    border-color: transparent;
+    
+}
+
+.btn:hover .iconPlus{
+  fill: #323F47;
+  stroke: #323F47;
+}
+
+.qwe{
+    display: flex;
+    /* gap: 80px; */
+    justify-content: space-between;
+}
+
+/* Стили для scroll-контейнера */
+.scrollContainer {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  overflow-x: auto; 
+  white-space: nowrap;
+  gap: 8px; 
+  width: 100%; 
+  padding-top: 24px;
+  padding-bottom: 24px;
+  z-index: 123123;
+}
+
+/* Стили для элементов внутри контейнера */
+.item {
+    width: 149px;
+  height: 74px;
+  background-color: #fff;
+  padding: 18px 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #323f47;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Центрируем контент внутри элемента */
+  background-color:#ffffff;
+height:74px;
+width:149px;
+border-radius:15px;
+padding-left:14px;
+padding-right:14px;
+padding-top:18px;
+padding-bottom:18px;
+display:flex;
+flex-direction:row;
+justify-content:flex-start;
+align-items:center;
+gap:10px;
+position:relative;
+}
+
+/* Стили для полосы прокрутки */
+.scrollContainer::-webkit-scrollbar {
+  height: 8px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background-color: #323F47;
+  border-radius: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+  background-color: #323F47;
+}
+.scrollContainer::-webkit-scrollbar-track{
+  background-color:#fff;
+  border-radius: 9px;
+height: 8px;
+}
+.icon{
+  fill: #9BE1A0;
+  width: 38px;
+  height: 38px;
+}
+
+.iconDelete{
+  width: 14px;
+  height: 14px;
+  stroke: #323F47;
+  fill: transparent;
+}
+
+.iconPlus{
+  width: 30px;
+  height: 30px;
+  stroke: #323F47;
+  fill: #323F47;
+}
+
+.info{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.change{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+}
+
+.ml{
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+font-size: 14px;
+line-height: 100%;
+color: #323f47;
+}
+
+.time{
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+font-size: 12px;
+line-height: 100%;
+color: rgba(47, 47, 47, 0.6);
+}
+
+
+@media (min-width: 768px){
+  .header{
+    font-weight: 700;
+font-size: 28px;
+line-height: 114%;
+letter-spacing: -0.01em;
+  }
+
+  .item{
+    border-radius: 15px;
+padding: 20px;
+width: 192px;
+height: 86px;
+gap:20px;
+  }
+
+  .icon{
+    width: 44px;
+    height: 45px;
+  }
+  .ml{
+    font-weight: 700;
+font-size: 15px;
+line-height: 149%;
+  }
+  .time{
+    font-weight: 400;
+font-size: 12px;
+line-height: 187%;
+  }
+  .info{gap: 0px}
+
+  .iconDelete{
+    width: 16px;
+    height: 16px;
+  }
+
+  .scrollContainer{
+    gap: 32px;
+  }
+  
+
+}
+
+@media (min-width: 1440px){
+  .scrollContainer{
+    gap: 16px;
+  }
+}
