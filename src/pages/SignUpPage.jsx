@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -10,6 +10,7 @@ import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Валідація за допомогою yup
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
@@ -36,18 +37,65 @@ const SignUpForm = () => {
     resolver: yupResolver(schema),
   });
 
+  useEffect(() => {
+    const form = document.querySelector("form"); // Отримуємо форму
+    const focusableElements = form.querySelectorAll(
+      'input, button, a, [tabindex]:not([tabindex="-1"])'
+    ); // Вибираємо всі елементи, які можуть отримувати фокус
+
+    const handleTab = (event) => {
+      const elements = Array.from(focusableElements);
+      const firstElement = elements[0];
+      const lastElement = elements[elements.length - 1];
+
+      if (event.key === "Tab") {
+        if (event.shiftKey) {
+          // Shift + Tab (перехід назад)
+          if (document.activeElement === firstElement) {
+            event.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab (перехід вперед)
+          if (document.activeElement === lastElement) {
+            event.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleTab);
+
+    return () => {
+      document.removeEventListener("keydown", handleTab);
+    };
+  }, []);
+
   const onSubmit = async (data) => {
     try {
-      const result = await dispatch(registerUser(data));
-      if (result.meta.requestStatus === "fulfilled") {
-        navigate("/signin");
+      const result = await dispatch(registerUser(data)); // Відправка даних
+      console.log("Result from backend:", result); // Додайте консольний лог для перевірки відповіді
+
+      if (registerUser.fulfilled.match(result)) {
+        toast.success("Registration successful! 🎉");
+        navigate("/tracker"); // Перенаправлення на TrackerPage
       } else {
-        toast.error("Sign-up failed. Please try again.");
-        console.error("Registration failed with response:", result);
+        const errorMessage = result.payload?.message;
+        console.log("Error message from backend:", errorMessage); // Додайте лог для перевірки тексту помилки
+
+        if (
+          errorMessage?.includes("email already exists") ||
+          errorMessage?.includes("Email in use")
+        ) {
+          toast.error("Email in use. Please try another email.");
+        } else {
+          toast.error(errorMessage || "Registration failed.");
+        }
       }
     } catch (error) {
-      console.error("Registration failed with error:", error);
-      toast.error(error?.message || "An error occurred during registration.");
+      console.error("Unexpected error:", error);
+      toast.error("An unexpected error occurred.");
     }
   };
 
@@ -58,7 +106,7 @@ const SignUpForm = () => {
   return (
     <section className={css["sign-up-page"]}>
       <ToastContainer />
-      <div className={css["logo"]} onClick={handleLogoClick}>
+      <div className={css["logo"]} onClick={handleLogoClick} tabIndex="0">
         <Logo />
       </div>
       <form className={css["sign-up-form"]} onSubmit={handleSubmit(onSubmit)}>
@@ -74,6 +122,7 @@ const SignUpForm = () => {
               }`}
               placeholder="Enter your email"
               {...register("email")}
+              tabIndex="1"
             />
             {errors.email && (
               <p className={css["error-text"]}>{errors.email.message}</p>
@@ -92,6 +141,7 @@ const SignUpForm = () => {
                 placeholder="Enter your password"
                 {...register("password")}
                 autoComplete="new-password"
+                tabIndex="2"
               />
 
               <svg
@@ -131,6 +181,7 @@ const SignUpForm = () => {
                 placeholder="Confirm your password"
                 {...register("confirmPassword")}
                 autoComplete="new-password"
+                tabIndex="3"
               />
 
               <svg
@@ -163,13 +214,13 @@ const SignUpForm = () => {
           </div>
         </div>
 
-        <button type="submit" className={css["submit-button"]}>
+        <button type="submit" className={css["submit-button"]} tabIndex="4">
           Sign Up
         </button>
 
         <p className={css["text-link"]}>
           Already have an account?{" "}
-          <a href="/signin" className={css["sign-in-link"]}>
+          <a href="/signin" className={css["sign-in-link"]} tabIndex="5">
             Sign In
           </a>
         </p>
