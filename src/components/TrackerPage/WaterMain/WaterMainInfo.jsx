@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styles from "./WaterMainInfo.module.css";
 import Logo from "../../Logo/Logo";
 import waterBottleDesk from "../../../images/WaterMainInfoSection/water-bottle-desktop.png";
@@ -6,8 +7,21 @@ import waterBottleMob from "../../../images/WaterMainInfoSection/water-bottle-mo
 import AddWaterBtn from "./LeftPart/AddWaterBtn";
 import WaterDailyNorma from "./LeftPart/WaterDailyNorma";
 import WaterProgressBar from "./LeftPart/WaterProgressBar";
+import TestModal from "../../TestModal/TestModal";
+// import Modal from "react-modal";
+// import s from "../../../components/TestModal/TestModal.module.css";
 
 export default function WaterMainInfo() {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <div className={styles.waterInfo}>
       <div className={styles.logo}>
@@ -31,7 +45,8 @@ export default function WaterMainInfo() {
         <WaterProgressBar />
       </div>
 
-      <AddWaterBtn />
+      <AddWaterBtn onClick={openModal} />
+      <TestModal openModal={modalIsOpen} closeModal={closeModal} />
     </div>
   );
 }
