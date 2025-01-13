@@ -29,6 +29,8 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -37,6 +39,7 @@ const slice = createSlice({
         state.token = accessToken;
         state.isLoggedIn = true;
       })
+
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;

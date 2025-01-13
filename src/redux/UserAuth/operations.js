@@ -1,7 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 // import Cookies from "js-cookies";
 import axios from "axios";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+import { toast } from "react-toastify";
 
 export const aquaTrack = axios.create({
   baseURL: "https://aquatrack-01.onrender.com/",
@@ -26,15 +27,25 @@ export const registerUser = createAsyncThunk(
   async (credentials, thunkApi) => {
     try {
       const { data } = await aquaTrack.post("users/register", credentials);
+      console.log("Registration response:", data);
+
       toast.success("Registration successful");
       const loginResponse = await thunkApi.dispatch(login(credentials));
       return loginResponse.payload;
     } catch (error) {
-      toast.error(error.message);
+      console.error("Registration error details:", error.response?.data);
+
+      if (error.response && error.response.status === 409) {
+        toast.error("Email is already in use. Please try another one.");
+      } else {
+        toast.error("Sign-up failed. Please try again.");
+      }
+
       return thunkApi.rejectWithValue(error.message);
     }
   }
 );
+
 export const login = createAsyncThunk(
   "login",
   async (credentials, thunkApi) => {
@@ -46,7 +57,14 @@ export const login = createAsyncThunk(
       console.log(localStorage.getItem("token"));
       return data;
     } catch (error) {
-      toast.error(error.message);
+      console.error("Login error details:", error.response?.data);
+
+      if (error.response && error.response.status === 401) {
+        toast.error("Email or password is incorrect.");
+      } else {
+        toast.error("Login failed. Please try again.");
+      }
+
       return thunkApi.rejectWithValue(error.message);
     }
   }
