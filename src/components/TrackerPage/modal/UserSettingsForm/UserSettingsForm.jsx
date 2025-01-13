@@ -1,11 +1,11 @@
 import * as Yup from "yup";
-import { Field, Form, Formik } from "formik";
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import s from "./UserSettingsForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../../../redux/UserAuth/selectors.js";
 import { updateUser } from "../../../../redux/UserAuth/operations.js";
 
-const UserSettingsForm = () => {
+const UserSettingsForm = ({ onClose }) => {
 	const dispatch = useDispatch();
 
 	const { name, email, gender, weight, activeTime, dailyNorm } =
@@ -44,7 +44,8 @@ const UserSettingsForm = () => {
 			activeTime: values.activeTime,
 			dailyNorm: values.dailyNorm,
 		};
-		dispatch(updateUser(formData));
+		await dispatch(updateUser(formData));
+		onClose();
 	};
 
 	const formatMillilitersToLiters = (milliliters) =>
@@ -79,7 +80,7 @@ const UserSettingsForm = () => {
 								</div>
 							</div>
 						</div>
-						<div>
+						<div className={s.userSettings__wrap_form}>
 							<div className={s.userSettings__form_item_one}>
 								<div className={s.userSettings__block_radio}>
 									<label className={s.userSettings__label_title}>
@@ -110,7 +111,9 @@ const UserSettingsForm = () => {
 								</div>
 
 								<div className={s.userSettings__block_person}>
-									<div className={s.userSettings__blokNameEmail}>
+									<div
+										className={`${s.userSettings__blokNameEmail} ${s.userSettings__inputErrorMessage}`}
+									>
 										<label
 											htmlFor="name"
 											className={s.userSettings__label_title}
@@ -122,8 +125,17 @@ const UserSettingsForm = () => {
 											name="name"
 											className={`${s.userSettings__inputStyle} ${s.userSettings__label_text}`}
 										/>
+										<div className={s.userSettings__errorMessage}>
+											<ErrorMessage
+												name="name"
+												component="div"
+												className={s.userSettings__errorText}
+											/>
+										</div>
 									</div>
-									<div className={s.userSettings__blokNameEmail}>
+									<div
+										className={`${s.userSettings__blokNameEmail} ${s.userSettings__inputErrorMessage}`}
+									>
 										<label
 											htmlFor="email"
 											className={s.userSettings__label_title}
@@ -136,6 +148,13 @@ const UserSettingsForm = () => {
 											type="email"
 											className={`${s.userSettings__inputStyle} ${s.userSettings__label_text}`}
 										/>
+										<div className={s.userSettings__errorMessage}>
+											<ErrorMessage
+												name="email"
+												component="div"
+												className={s.userSettings__errorText}
+											/>
+										</div>
 									</div>
 								</div>
 
@@ -175,7 +194,9 @@ const UserSettingsForm = () => {
 
 							<div className={s.userSettings__form_item_two}>
 								<div className={s.userSettings__blokInputNameEmail}>
-									<div className={s.userSettings__blokNameEmail}>
+									<div
+										className={`${s.userSettings__blokNameEmail} ${s.userSettings__inputErrorMessage}`}
+									>
 										<label
 											htmlFor="weight"
 											className={s.userSettings__label_text}
@@ -188,9 +209,18 @@ const UserSettingsForm = () => {
 											type="number"
 											className={`${s.userSettings__inputStyle} ${s.userSettings__label_text}`}
 										/>
+										<div className={s.userSettings__errorMessage}>
+											<ErrorMessage
+												name="weight"
+												component="div"
+												className={s.userSettings__errorText}
+											/>
+										</div>
 									</div>
 
-									<div className={s.userSettings__blokNameEmail}>
+									<div
+										className={`${s.userSettings__blokNameEmail} ${s.userSettings__inputErrorMessage}`}
+									>
 										<label
 											htmlFor="activeTime"
 											className={`${s.userSettings__label_text} ${s.required}`}
@@ -203,6 +233,13 @@ const UserSettingsForm = () => {
 											type="number"
 											className={`${s.userSettings__inputStyle} ${s.userSettings__label_text}`}
 										/>
+										<div className={s.userSettings__errorMessage}>
+											<ErrorMessage
+												name="activeTime"
+												component="div"
+												className={s.userSettings__errorText}
+											/>
+										</div>
 									</div>
 								</div>
 
@@ -240,12 +277,12 @@ const UserSettingsForm = () => {
 											step="0.1"
 											min="0.2"
 											max="15"
-											value={formatMillilitersToLiters(values.dailyNorm)} // Синхронизация с Formik
+											value={formatMillilitersToLiters(values.dailyNorm)}
 											onChange={(e) => {
 												const convertedValue = litersToMilliliters(
 													e.target.value
 												);
-												setFieldValue("dailyNorm", convertedValue); // Обновляем значение в Formik
+												setFieldValue("dailyNorm", convertedValue);
 											}}
 											className={`${s.userSettings__inputStyle} ${s.userSettings__label_text}`}
 										/>

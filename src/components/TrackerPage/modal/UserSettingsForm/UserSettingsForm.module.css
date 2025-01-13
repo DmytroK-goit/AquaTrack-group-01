@@ -145,7 +145,6 @@
 }
 
 .userSettings__label_text {
-	margin-left: 10px;
 	font-size: 16px;
 	color: #333;
 }
@@ -260,7 +259,31 @@
 
 /* containerWeight */
 
+/* Error */
+.userSettings__inputErrorMessage {
+	position: relative;
+}
+.userSettings__errorText {
+	position: absolute;
+	top: 90%;
+	left: 0;
+	color: red;
+	font-size: 12px;
+	z-index: 5;
+	padding-left: 10px;
+}
+.userSettings__errorMessage {
+	margin-top: 10px;
+}
+/* Error */
+
 /* Form */
+
+@media screen and (min-width: 320px) and (max-width: 375px) {
+	.userSettings__errorText {
+		font-size: 10px;
+	}
+}
 
 @media screen and (min-width: 768px) {
 	.userSettings__inputStyle {
@@ -298,8 +321,12 @@
 @media screen and (min-width: 1440px) {
 	.userSettings__Form {
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		gap: 24px;
+	}
+	.userSettings__wrap_form {
+		display: flex;
+		flex-direction: row;
 	}
 	.userSettings__title {
 		font-size: 28px;
@@ -342,7 +369,7 @@
 		height: 152px;
 	}
 	.userSettings__form_item_two {
-		padding-top: 86px;
+		padding-top: 94px;
 	}
 	.required {
 		width: 400px;
