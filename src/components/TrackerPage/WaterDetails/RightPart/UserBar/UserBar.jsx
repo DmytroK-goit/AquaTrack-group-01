@@ -4,12 +4,12 @@ import UserBarPopover from "./UserBarPopover/UserBarPopover";
 import { useSelector } from "react-redux";
 import {
   selectUser,
-  selectUserName,
+  // selectUserName,
 } from "../../../../../redux/UserAuth/selectors";
 
 const UserBar = () => {
   const user = useSelector(selectUser);
-  const userName = useSelector(selectUserName);
+  // const userName = useSelector(selectUserName);
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const userBarRef = useRef(null);
@@ -56,7 +56,7 @@ const UserBar = () => {
         ) : (
           <div className={s.avatarFallback}>{getFallbackAvatar()}</div>
         )}
-        <svg className={s.icon}>
+        <svg className={`${s.icon} ${isPopoverOpen ? s.iconRotated : ""}`}>
           <use href="../../../../../../public/icons.svg#icon-down"></use>
         </svg>
       </button>

@@ -16,7 +16,7 @@ const UserPanel = () => {
   return (
     <header className={s.header}>
       <h1 className={s.greeting}>
-        Hello, <strong>{getUserName()}!</strong>
+        Hello<strong>, {getUserName()}!</strong>
       </h1>
       <UserBar user={user} />
     </header>

@@ -14,6 +14,10 @@
   width: 100%;
   background-color: #323f47;
 }
+.userBar:hover,
+.userBar:active {
+  background-color: #323f47;
+}
 
 .icon {
   display: inline-block;
@@ -21,7 +25,12 @@
   height: 16px;
   stroke-width: 0;
   stroke: #fff;
-  fill: #fff;
+  fill: transparent;
+  transition: transform 0.3s ease;
+}
+
+.iconRotated {
+  transform: rotate(180deg);
 }
 
 .userName {

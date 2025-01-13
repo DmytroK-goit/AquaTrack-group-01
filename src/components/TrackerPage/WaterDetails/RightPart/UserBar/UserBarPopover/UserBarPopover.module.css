@@ -34,9 +34,11 @@
   margin-right: 8px;
 }
 
-.popoverButtonSettings:hover {
+.popoverButtonSettings:hover,
+.popoverButtonSettings:active {
   color: black;
   outline: none;
+  background-color: transparent;
 }
 
 .popoverButtonLogOut {
@@ -50,8 +52,10 @@
   width: 100%;
 }
 
-.popoverButtonLogOut:hover {
+.popoverButtonLogOut:hover,
+.popoverButtonLogOut:active {
   color: black;
   border: none;
   outline: none;
+  background-color: transparent;
 }
