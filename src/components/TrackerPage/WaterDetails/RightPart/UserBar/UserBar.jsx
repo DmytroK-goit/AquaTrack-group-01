@@ -7,13 +7,9 @@ import {
   selectUserName,
 } from "../../../../../redux/UserAuth/selectors";
 
-const UserBar = ({}) => {
-  // Діма я додав тут стан користувача
+const UserBar = () => {
   const user = useSelector(selectUser);
   const userName = useSelector(selectUserName);
-  console.log(user);
-  console.log(`userName UserBar ${userName}`);
-  //
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const userBarRef = useRef(null);
@@ -35,17 +31,34 @@ const UserBar = ({}) => {
     };
   }, []);
 
+  const getFallbackAvatar = () => {
+    if (user?.name) {
+      return user.name[0].toUpperCase();
+    }
+    if (user?.email) {
+      return user.email[0].toUpperCase();
+    }
+    return "U";
+  };
+
   return (
     <div className={s.userBarContainer} ref={userBarRef}>
       <button className={s.userBar} onClick={togglePopover}>
         <span className={s.userName}>
           {user?.name || user?.email.split("@")[0] || "User"}
         </span>
-        <img
-          className={s.avatar}
-          src={user?.avatar || user?.name[0] || "U"}
-          alt={`${user?.name || "User"} avatar`}
-        />
+        {user?.avatar ? (
+          <img
+            className={s.avatar}
+            src={user.avatar}
+            alt={`${user?.name || "User"} avatar`}
+          />
+        ) : (
+          <div className={s.avatarFallback}>{getFallbackAvatar()}</div>
+        )}
+        <svg className={s.icon}>
+          <use href="../../../../../../public/icons.svg#icon-down"></use>
+        </svg>
       </button>
       {isPopoverOpen && <UserBarPopover />}
     </div>
