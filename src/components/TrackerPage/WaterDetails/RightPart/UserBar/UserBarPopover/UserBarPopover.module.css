@@ -2,19 +2,20 @@
   position: absolute;
   top: 100%;
   border-radius: 15px;
-  padding: 14px 57px 14px 20px;
-  width: 100%;
+  padding: 14px 41px 14px 20px;
+  width: auto;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
   background-color: white;
   z-index: 100;
 }
 
 .popoverButtonSettings {
-  display: block;
+  display: flex;
+  align-items: center;
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 15px;
-  line-height: 149%;
+  font-size: 14px;
+  line-height: 129%;
   color: #323f47;
   width: 100%;
   text-align: left;
@@ -22,6 +23,7 @@
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-bottom: 8px;
 }
 
 .icon {
@@ -42,10 +44,12 @@
 }
 
 .popoverButtonLogOut {
+  display: flex;
+  align-items: center;
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 15px;
-  line-height: 149%;
+  font-size: 14px;
+  line-height: 129%;
   text-align: left;
   color: rgba(50, 63, 71, 0.4);
   transition: background-color 0.3s ease;
@@ -58,4 +62,16 @@
   border: none;
   outline: none;
   background-color: transparent;
+}
+
+@media screen and (min-width: 768px) {
+  .popover {
+    padding-right: 57px;
+  }
+  .popoverButtonSettings {
+    font-size: 15px;
+    line-height: 149%;
+  }
+}
+@media screen and (min-width: 1440px) {
 }

@@ -1,6 +1,6 @@
 export const waterSelectors = {
-  selectDayWater: (state) => state.water.itemsDay,
-  selectMonthWater: (state) => state.water.itemsMonth,
+  selectDayWater: (state) => state.water.itemsDay || [],
+  selectMonthWater: (state) => state.water.itemsMonth || [],
   selectTotalWaterPerDay: (state) => state.water.totalWaterPerDay,
   selectWaterPercentage: (state) => state.water.waterPercentage,
   selectIsLoading: (state) => state.water.isLoading,
