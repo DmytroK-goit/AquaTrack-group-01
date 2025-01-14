@@ -1,8 +1,5 @@
 .sliderContainer {
   z-index: 2;
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
   padding: 12px;
   width: 198px;
   height: auto;
@@ -10,34 +7,27 @@
   background: #fff;
   box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.1);
   gap: 8px;
-  margin-bottom: 42px;
   overflow: hidden;
 }
 
 @media only screen and (min-width: 768px) {
   .sliderContainer {
-    width: 295px;
+    min-width: 295px;
     padding: 20px;
-    gap: 6px;
-    margin-bottom: 26px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .sliderContainer {
-    margin-bottom: 56px;
   }
 }
 
 .sliderTitle {
+  color: #323f47;
+  font-weight: 700;
+  line-height: 14px;
   font-size: 14px;
-  line-height: 1;
 }
 
 @media only screen and (min-width: 768px) {
   .sliderTitle {
     font-size: 15px;
-    line-height: 1.49;
+    line-height: 22.4px;
   }
 }
 .sliderWrapper {
