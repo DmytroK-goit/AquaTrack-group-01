@@ -4,9 +4,10 @@ import css from './AddWaterBtn.module.css'
 
 const AddWaterBtn = ({ isOpen, onClose }) => {
   const [count, setCount] = useState(50);
-  const [valtime, setValtime] = useState(new Date().toLocaleTimeString());
+  const [valtime, setValtime] = useState(new Date().toLocaleTimeString("ua-UA", { hour: "2-digit", minute: "2-digit", timeZone: "UTC", }));
   function increment() {
-    setCount(count + 50);
+    if (count < 5000) {
+      setCount(count + 50)};
 }
 function decrement() {
     if (count>50) { 
@@ -14,7 +15,8 @@ function decrement() {
 }
 const change = event => {
     setValtime(event.target.value)
-} 
+  } 
+  //href="/icons.svg#icon-upload"  abo /icons.svg
   return (
     <Modal
     isOpen={isOpen}
@@ -23,7 +25,7 @@ const change = event => {
     closeTimeoutMS={300}
     onRequestClose={()=>onClose()}
     ariaHideApp={false} >
-    <buttom className={css.mclose} onClick={()=>onClose()}>close</buttom>
+    <buttom className={css.mclose} onClick={()=>onClose()}>X</buttom>
     <h2 className={css.water} >Add water</h2>
     <p className={css.choose} >Choose a value</p>
     <p className={css.amount}>Amount of water</p>
