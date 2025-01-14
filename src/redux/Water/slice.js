@@ -19,6 +19,9 @@ const initialState = {
 const slice = createSlice({
   name: "water",
   initialState: initialState,
+  reducers: {
+    resetWaterState: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addWater.fulfilled, (state, action) => {
@@ -84,4 +87,5 @@ const slice = createSlice({
   },
 });
 
+export const { resetWaterState } = slice.actions;
 export const waterReducer = slice.reducer;

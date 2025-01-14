@@ -4,6 +4,7 @@ import axios from "axios";
 // import toast from "react-hot-toast";
 import { toast } from "react-toastify";
 import { dayWater, monthWater } from "../Water/operatios";
+import { resetWaterState } from "../Water/slice";
 
 export const aquaTrack = axios.create({
   baseURL: "https://aquatrack-01.onrender.com/",
@@ -129,6 +130,7 @@ export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
     }
     localStorage.removeItem("token");
     setAuthHeader(null);
+    thunkApi.dispatch(resetWaterState());
     toast.success("Logout successful");
   } catch (error) {
     toast.error(error.message || "Logout failed");
