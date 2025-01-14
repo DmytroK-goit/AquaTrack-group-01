@@ -4,7 +4,10 @@ import { aquaTrack } from "../UserAuth/operations";
 
 export const addWater = createAsyncThunk("addWater", async (body, thunkApi) => {
   try {
-    const { data } = await aquaTrack.post("/water", body);
+    const token = localStorage.getItem("token");
+    const { data } = await aquaTrack.post("/water", body, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     toast.success("Water added");
     return data;
   } catch (error) {
@@ -16,7 +19,10 @@ export const editWater = createAsyncThunk(
   "editWater",
   async ({ _id, updateData }, thunkApi) => {
     try {
-      const { data } = await aquaTrack.patch(`/water/${_id}`, updateData);
+      const token = localStorage.getItem("token");
+      const { data } = await aquaTrack.patch(`/water/${_id}`, updateData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success("Water updated successfully!");
       console.log(data);
       return data;
@@ -28,7 +34,10 @@ export const editWater = createAsyncThunk(
 );
 export const delWater = createAsyncThunk("delWater", async (_id, thunkApi) => {
   try {
-    const { data } = await aquaTrack.delete(`/water/${_id}`);
+    const token = localStorage.getItem("token");
+    const { data } = await aquaTrack.delete(`/water/${_id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     toast.success("Water Deleted");
     console.log(data);
     return _id;
@@ -39,7 +48,10 @@ export const delWater = createAsyncThunk("delWater", async (_id, thunkApi) => {
 });
 export const dayWater = createAsyncThunk("dayWater", async (date, thunkApi) => {
   try {
-    const { data } = await aquaTrack.get(`/water/day/${date}`);
+    const token = localStorage.getItem("token");
+    const { data } = await aquaTrack.get(`/water/day/${date}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     toast.success(`Water data for ${date} fetched successfully.`);
     console.log(data);
     return data;
@@ -52,7 +64,10 @@ export const monthWater = createAsyncThunk(
   "monthWater",
   async (date, thunkApi) => {
     try {
-      const { data } = await aquaTrack.get(`/water/month/${date}`);
+      const token = localStorage.getItem("token");
+      const { data } = await aquaTrack.get(`/water/month/${date}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success(`Water data for ${date} fetched successfully.`);
       console.log(data);
       return data;
