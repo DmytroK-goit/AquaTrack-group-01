@@ -1,12 +1,20 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-// import { selectTotalWater } from "../../redux/water/selectors";
+import { selectTotalWaterPerDay } from "../../../../../redux/Water/selectors.js";
 import { selectDailyNorma } from "../../../../../redux/UserAuth/selectors";
 import styles from "./WaterProgressBar.module.css";
+import { dayWater } from "../../../../../redux/Water/operatios.js";
 
 const WaterProgressBar = () => {
-  // const total = useSelector(selectTotalWater);
+  const dispatch = useDispatch();
+  const total = useSelector(selectTotalWaterPerDay);
   const dailyNorma = useSelector(selectDailyNorma);
+
+  useEffect(() => {
+    // Виклик thunk для отримання даних про воду
+    const today = new Date().toISOString().split("T")[0]; // Поточна дата у форматі YYYY-MM-DD
+    dispatch(dayWater(today));
+  }, [dispatch]);
 
   const calculatePercentage = (dailyNorma, total) => {
     if (total === 0) {

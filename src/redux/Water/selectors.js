@@ -6,3 +6,7 @@ export const waterSelectors = {
   selectIsLoading: (state) => state.water.isLoading,
   selectIsError: (state) => state.water.isError,
 };
+
+export const { selectTotalWaterPerDay } = waterSelectors;
+export const { selectIsLoading } = waterSelectors;
+export const { selectDayWater } = waterSelectors;
