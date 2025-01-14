@@ -4,7 +4,7 @@
   align-items: flex-start;
   width: 100%;
   gap: 16px;
-  padding-top: 40px;
+  padding-top: 16px;
   padding-left: 4px;
   padding-bottom: 40px;
   background-color: var(--light-gray);
@@ -32,6 +32,12 @@
     flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
+    padding-top: 0;
+    padding-left: 0;
+  }
+  .greeting {
+    margin-bottom: 0;
+    line-height: 106%;
   }
 }
 @media screen and (min-width: 1440px) {
