@@ -1,19 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-// import { deleteWater, waterPerMonth } from "../../redux/water/operations";
-// import { selectedDate, selectWaterLoading } from "../../redux/water/selectors";
+import { delWater, monthWater } from "../../../../redux/Water/operatios";
+import {
+  selectDayWater,
+  selectIsLoading,
+} from "../../../../redux/Water/selectors";
 import css from "./DeleteWaterModal.module.css";
 import toast from "react-hot-toast";
 
+console.log(selectIsLoading);
+
 const DeleteWaterModal = ({ closeModal, waterId }) => {
   const dispatch = useDispatch();
-  // const isLoading = useSelector(selectWaterLoading);
-  // const selectedDay = useSelector(selectedDate);
+  const isLoading = useSelector(selectIsLoading);
+  const selectedDay = useSelector(selectDayWater);
   const selectedMonth = selectedDay.split("-");
   const handleDelete = () => {
-    dispatch(deleteWater(waterId))
+    dispatch(delWater(waterId))
       .unwrap()
       .then(() => {
-        dispatch(waterPerMonth(`${selectedMonth[0]}-${selectedMonth[1]}`));
+        dispatch(monthWater(`${selectedMonth[0]}-${selectedMonth[1]}`));
         toast.success("The water record was successfully deleted!");
         closeModal();
       })
