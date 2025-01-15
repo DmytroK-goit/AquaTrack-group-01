@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  countUser,
   currentUser,
   login,
   logout,
@@ -19,6 +20,7 @@ const initialState = {
     dailyNorm: 0,
   },
   token: "",
+  userCount: "",
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -44,6 +46,9 @@ const slice = createSlice({
         state.user = null;
         state.token = null;
         state.isLoggedIn = false;
+      })
+      .addCase(countUser.fulfilled, (state, action) => {
+        state.userCount = action.payload.data;
       })
       .addCase(refresh.pending, (state) => {
         state.isRefreshing = true;
