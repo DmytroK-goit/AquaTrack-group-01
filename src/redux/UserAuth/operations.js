@@ -3,6 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 // import toast from "react-hot-toast";
 import { toast } from "react-toastify";
+import { dayWater, monthWater } from "../Water/operatios";
+import { resetWaterState } from "../Water/slice";
 
 export const aquaTrack = axios.create({
   baseURL: "https://aquatrack-01.onrender.com/",
@@ -55,6 +57,14 @@ export const login = createAsyncThunk(
       setAuthHeader(data.data.accessToken);
       localStorage.setItem("token", data.data.accessToken);
       console.log(localStorage.getItem("token"));
+      const date = new Date().toISOString().split("T")[0];
+      await thunkApi.dispatch(dayWater(date));
+      const month = new Date();
+      const formattedDate = `${month.getFullYear()}-${String(
+        month.getMonth() + 1
+      ).padStart(2, "0")}`;
+
+      await thunkApi.dispatch(monthWater(formattedDate));
       return data;
     } catch (error) {
       console.error("Login error details:", error.response?.data);
@@ -120,6 +130,7 @@ export const logout = createAsyncThunk("logout", async (_, thunkApi) => {
     }
     localStorage.removeItem("token");
     setAuthHeader(null);
+    thunkApi.dispatch(resetWaterState());
     toast.success("Logout successful");
   } catch (error) {
     toast.error(error.message || "Logout failed");
