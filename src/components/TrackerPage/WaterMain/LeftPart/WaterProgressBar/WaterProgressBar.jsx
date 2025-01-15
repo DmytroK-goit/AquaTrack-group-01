@@ -10,12 +10,6 @@ const WaterProgressBar = () => {
   const total = useSelector(selectTotalWaterPerDay);
   const dailyNorma = useSelector(selectDailyNorma);
 
-  useEffect(() => {
-    // Виклик thunk для отримання даних про воду
-    const today = new Date().toISOString().split("T")[0]; // Поточна дата у форматі YYYY-MM-DD
-    dispatch(dayWater(today));
-  }, [dispatch]);
-
   const calculatePercentage = (dailyNorma, total) => {
     if (total === 0) {
       return 0;

@@ -7,8 +7,6 @@ import {
 import css from "./DeleteWaterModal.module.css";
 import toast from "react-hot-toast";
 
-console.log(selectIsLoading);
-
 const DeleteWaterModal = ({ closeModal, waterId }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
