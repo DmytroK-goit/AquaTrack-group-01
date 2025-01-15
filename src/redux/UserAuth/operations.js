@@ -168,3 +168,11 @@ export const refresh = createAsyncThunk("auth/refresh", async (_, thunkApi) => {
     return thunkApi.rejectWithValue(error.message);
   }
 });
+export const countUser = createAsyncThunk("users/count", async (thunkApi) => {
+  try {
+    const { data } = await aquaTrack.get("users/count");
+    return data;
+  } catch (error) {
+    return thunkApi.rejectWithValue(error.message);
+  }
+});
