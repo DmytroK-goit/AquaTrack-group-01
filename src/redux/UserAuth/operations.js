@@ -22,6 +22,18 @@ if (token) {
   setAuthHeader(token);
 }
 
+aquaTrack.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.clear();
+      setAuthHeader(null);
+      window.location.href = "/signin";
+    }
+    return Promise.reject(error);
+  }
+);
+
 axios.defaults.withCredentials = true;
 
 export const registerUser = createAsyncThunk(
