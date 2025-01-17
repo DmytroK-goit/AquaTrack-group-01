@@ -1,50 +1,81 @@
 .sign-up-page {
-  background-color: #f7f9fc;
-  box-sizing: border-box;
-  padding: 16px;
-  border-radius: 30px;
-  justify-content: center;
-  align-items: center;
-  width: calc(100vw - 16px);
-  min-height: 100vh;
-  flex-direction: column;
   display: flex;
-  margin: 0;
-  position: relative;
+}
+.container {
+  min-width: 1440px;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.toaster-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: calc(100vw - 32px);
+
+  padding: 16px;
+  z-index: 1000;
+}
+.input__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .sign-up-page .logo {
   position: absolute;
-  display: flex;
-  top: 16px;
+  top: 24px;
   left: 16px;
+  display: flex;
   justify-content: flex-start;
   font-weight: 700;
   font-size: 18px;
+  line-height: 1.11111;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #323f47;
 }
 
 .sign-up-form {
-  width: 100%;
-  max-width: 436px;
-  margin-top: auto;
-  margin-bottom: auto;
-  padding: 16px;
+  position: relative;
+  display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
+  justify-content: center;
+  /* padding: 24px 16px; */
+  background-color: #f7f9fc;
+  border-radius: 30px;
+  border-radius: 30px;
+
+  margin-bottom: 16px;
 }
 
 .sign-up-page .form-title {
-  font-size: 32px;
-  text-align: left;
+  margin-bottom: 32px;
   font-weight: 700;
-  margin-bottom: 24px;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-font-main);
+}
+
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  padding: 170px 16px;
 }
 
 .sign-up-page .input_main_wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
+  /* gap: 16px;
+  margin-bottom: 32px; */
 }
 
 .sign-up-page .input__wrapper {
@@ -59,7 +90,6 @@
   font-weight: 600;
   color: #323f47;
   text-align: left;
-  margin-bottom: 8px;
 }
 
 .input-password {
@@ -159,42 +189,41 @@
   color: #2f2f2f;
 }
 .sign-up-link:focus {
-  text-decoration: none; 
+  text-decoration: none;
 }
 .sign-up-page .logo:focus {
-  outline: none; 
-  transform: scale(1.05); 
-  transition: transform 0.2s ease; 
+  outline: none;
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+.advantage-section {
+  display: none;
 }
 .sign-up-page .logo:hover {
-  transform: scale(1.05); 
-  transition: transform 0.2s ease; 
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1439px) {
   .sign-up-page {
-    padding: 32px;
+    width: 704px;
+    padding: 0;
+  }
+  .sign-up-form {
+    width: 100%;
   }
   .sign-up-page .logo {
-    font-size: 24px;
+    position: absolute;
     top: 32px;
     left: 32px;
+    font-weight: 700;
+    font-size: 24px;
   }
-}
-
-@media screen and (min-width: 1440px) {
-  .sign-up-page {
-    padding: 32px;
-    max-width: 1440px;
-    margin: 0 auto;
+  .advantage-section {
+    width: 704px;
   }
-  .sign-up-page .logo {
-    font-size: 36px;
-  }
-
-  .input__wrapper label {
-    font-size: 16px;
-    line-height: 1.5;
+  .form-wrapper {
+    max-width: 436px;
   }
 }
 
@@ -206,3 +235,67 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+@media screen and (min-width: 1440px) {
+  .input__wrapper label {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* .form-title {
+    margin-top: 74px;
+  } */
+  .sign-up-page .logo {
+    font-size: 36px;
+  }
+
+  .sign-up-page {
+    width: 1440px;
+    width: 100%;
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .sign-up-form {
+    width: 672px;
+    height: 736px;
+  }
+
+  .form-wrapper {
+    width: 436px;
+    margin-top: 130px;
+    margin-bottom: 100px;
+  }
+
+  .sign-up-page .advantage-section {
+    display: block;
+  }
+
+  .sign-up-page .logo {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    text-align: center;
+    color: #323f47;
+  }
+}
+/* .sign-up-page { }
+.toaster-container {}
+.sign-up-form {}
+.logo {}
+.form-wrapper {}
+.form-title {}
+.input_main_wrapper {}
+.input__wrapper {}
+.input__field {}
+.input__field--error {}
+.error-text {}
+.input-password {}
+.input__icon {}
+.active {}
+.submit-button {}
+.text-link {}
+.sign-in-link {}
+.advantages-section {} */
