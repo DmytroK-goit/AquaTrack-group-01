@@ -10,7 +10,7 @@ import waterBottleMobDouble from "../../../images/WaterMainInfoSection/water-bot
 import AddWaterBtn from "./LeftPart/AddWaterBtn";
 import WaterDailyNorma from "./LeftPart/WaterDailyNorma";
 import WaterProgressBar from "./LeftPart/WaterProgressBar/WaterProgressBar";
-import TestModal from "../../TestModal/TestModal";
+import AddWaterModal from "../modal/AddWaterModal";
 export default function WaterMainInfo() {
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -55,7 +55,7 @@ export default function WaterMainInfo() {
       </div>
 
       <AddWaterBtn onClick={openModal} />
-      <TestModal openModal={modalIsOpen} closeModal={closeModal} />
+      <AddWaterModal openModal={modalIsOpen} closeModal={closeModal} />
     </div>
   );
 }
