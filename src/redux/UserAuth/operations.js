@@ -40,8 +40,10 @@ export const registerUser = createAsyncThunk(
   "registerUser",
   async (credentials, thunkApi) => {
     try {
-      const { data } = await aquaTrack.post("users/register", credentials);
-      console.log("Registration response:", data);
+      const { data } = await aquaTrack.post("users/register", {
+        email: credentials.email,
+        password: credentials.password,
+      });
 
       toast.success("Registration successful");
       const loginResponse = await thunkApi.dispatch(login(credentials));
