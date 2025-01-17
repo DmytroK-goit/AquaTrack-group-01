@@ -7,7 +7,7 @@ import styles from "./WaterProgressBar.module.css";
 const WaterProgressBar = () => {
   const dispatch = useDispatch();
 
-  const total = useSelector(selectTotalWaterPerDay) || 0;
+  const total = useSelector(selectTotalWaterPerDay) || 0.8;
   const dailyNorma = useSelector(selectDailyNorma) || 1;
 
   const progress = Math.min((total / dailyNorma) * 100, 100);
