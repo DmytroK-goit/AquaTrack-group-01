@@ -12,10 +12,17 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, authSlice);
 
+const waterPersistConfig = {
+  key: "water",
+  storage,
+};
+
+const persistedWaterReducer = persistReducer(waterPersistConfig, waterReducer);
+
 export const store = configureStore({
   reducer: {
     auth: persistedReducer,
-    water: waterReducer,
+    water: persistedWaterReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

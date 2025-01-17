@@ -7,15 +7,13 @@ import {
 import css from "./DeleteWaterModal.module.css";
 import toast from "react-hot-toast";
 
-console.log(selectIsLoading);
-
-const DeleteWaterModal = ({ closeModal, waterId }) => {
+const DeleteWaterModal = ({ closeModal, _id }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const selectedDay = useSelector(selectDayWater);
   const selectedMonth = selectedDay.split("-");
   const handleDelete = () => {
-    dispatch(delWater(waterId))
+    dispatch(delWater(_id))
       .unwrap()
       .then(() => {
         dispatch(monthWater(`${selectedMonth[0]}-${selectedMonth[1]}`));
