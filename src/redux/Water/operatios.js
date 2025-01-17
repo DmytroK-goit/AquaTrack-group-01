@@ -8,6 +8,8 @@ export const addWater = createAsyncThunk("addWater", async (body, thunkApi) => {
     const { data } = await aquaTrack.post("/water", body, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    const date = new Date().toISOString().split("T")[0];
+    await thunkApi.dispatch(dayWater(date));
     toast.success("Water added");
     return data;
   } catch (error) {
