@@ -1,59 +1,91 @@
+.container {
+  width: 100%;
+  margin: 0 auto;
+  height: auto;
+  gap: 30px;
+}
+
 .sign-in-page {
-  background-color: #f7f9fc;
   box-sizing: border-box;
-  padding: 16px;
   border-radius: 30px;
-  justify-content: center;
-  align-items: center;
-  width: calc(100vw - 16px);
-  min-height: 100vh;
+}
+.sign-in-form {
+  position: relative;
+  background-color: #f7f9fc;
   flex-direction: column;
   display: flex;
   margin: 0;
-  position: relative;
+  align-items: center;
+  justify-content: center;
+  background-color: #f7f9fc;
+  border-radius: 30px;
+  margin-bottom: 16px;
 }
+
+.toaster-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw - 32px);
+  padding: 16px;
+  z-index: 1000;
+}
+
+.Toastify__toast-icon {
+  width: 50px;
+}
+
+/* ------------------ЛОГО------------- */
 
 .sign-in-page .logo {
   position: absolute;
-  display: flex;
-  top: 16px;
+  top: 24px;
   left: 16px;
+  display: flex;
   justify-content: flex-start;
   font-weight: 700;
   font-size: 18px;
+  line-height: 1.11111;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #323f47;
 }
-.logo:focus {
+
+.sign-in-page .logo:focus {
   outline: none;
   transform: scale(1.05);
   transition: transform 0.2s ease;
 }
+
 .sign-in-page .logo:hover {
   transform: scale(1.05);
   transition: transform 0.2s ease;
 }
 
-.sign-in-form {
-  width: 100%;
-  max-width: 436px;
-  margin-top: auto;
-  margin-bottom: auto;
-  padding: 16px;
-  flex-direction: column;
-  align-items: stretch;
-}
-
-.sign-in-page .form-title {
-  font-size: 32px;
-  text-align: left;
-  font-weight: 700;
-  margin-bottom: 24px;
-}
-
-.sign-in-page .input_main_wrapper {
+.form-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  padding: 200px 16px;
+}
+
+/* -------------------TITLE SIGN IN-------------------- */
+
+.sign-in-page .form-title {
   margin-bottom: 32px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--color-font-main);
+}
+
+/* ---------------------INPUTS----------------- */
+.sign-in-page .input_main_wrapper {
+  flex-direction: column;
 }
 
 .sign-in-page .input__wrapper {
@@ -68,19 +100,14 @@
   font-weight: 600;
   color: #323f47;
   text-align: left;
+  margin-top: 16px;
   margin-bottom: 8px;
 }
-.input-password {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
 
-input[type="password"]::-ms-reveal {
-  display: none;
-}
+/* -------------------input field------------- */
 
 .sign-in-page .input__field {
+  position: relative;
   border: 1px solid rgba(47, 47, 47, 0.2);
   border-radius: 15px;
   width: 100%;
@@ -102,25 +129,33 @@ input[type="password"]::-ms-reveal {
   color: #ef5050;
 }
 
+.input-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* --------------input icon------------- */
+
 .sign-in-page .input__icon {
   position: absolute;
   right: 16px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  /* fill: #ccc;
-  transition: fill 0.3s ease; */
   stroke-width: 1.8px;
   stroke: #2f2f2f;
   fill: none;
   width: 20px;
   height: 20px;
 }
+
 .input__icon:hover,
 .input__icon:focus,
 .input__icon.active {
   color: #000;
 }
+
 .input__icon:focus {
   outline: none;
 }
@@ -132,6 +167,8 @@ input[type="password"]::-ms-reveal {
   text-align: left;
 }
 
+/* ---------------BUTTON----------------- */
+
 .sign-in-page .submit-button {
   width: 100%;
   padding: 16px;
@@ -142,17 +179,17 @@ input[type="password"]::-ms-reveal {
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s;
+  margin-top: 32px;
   margin-bottom: 16px;
 }
 
-.sign-in-page .submit-button:hover {
-  background-color: #87d28d;
-}
 .sign-in-page .submit-button:hover,
 .sign-in-page .submit-button:focus {
   background-color: #87d28d;
   cursor: pointer;
 }
+
+/* ---------TEXT LINK------------- */
 
 .sign-in-page .text-link {
   font-size: 16px;
@@ -170,46 +207,163 @@ input[type="password"]::-ms-reveal {
 .sign-in-page .text-link a:hover {
   text-decoration: none;
 }
-.sign-up-link {
-  font-weight: 700;
-  text-decoration: underline;
+
+.sign-in-page .sign-up-link {
+  text-decoration: none;
   color: #2f2f2f;
 }
-.sign-up-link:hover {
+
+.sign-up-link:focus {
   text-decoration: none;
 }
 
-@media screen and (min-width: 768px) {
+.advantages-section {
+  position: relative;
+}
+
+.userCount {
+  position: absolute;
+  top: 537px;
+  left: 45%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.advantages-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ------------------Планшет------------------ */
+
+@media screen and (min-width: 768px) and (max-width: 1439px) {
   .sign-in-page {
-    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
+
+  .container {
+    min-width: 704px;
+  }
+
   .sign-in-page .logo {
-    font-size: 24px;
     top: 32px;
     left: 32px;
   }
-}
 
-@media screen and (min-width: 1440px) {
-  .sign-in-page {
+  .form-wrapper {
+    width: 436px;
+    height: 506px;
     padding: 32px;
-    max-width: 1440px;
-    margin: 0 auto;
+    height: calc(100vh - 64px);
+    min-height: 736px;
   }
-  .sign-in-page .logo {
+
+  .input_main_wrapper {
+    width: 100%;
+  }
+
+  .sign-in-page .form-title {
     font-size: 36px;
+    line-height: 1.05556;
   }
 
   .input__wrapper label {
-    font-size: 16px;
-    line-height: 1.5;
+    margin-top: 20px;
   }
 }
-.toast-error {
-  background-color: #ef5050;
-  color: #ffffff;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 14px;
-  font-weight: 500;
+
+/* ------------------------Десктоп----------------- */
+
+@media screen and (min-width: 1440px) {
+  .container {
+    flex-direction: row;
+    gap: 32px;
+    min-width: 1440px;
+    height: 100%;
+  }
+
+  .sign-in-page .logo {
+    font-size: 24px;
+    top: 32px;
+    left: 33px;
+  }
+  .advantages-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .advantagesList {
+    position: absolute;
+    right: 16px;
+    bottom: 32px;
+    width: 100%;
+
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .advantagesHabit,
+  .advantagesStatistics,
+  .advantagesSetting {
+    padding: 9px 12px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 8px;
+    line-height: 100%;
+  }
+
+  .advantagesHabit {
+    background-color: var(--color-font-main);
+    color: var(--white);
+    padding-left: 19px;
+    position: relative;
+  }
+
+  .advantagesHabit::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-second-bg);
+    border-radius: 50%;
+  }
+
+  .advantagesStatistics {
+    background-color: var(--color-second-bg);
+  }
+
+  .advantagesSetting {
+    background-color: var(--white);
+  }
+
+  .sign-in-page {
+    display: flex;
+    width: 1440px;
+    width: 100%;
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .sign-in-form {
+    width: 672px;
+    height: 736px;
+  }
+
+  .form-wrapper {
+    width: 436px;
+    margin-top: 130px;
+    margin-bottom: 100px;
+  }
 }

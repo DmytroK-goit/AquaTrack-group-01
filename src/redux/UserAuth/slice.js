@@ -10,6 +10,8 @@ import {
 } from "./operations";
 
 const initialState = {
+  isLoadingLogin: false,
+  isLoadingRegister: false,
   user: {
     _id: "",
     name: "",
