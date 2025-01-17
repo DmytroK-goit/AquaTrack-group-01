@@ -3,32 +3,21 @@ import { useEffect, useState } from "react";
 import { selectTotalWaterPerDay } from "../../../../../redux/Water/selectors.js";
 import { selectDailyNorma } from "../../../../../redux/UserAuth/selectors";
 import styles from "./WaterProgressBar.module.css";
-import { dayWater } from "../../../../../redux/Water/operatios.js";
 
 const WaterProgressBar = () => {
   const dispatch = useDispatch();
-  const total = useSelector(selectTotalWaterPerDay);
-  const dailyNorma = useSelector(selectDailyNorma);
 
-  const calculatePercentage = (dailyNorma, total) => {
-    if (total === 0) {
-      return 0;
-    }
-    return (total / dailyNorma) * 100;
-  };
+  const total = useSelector(selectTotalWaterPerDay) || 0;
+  const dailyNorma = useSelector(selectDailyNorma) || 1;
 
-  const progress = Math.min(
-    dailyNorma ? calculatePercentage(dailyNorma, total) : 0,
-    100
-  );
+  const progress = Math.min((total / dailyNorma) * 100, 100);
 
   const [currentProgress, setCurrentProgress] = useState({});
 
   useEffect(() => {
-    const newSliderStyle = {
+    setCurrentProgress({
       background: `linear-gradient(to right, #9BE1A0 ${progress}%, #f0eff4 ${progress}%)`,
-    };
-    setCurrentProgress(newSliderStyle);
+    });
   }, [progress]);
 
   const getLeftPosition = (progress) => {
@@ -46,6 +35,7 @@ const WaterProgressBar = () => {
       <h2 className={styles.sliderTitle}>
         <span>Water consumption</span>
       </h2>
+
       <div className={styles.sliderWrapper}>
         <div className={styles.sliderProgressWrapper}>
           <input
@@ -71,28 +61,27 @@ const WaterProgressBar = () => {
           <span
             className={styles.sliderNumbers}
             style={{
-              visibility:
-                progress === 0 || progress > 15 ? "visible" : "hidden",
+              visibility: progress > 15 ? "visible" : "hidden",
             }}
           >
             0%
           </span>
+
           <span
             className={styles.sliderNumbers}
             style={{
               visibility:
-                progress > 40 && progress <= 60
-                  ? "hidden"
-                  : progress >= 65
-                  ? "visible"
-                  : "visible",
+                progress > 40 && progress <= 60 ? "hidden" : "visible",
             }}
           >
             50%
           </span>
+
           <span
             className={styles.sliderNumbers}
-            style={{ visibility: progress >= 83 ? "hidden" : "visible" }}
+            style={{
+              visibility: progress >= 83 ? "hidden" : "visible",
+            }}
           >
             100%
           </span>
