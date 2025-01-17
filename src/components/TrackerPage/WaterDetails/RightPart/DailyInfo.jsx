@@ -1,17 +1,30 @@
+import { useState } from "react";
 import s from "../RightPart/DailyInfo.module.css";
+import AddWaterModal from "../../modal/AddWaterModal";
 
 const DailyInfo = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
   return (
     <div className={s.container}>
       <div className={s.qwe}>
         <h2 className={s.header}>Today</h2>
 
-        <button className={s.btn}>
+        <button onClick={openModal} className={s.btn}>
           <svg className={s.iconPlus}>
             <use href="icons.svg#icon-plus"></use>
           </svg>
           Add Water
         </button>
+        <AddWaterModal openModal={modalIsOpen} closeModal={closeModal} />
       </div>
       <ul className={s.scrollContainer}>
         <li className={s.item}>
