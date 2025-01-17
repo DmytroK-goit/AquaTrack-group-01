@@ -218,6 +218,9 @@
   position: relative;
   z-index: 1;
 }
+.sign-up-page .advantages-container {
+  display: none;
+}
 
 /* ------------------Планшет------------------ */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
@@ -285,5 +288,8 @@
     width: 436px;
     margin-top: 130px;
     margin-bottom: 100px;
+  }
+  .sign-up-page .advantages-container {
+    display: block;
   }
 }
