@@ -120,6 +120,8 @@ export const updateUser = createAsyncThunk(
       }
       setAuthHeader(token);
       const { data } = await aquaTrack.patch("users/update", updateData);
+      const date = new Date().toISOString().split("T")[0];
+      await thunkApi.dispatch(dayWater(date));
       toast.success(`User updated ${data.data.name}`);
       await thunkApi.dispatch(currentUser());
       return data;
