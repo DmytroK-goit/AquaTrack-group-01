@@ -1,5 +1,5 @@
 .container {
-  width: 100%;
+  min-width: 343px;
   margin: 0 auto;
   height: auto;
 }
@@ -18,7 +18,6 @@
   justify-content: center;
   background-color: #f7f9fc;
   border-radius: 30px;
-  margin-bottom: 16px;
 }
 
 .toaster-container {
@@ -218,6 +217,9 @@
   position: relative;
   z-index: 1;
 }
+.sign-up-page .advantages-container {
+  display: none;
+}
 
 /* ------------------Планшет------------------ */
 @media screen and (min-width: 768px) and (max-width: 1439px) {
@@ -285,5 +287,8 @@
     width: 436px;
     margin-top: 130px;
     margin-bottom: 100px;
+  }
+  .sign-up-page .advantages-container {
+    display: block;
   }
 }
