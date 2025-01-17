@@ -42,11 +42,7 @@ const SignInForm = () => {
   }, []);
 
   useEffect(() => {
-    console.log("Loading started");
-    setTimeout(() => {
-      console.log("Loading finished");
-      setIsLoading(false);
-    }, 3000); // Імітація тривалого запиту
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
