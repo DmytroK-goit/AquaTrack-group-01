@@ -5,13 +5,15 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/UserAuth/operations";
-import { selectIsLoading } from "../redux/UserAuth/selectors"; // Додайте цей імпорт
+import { selectIsLoading } from "../redux/UserAuth/selectors";
+import { selectUserCount } from "../redux/UserAuth/selectors.js";
+import UserCount from "../components/UserCount/UserCount.jsx";
 import css from "./SignInPage.module.css";
 import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AdvantagesSection from "../components/HomePage/HomePageComponents/AdvantagesSection.jsx";
-import LoaderComponent from "../components/LoaderComponent/LoaderComponent.jsx"; // Додайте цей імпорт
+import LoaderComponent from "../components/LoaderComponent/LoaderComponent.jsx";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -22,8 +24,10 @@ const SignInForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const isLoading = useSelector(selectIsLoading); // Отримуємо значення isLoading
+  const [isLoading, setIsLoading] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [isPageLoaded, setIsPageLoaded] = useState(false);
+  const userCount = useSelector(selectUserCount);
 
   const {
     register,
@@ -32,6 +36,18 @@ const SignInForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  useEffect(() => {
+    setIsPageLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    console.log("Loading started");
+    setTimeout(() => {
+      console.log("Loading finished");
+      setIsLoading(false);
+    }, 3000); // Імітація тривалого запиту
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -67,85 +83,107 @@ const SignInForm = () => {
     navigate("/");
   };
 
+  if (!isPageLoaded || isLoading) {
+    return <LoaderComponent />;
+  }
   return (
-    <section className={css["sign-in-page"]}>
-      <ToastContainer />
-      <div className={css["logo"]} onClick={handleLogoClick} tabIndex="0">
-        <Logo />
-      </div>
-      <div className={css["content-wrapper"]}>
+    <section className={css["container"]}>
+      <div className={css["sign-in-page"]}>
+        <ToastContainer className={css["toaster-container"]} />
+
         <form className={css["sign-in-form"]} onSubmit={handleSubmit(onSubmit)}>
-          <h2 className={css["form-title"]}>Sign In</h2>
-          <div className={css["input_main_wrapper"]}>
-            <div className={css["input__wrapper"]}>
-              <label>Email</label>
-              <input
-                id="email"
-                type="email"
-                className={`${css["input__field"]} ${
-                  errors.email ? css["input__field--error"] : ""
-                }`}
-                placeholder="Enter your email"
-                {...register("email")}
-                tabIndex="1"
-              />
-              {errors.email && (
-                <p className={css["error-text"]}>{errors.email.message}</p>
-              )}
+          <div className={css["logo"]} onClick={handleLogoClick} tabIndex="0">
+            <Logo />
+          </div>
+          <div className={css["form-wrapper"]}>
+            <h2 className={css["form-title"]}>Sign In</h2>
+            <div className={css["input_main_wrapper"]}>
+              <div className={css["input__wrapper"]}>
+                <label>Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  className={`${css["input__field"]} ${
+                    errors.email ? css["input__field--error"] : ""
+                  }`}
+                  placeholder="Enter your email"
+                  {...register("email")}
+                  tabIndex="1"
+                />
+                {errors.email && (
+                  <p className={css["error-text"]}>{errors.email.message}</p>
+                )}
+              </div>
+
+              <div className={css["input__wrapper"]}>
+                <label>Password</label>
+                <div className={css["input-password"]}>
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    className={`${css["input__field"]} ${
+                      errors.password ? css["input__field--error"] : ""
+                    }`}
+                    placeholder="Enter your password"
+                    {...register("password")}
+                    autoComplete="current-password"
+                    tabIndex="2"
+                  />
+                  <svg
+                    className={`${css["input__icon"]} ${
+                      showPassword ? css["active"] : ""
+                    }`}
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
+                    role="button"
+                    tabIndex="0"
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        setShowPassword(!showPassword);
+                      }
+                    }}
+                  >
+                    <use
+                      href={`/icons.svg#$
+                    {showPassword ? "icon-eye-off" : "icon-eye"}`}
+                    />
+                  </svg>
+                </div>
+                {errors.password && (
+                  <p className={css["error-text"]}>{errors.password.message}</p>
+                )}
+              </div>
             </div>
 
-            <div className={css["input__wrapper"]}>
-              <label>Password</label>
-              <div className={css["input-password"]}>
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  className={`${css["input__field"]} ${
-                    errors.password ? css["input__field--error"] : ""
-                  }`}
-                  placeholder="Enter your password"
-                  {...register("password")}
-                  autoComplete="current-password"
-                  tabIndex="2"
-                />
-                <svg
-                  className={`${css["input__icon"]} ${
-                    showPassword ? css["active"] : ""
-                  }`}
-                  onClick={() => setShowPassword(!showPassword)}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  role="button"
-                  tabIndex="0"
-                  onKeyPress={(e) => {
-                    if (e.key === "Enter" || e.key === " ")
-                      setShowPassword(!showPassword);
-                  }}
-                >
-                  <use
-                    href={`/icons.svg#${
-                      showPassword ? "icon-eye-off" : "icon-eye"
-                    }`}
-                  />
-                </svg>
-              </div>
-              {errors.password && (
-                <p className={css["error-text"]}>{errors.password.message}</p>
-              )}
-            </div>
+            <button type="submit" className={css["submit-button"]} tabIndex="3">
+              Sign In
+            </button>
+
+            <p className={css["text-link"]}>
+              Don’t have an account?{" "}
+              <a href="/signup" className={css["sign-up-link"]} tabIndex="4">
+                Sign Up
+              </a>
+            </p>
+          </div>
+        </form>
+
+        <div className={css["advantages-section"]}>
+          <div className={css["userCount"]}>
+            <UserCount />
           </div>
 
-          <button type="submit" className={css["submit-button"]} tabIndex="3">
-            {isLoading ? <LoaderComponent height={44} width={44} /> : "Sign In"}
-          </button>
-
-          <p className={css["text-link"]}>
-            Don’t have an account?{" "}
-            <a href="/signup" className={css["sign-up-link"]} tabIndex="4">
-              Sign Up
-            </a>
-          </p>
-        </form>
-        <AdvantagesSection className={css["advantages-section"]} />
+          <div className={css["advantages-container"]}>
+            <AdvantagesSection />
+            <ul className={css.advantagesList}>
+              <li className={css.advantagesHabit}></li>
+              <li className={css.advantagesStatistics}></li>
+              <li className={css.advantagesSetting}></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   );

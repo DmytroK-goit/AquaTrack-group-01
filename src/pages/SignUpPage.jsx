@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserCount } from "../redux/UserAuth/selectors.js";
+import UserCount from "../components/UserCount/UserCount.jsx";
 import { registerUser } from "../redux/UserAuth/operations";
 import css from "./SignUpPage.module.css";
 import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
@@ -36,7 +38,7 @@ const SignUpForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  const userCount = useSelector(selectUserCount);
   useEffect(() => {
     const form = document.querySelector("form");
     const focusableElements = form.querySelectorAll(
@@ -212,7 +214,18 @@ const SignUpForm = () => {
         </form>
 
         <div className={css["advantages-section"]}>
-          <AdvantagesSection />
+          <div className={css["userCount"]}>
+            <UserCount />
+          </div>
+
+          <div className={css["advantages-container"]}>
+            <AdvantagesSection />
+            <ul className={css.advantagesList}>
+              <li className={css.advantagesHabit}></li>
+              <li className={css.advantagesStatistics}></li>
+              <li className={css.advantagesSetting}></li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
