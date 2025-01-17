@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import Modal from "react-modal";
 import css from "./AddWaterBtn.module.css";
 
-export const AddWaterBtn = ({ isOpen, onClose }) => {
-  
-  const [count, setCount] = useState(50);
-  const [time, setTime] = useState(new Date().toLocaleTimeString("ua-UA", { hour: "2-digit", minute: "2-digit", timeZone: "UTC", }));
-      
+export const AddWaterBtn = ({ isOpen, onClose, onSave }) => {
+  const [state, setState] = useState( {
+    count: 50,
+    time: new Date().toLocaleTimeString("ua-UA", { hour: "2-digit", minute: "2-digit", timeZone: "UTC", }),
+    })   
   function increment() {
-    if (count < 5000) { 
-      setCount(count + 50)};
+    if (state.count < 5000) { 
+      setState({ ...state, count: state.count + 50 })};
   }
   function decrement() {
-      if (count > 50) { 
-      setCount(count - 50)};
+      if (state.count > 50) { 
+      setState({ ...state, count: state.count - 50 })};
   }
   const change = event => {
-    setTime(event.target.value)
+    setState({...state, time: event.target.value})
   } 
   return (
     <Modal
@@ -32,15 +32,15 @@ export const AddWaterBtn = ({ isOpen, onClose }) => {
         <p className={css.amount}>Amount of water</p>
         <div className={css.countsum} > 
         <button className={css.incrbut}  onClick={increment} >+</button>
-        <span className={css.incrcount}>{count} ml</span>
+        <span className={css.incrcount}>{state.count} ml</span>
         <button className={css.incrbut} onClick={decrement} >-</button>
         </div>
         <p className={css.recording}>Recording time</p>
-        <input className={css.inputtime} onChange={change} type="string" value={time} />
+        <input className={css.inputtime} onChange={change} type="string" value={state.time} />
         
         <p className={css.enter}>Enter the value of the water used:</p>
-        <input className={css.inputtime}  type="string" value={count} />
-        <button className={css.btnsave} onClick={()=>onClose()}>Save</button>
+        <input className={css.inputtime}  type="string" value={state.count} />
+        <button className={css.btnsave} onClick={()=>onSave(state)}>Save</button>
     </Modal>
 )
 }
