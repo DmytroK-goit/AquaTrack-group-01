@@ -10,8 +10,8 @@ import {
 const initialState = {
   itemsDay: [],
   itemsMonth: [],
-  totalWaterPerDay: "",
-  waterPercentage: "",
+  totalWaterPerDay: 0,
+  waterPercentage: 0,
   isLoading: false,
   error: null,
 };
@@ -22,6 +22,7 @@ const slice = createSlice({
   reducers: {
     resetWaterState: () => initialState,
   },
+
   extraReducers: (builder) => {
     builder
       .addCase(addWater.fulfilled, (state, action) => {
