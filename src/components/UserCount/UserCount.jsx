@@ -6,7 +6,7 @@ import styles from "./UserCount.module.css";
 import { selectUserCount } from "../../redux/UserAuth/selectors";
 
 const UserCount = () => {
-  const [userCount, setUserCount] = useState();
+  const [userCount, setUserCount] = useState(null);
 
   useEffect(() => {
     async function getCount() {
@@ -19,7 +19,7 @@ const UserCount = () => {
     }
 
     getCount();
-  });
+  }, []);
 
   return (
     <div className={styles.userCountComponent}>
@@ -34,7 +34,6 @@ const UserCount = () => {
           <img src={usercount3} alt="user" />
         </li>
       </ul>
-
       <p className={styles.userCountText}>
         Our <span className={styles.highlight}>happy</span> {userCount}{" "}
         customers

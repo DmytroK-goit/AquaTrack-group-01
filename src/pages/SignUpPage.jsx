@@ -206,7 +206,7 @@ const SignUpForm = () => {
             </button>
             <p className={css["text-link"]}>
               Already have an account?{" "}
-              <a href="/signin" className={css["sign-in-link"]}>
+              <a href="/signin" className={css["sign-up-link"]}>
                 Sign In
               </a>
             </p>
@@ -214,17 +214,17 @@ const SignUpForm = () => {
         </form>
 
         <div className={css["advantages-section"]}>
-          <div className={css["userCount"]}>
+          {/* <div className={css["userCount"]}>
             <UserCount />
-          </div>
+          </div> */}
 
           <div className={css["advantages-container"]}>
             <AdvantagesSection />
-            <ul className={css.advantagesList}>
+            {/* <ul className={css.advantagesList}>
               <li className={css.advantagesHabit}></li>
               <li className={css.advantagesStatistics}></li>
               <li className={css.advantagesSetting}></li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </div>
