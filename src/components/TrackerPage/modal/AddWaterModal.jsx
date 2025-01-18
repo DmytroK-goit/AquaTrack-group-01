@@ -48,8 +48,8 @@ export default function AddWaterModal({ openModal, closeModal }) {
       onRequestClose={closeModal}
       ariaHideApp={false}
     >    
-      <buttom className={css.mclose} onClick={closeModal}> X    
-      </buttom>
+      <button className={css.mclose} onClick={closeModal}> X    
+      </button>
       <h2 className={css.water}>Add water</h2>
       <p className={css.choose}>Choose a value</p>
       <p className={css.amount}>Amount of water</p>
