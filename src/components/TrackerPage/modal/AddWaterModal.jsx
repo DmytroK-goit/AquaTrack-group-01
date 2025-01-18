@@ -2,6 +2,7 @@ import Modal from "react-modal";
 import css from "../../TrackerPage/modal/AddWaterModal.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { addWater } from "../../../redux/Water/operatios";
 
 Modal.setAppElement("#root");
 
@@ -15,7 +16,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
     }),
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   function increment() {
     if (water.count < 5000) {
       setWater({ ...water, count: water.count + 50 });
@@ -32,13 +33,12 @@ export default function AddWaterModal({ openModal, closeModal }) {
 
   const date = new Date().toISOString().split("T")[0];
   const dateHours = `${date}T${water.time}`;
-   
+
   const handleSave = () => {
-    const data = {date: dateHours, volume: water.count, };
+    const data = { date: dateHours, volume: water.count };
     dispatch(addWater(data));
   };
-  console.log({date});
-  
+
   return (
     <Modal
       isOpen={openModal}
@@ -47,8 +47,10 @@ export default function AddWaterModal({ openModal, closeModal }) {
       closeTimeoutMS={300}
       onRequestClose={closeModal}
       ariaHideApp={false}
-    >    
-      <button className={css.mclose} onClick={closeModal}> X    
+    >
+      <button className={css.mclose} onClick={closeModal}>
+        {" "}
+        X
       </button>
       <h2 className={css.water}>Add water</h2>
       <p className={css.choose}>Choose a value</p>
