@@ -58,7 +58,9 @@ export const dayWater = createAsyncThunk("dayWater", async (date, thunkApi) => {
     console.log(data);
     return data;
   } catch (error) {
-    toast.error(error.message);
+    if (error.response?.status === 404) {
+      toast.error(`No water data available for ${date}.`);
+    }
     return thunkApi.rejectWithValue(error.message);
   }
 });
