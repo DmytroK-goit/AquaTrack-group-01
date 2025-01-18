@@ -53,8 +53,8 @@ const DailyInfo = () => {
         <AddWaterModal openModal={modalIsOpen} closeModal={closeModal} />
       </div>
       <ul className={s.scrollContainer}>
-        {dayWater.map((item, index) => (
-          <li key={index} className={s.item}>
+        {dayWater.map((item) => (
+          <li key={item._id} className={s.item}>
             <svg className={s.icon}>
               <use href="icons.svg#icon-CupPhone"></use>
             </svg>
@@ -74,7 +74,7 @@ const DailyInfo = () => {
                 isOpen={modalEditIsOpen}
                 onClose={closeEditModal}
               />
-              <button onClick={() => openDeleteModal(index)}>
+              <button onClick={() => openDeleteModal(item._id)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-dell"></use>
                 </svg>
