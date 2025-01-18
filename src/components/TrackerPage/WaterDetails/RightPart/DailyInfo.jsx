@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
-import { selectDayWater } from "../../../../redux/Water/selectors"; // Убедитесь, что путь к селектору верный
+import { selectDayWater } from "../../../../redux/Water/selectors";
 import s from "../RightPart/DailyInfo.module.css";
 import AddWaterModal from "../../modal/AddWaterModal";
 import { EditWaterModal } from "../../modal/EditDrinkedWater";
+import DeleteWaterModal from "../../modal/DeleteWaterModal/DeleteWaterModal";
 import { useState } from "react";
 
 const DailyInfo = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalEditIsOpen, setEditIsOpen] = useState(false);
-  const dayWater = useSelector(selectDayWater); // Получение данных из селектора
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const dayWater = useSelector(selectDayWater);
 
   function openModal() {
     setIsOpen(true);
@@ -24,6 +27,16 @@ const DailyInfo = () => {
 
   function closeEditModal() {
     setEditIsOpen(false);
+  }
+
+  function openDeleteModal(id) {
+    setSelectedId(id);
+    setDeleteModalIsOpen(true);
+  }
+
+  function closeDeleteModal() {
+    setDeleteModalIsOpen(false);
+    setSelectedId(null);
   }
 
   return (
@@ -61,7 +74,7 @@ const DailyInfo = () => {
                 isOpen={modalEditIsOpen}
                 onClose={closeEditModal}
               />
-              <button>
+              <button onClick={() => openDeleteModal(index)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-dell"></use>
                 </svg>
@@ -70,6 +83,9 @@ const DailyInfo = () => {
           </li>
         ))}
       </ul>
+      {deleteModalIsOpen && (
+        <DeleteWaterModal closeModal={closeDeleteModal} _id={selectedId} />
+      )}
     </div>
   );
 };
