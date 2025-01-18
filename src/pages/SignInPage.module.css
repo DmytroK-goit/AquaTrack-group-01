@@ -29,6 +29,8 @@
   width: calc(100vw - 32px);
   padding: 16px;
   z-index: 1000;
+  width: auto;
+  display: block;
 }
 
 .Toastify__toast-icon {
@@ -50,14 +52,14 @@
   text-transform: uppercase;
   text-align: center;
   color: #323f47;
+  cursor: pointer;
 }
 
 .sign-in-page .logo:focus {
   outline: none;
   transform: scale(1.05);
-  transition: transform 0.2s ease;
+  color: #000;
 }
-
 .sign-in-page .logo:hover {
   transform: scale(1.05);
   transition: transform 0.2s ease;
@@ -209,6 +211,7 @@
 .sign-in-page .sign-up-link {
   text-decoration: none;
   color: #2f2f2f;
+  cursor: pointer;
 }
 
 .sign-up-link:focus {

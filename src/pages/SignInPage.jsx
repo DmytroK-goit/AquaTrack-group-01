@@ -142,8 +142,9 @@ const SignInForm = () => {
                     }}
                   >
                     <use
-                      href={`/icons.svg#$
-                    {showPassword ? "icon-eye-off" : "icon-eye"}`}
+                      href={`/icons.svg#${
+                        showPassword ? "icon-eye" : "icon-eye-off"
+                      }`}
                     />
                   </svg>
                 </div>

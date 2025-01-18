@@ -206,7 +206,7 @@ const SignUpForm = () => {
             </button>
             <p className={css["text-link"]}>
               Already have an account?{" "}
-              <a href="/signin" className={css["sign-in-link"]}>
+              <a href="/signin" className={css["sign-up-link"]}>
                 Sign In
               </a>
             </p>
