@@ -28,14 +28,20 @@ export const EditWaterModal = ({ isOpen, onClose, data, onSave }) => {
           closeTimeoutMS={300}
           onRequestClose={()=>onClose()}
           ariaHideApp={false} >
-          <buttom className={css.mclose} onClick={()=>onClose()}>X</buttom>
+            <buttom className={css.mclose} onClick={() => onClose()}>
+                X
+            </buttom>
           <h2 className={css.water} >Edit the entered amount of water</h2>
           <p className={css.choose} >Correct entered data</p>
           <p className={css.amount}>Amount of water</p>
           <div className={css.countsum} > 
-          <button className={css.incrbut}  onClick={increment} >+</button>
+                <button className={css.incrbut} onClick={increment} >
+                    +
+                </button>
           <span className={css.incrcount}>{state.count} ml</span>
-          <button className={css.incrbut} onClick={decrement} >-</button>
+                <button className={css.incrbut} onClick={decrement} >
+                    -
+                </button>
           </div>
           <p className={css.recording}>Recording time</p>
           <input className={css.inputtime} onChange={change} type="string" value={state.time} />

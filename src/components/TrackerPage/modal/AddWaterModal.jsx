@@ -1,11 +1,12 @@
 import Modal from "react-modal";
 import css from "../../TrackerPage/modal/AddWaterModal.module.css";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 Modal.setAppElement("#root");
 
 export default function AddWaterModal({ openModal, closeModal }) {
-  const [state, setState] = useState({
+  const [water, setWater] = useState({
     count: 50,
     time: new Date().toLocaleTimeString("ua-UA", {
       hour: "2-digit",
@@ -13,19 +14,31 @@ export default function AddWaterModal({ openModal, closeModal }) {
       timeZone: "UTC",
     }),
   });
+
+  const dispatch = useDispatch()
   function increment() {
-    if (state.count < 5000) {
-      setState({ ...state, count: state.count + 50 });
+    if (water.count < 5000) {
+      setWater({ ...water, count: water.count + 50 });
     }
   }
   function decrement() {
-    if (state.count > 50) {
-      setState({ ...state, count: state.count - 50 });
+    if (water.count > 50) {
+      setWater({ ...water, count: water.count - 50 });
     }
   }
   const change = (event) => {
-    setState({ ...state, time: event.target.value });
+    setWater({ ...water, time: event.target.value });
   };
+
+  const date = new Date().toISOString().split("T")[0];
+  const dateHours = `${date}T${water.time}`;
+   
+  const handleSave = () => {
+    const data = {date: dateHours, volume: water.count, };
+    dispatch(addWater(data));
+  };
+  console.log({date});
+  
   return (
     <Modal
       isOpen={openModal}
@@ -34,9 +47,8 @@ export default function AddWaterModal({ openModal, closeModal }) {
       closeTimeoutMS={300}
       onRequestClose={closeModal}
       ariaHideApp={false}
-    >
-      <buttom className={css.mclose} onClick={closeModal}>
-        X
+    >    
+      <buttom className={css.mclose} onClick={closeModal}> X    
       </buttom>
       <h2 className={css.water}>Add water</h2>
       <p className={css.choose}>Choose a value</p>
@@ -45,7 +57,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
         <button className={css.incrbut} onClick={increment}>
           +
         </button>
-        <span className={css.incrcount}>{state.count} ml</span>
+        <span className={css.incrcount}>{water.count} ml</span>
         <button className={css.incrbut} onClick={decrement}>
           -
         </button>
@@ -55,12 +67,12 @@ export default function AddWaterModal({ openModal, closeModal }) {
         className={css.inputtime}
         onChange={change}
         type="string"
-        value={state.time}
+        value={water.time}
       />
 
       <p className={css.enter}>Enter the value of the water used:</p>
-      <input className={css.inputtime} type="string" value={state.count} />
-      <button className={css.btnsave} onClick={() => onSave(state)}>
+      <input className={css.inputtime} type="string" value={water.count} />
+      <button className={css.btnsave} onClick={handleSave}>
         Save
       </button>
     </Modal>
