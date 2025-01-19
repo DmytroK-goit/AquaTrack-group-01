@@ -3,10 +3,13 @@ import css from "../../TrackerPage/modal/AddWaterModal.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addWater } from "../../../redux/Water/operatios";
+import * as Yup from "yup";
 
 Modal.setAppElement("#root");
 
+
 export default function AddWaterModal({ openModal, closeModal }) {
+
   const [water, setWater] = useState({
     count: 50,
     time: new Date().toLocaleTimeString("ua-UA", {
@@ -17,6 +20,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
   });
 
   const dispatch = useDispatch();
+
   function increment() {
     if (water.count < 5000) {
       setWater({ ...water, count: water.count + 50 });
@@ -36,8 +40,13 @@ export default function AddWaterModal({ openModal, closeModal }) {
 
   const handleSave = () => {
     const data = { date: dateHours, volume: water.count };
-    dispatch(addWater(data));
+    dispatch(addWater(data));    
   };
+  
+  const orderSchema = Yup.object().shape({
+    count: Yup.number(),
+    time: Yup.string().max(5),
+  })
 
   return (
     <Modal
@@ -69,14 +78,21 @@ export default function AddWaterModal({ openModal, closeModal }) {
         className={css.inputtime}
         onChange={change}
         type="string"
+        validationSchema={orderSchema}
         value={water.time}
       />
 
       <p className={css.enter}>Enter the value of the water used:</p>
-      <input className={css.inputtime} type="string" value={water.count} />
-      <button className={css.btnsave} onClick={handleSave}>
+      <input className={css.inputtime}
+        type="string" 
+        validationSchema={orderSchema}
+        value={water.count} />
+      <button className={css.btnsave} onClick={handleSave} >
         Save
       </button>
     </Modal>
   );
-}
+};
+
+
+
