@@ -73,6 +73,11 @@ const MonthInfo = () => {
     setShowShedule(!showSchedule);
   };
 
+  const handleDateClick = (date) => {
+    const formattedDate = date.toISOString().split("T")[0];
+    dispatch(dayWater(formattedDate)); // Виклик dayWater з вибраною датою
+  };
+
   return (
     <>
       <div className={s.month_info}>
@@ -101,7 +106,7 @@ const MonthInfo = () => {
               const waterAmount = waterMap[formattedDate] || 0;
 
               return (
-                <a key={index}>
+                <a key={index} onClick={() => handleDateClick(date)}>
                   <div className={s.date_block}>
                     <p
                       className={`${s.calendar_date} ${getButtonClass(
@@ -127,7 +132,3 @@ const MonthInfo = () => {
   );
 };
 export default MonthInfo;
-
-//  className={`${
-//                         formattedDate === today ? s.calendar_date_today : ""
-//                       }`}
