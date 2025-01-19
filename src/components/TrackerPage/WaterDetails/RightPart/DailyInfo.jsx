@@ -5,11 +5,12 @@ import AddWaterModal from "../../modal/AddWaterModal";
 import { EditWaterModal } from "../../modal/EditDrinkedWater";
 import DeleteWaterModal from "../../modal/DeleteWaterModal/DeleteWaterModal";
 import { useState } from "react";
+import Modal from "../../modal/Modal/Modal";
 
 const DailyInfo = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [modalEditIsOpen, setEditIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const dayWater = useSelector(selectDayWater);
 
@@ -29,13 +30,13 @@ const DailyInfo = () => {
     setEditIsOpen(false);
   }
 
-  function openDeleteModal(id) {
+  function handleDelete(id) {
     setSelectedId(id);
-    setDeleteModalIsOpen(true);
+    setIsDeleteModalOpen(true);
   }
 
-  function closeDeleteModal() {
-    setDeleteModalIsOpen(false);
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false);
     setSelectedId(null);
   }
 
@@ -74,7 +75,7 @@ const DailyInfo = () => {
                 isOpen={modalEditIsOpen}
                 onClose={closeEditModal}
               /> */}
-              <button onClick={() => openDeleteModal(item._id)}>
+              <button onClick={() => handleDelete(item._id)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-dell"></use>
                 </svg>
@@ -83,9 +84,12 @@ const DailyInfo = () => {
           </li>
         ))}
       </ul>
-      {deleteModalIsOpen && (
-        <DeleteWaterModal closeModal={closeDeleteModal} _id={selectedId} />
-      )}
+      <Modal isOpen={isDeleteModalOpen} onClose={handleCloseDeleteModal}>
+        <DeleteWaterModal
+          closeModal={handleCloseDeleteModal}
+          waterId={selectedId}
+        />
+      </Modal>
     </div>
   );
 };
