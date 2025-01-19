@@ -42,7 +42,8 @@ export const delWater = createAsyncThunk("delWater", async (_id, thunkApi) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     toast.success("Water Deleted");
-    console.log(data);
+    const date = new Date().toISOString().split("T")[0];
+    await thunkApi.dispatch(dayWater(date));
     return _id;
   } catch (error) {
     toast.error(error.message);
