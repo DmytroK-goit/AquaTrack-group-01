@@ -2,13 +2,12 @@ import { useSelector } from "react-redux";
 import { selectDayWater } from "../../../../redux/Water/selectors";
 import s from "../RightPart/DailyInfo.module.css";
 import AddWaterModal from "../../modal/AddWaterModal";
-import { EditWaterModal } from "../../modal/EditDrinkedWater";
 import DeleteWaterModal from "../../modal/DeleteWaterModal/DeleteWaterModal";
 import { useState } from "react";
+import { EditWaterModal } from "../../modal/EditDrinkedWater";
 
 const DailyInfo = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [modalEditIsOpen, setEditIsOpen] = useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const dayWater = useSelector(selectDayWater);
@@ -21,23 +20,25 @@ const DailyInfo = () => {
     setIsOpen(false);
   }
 
-  function openEditModal() {
-    setEditIsOpen(true);
-  }
-
-  function closeEditModal() {
-    setEditIsOpen(false);
-  }
-
   function openDeleteModal(id) {
     setSelectedId(id);
     setDeleteModalIsOpen(true);
+    setSelectedId(null);
   }
 
   function closeDeleteModal() {
     setDeleteModalIsOpen(false);
     setSelectedId(null);
   }
+
+  const openEditModal = (id) => {
+    setDeleteModalIsOpen(false);
+    setSelectedId(id);
+  };
+
+  const closeEditModal = () => {
+    setSelectedId(null);
+  };
 
   return (
     <div className={s.container}>
@@ -65,15 +66,18 @@ const DailyInfo = () => {
               </p>
             </div>
             <div className={s.change}>
-              <button onClick={openEditModal}>
+              <button onClick={() => openEditModal(item._id)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-edit"></use>
                 </svg>
               </button>
-              {/* <EditWaterModal
-                isOpen={modalEditIsOpen}
-                onClose={closeEditModal}
-              /> */}
+              {selectedId === item._id && (
+                <EditWaterModal
+                  isOpen={selectedId === item._id}
+                  onClose={closeEditModal}
+                  data={item}
+                />
+              )}
               <button onClick={() => openDeleteModal(item._id)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-dell"></use>
