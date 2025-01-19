@@ -71,9 +71,16 @@ const MonthInfo = () => {
     setShowShedule(!showSchedule);
   };
 
+  const handleBackendDate = (dateString) => {
+    const date = new Date(dateString);
+    const localDate = new Date(
+      date.getTime() - date.getTimezoneOffset() * 60000
+    );
+    return localDate.toISOString().split("T")[0];
+  };
+
   const handleDateClick = (date) => {
-    const formattedDate = date.toISOString().split("T")[0];
-    console.log("Selected date:", formattedDate);
+    const formattedDate = handleBackendDate(date.toISOString());
     dispatch(setSelectedDate({ data: formattedDate }));
     dispatch(dayWater(formattedDate));
   };
@@ -101,7 +108,7 @@ const MonthInfo = () => {
       {showSchedule ? (
         <div className={s.calendar}>
           {daysInMonth.map((date, index) => {
-            const formattedDate = date.toISOString().split("T")[0];
+            const formattedDate = handleBackendDate(date.toISOString());
             const waterAmount = waterMap[formattedDate] || 0;
 
             return (
