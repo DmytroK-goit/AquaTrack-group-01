@@ -1,11 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "../MonthInfo/MonthInfo.module.css";
 import Schedule from "./Schedule";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTotalWaterPerDay } from "../../../../../redux/Water/selectors";
+import { dayWater } from "../../../../../redux/Water/operatios";
 
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [showSchedule, setShowShedule] = useState(true);
-  const [percent, setPercent] = useState(0);
+  // const [percent, setPercent] = useState(0);
+  const dispatch = useDispatch();
+  const totalWater = useSelector(selectTotalWaterPerDay);
+  console.log(totalWater);
+
+  useEffect(() => {
+    dispatch(dayWater());
+  }, [dispatch]);
 
   const getButtonClass = (percent) => {
     if (percent === 0) {
@@ -82,11 +92,13 @@ const MonthInfo = () => {
               <a key={index} className={s.a}>
                 <div className={s.date_block}>
                   <p
-                    className={`${s.calendar_date} ${getButtonClass(percent)}`}
+                    className={`${s.calendar_date} ${getButtonClass(
+                      totalWater
+                    )}`}
                   >
                     {date.getDate()}
                   </p>
-                  <span>{percent}%</span>
+                  <span>{totalWater}%</span>
                 </div>
               </a>
             ))}
