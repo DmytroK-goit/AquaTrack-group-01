@@ -75,7 +75,7 @@ const MonthInfo = () => {
 
   const handleDateClick = (date) => {
     const formattedDate = date.toISOString().split("T")[0];
-    dispatch(dayWater(formattedDate)); // Виклик dayWater з вибраною датою
+    dispatch(dayWater(formattedDate));
   };
 
   return (
