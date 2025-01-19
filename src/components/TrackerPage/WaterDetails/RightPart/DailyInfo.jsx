@@ -6,6 +6,7 @@ import DeleteWaterModal from "../../modal/DeleteWaterModal/DeleteWaterModal";
 import { EditWaterModal } from "../../modal/EditDrinkedWater";
 import { useState } from "react";
 import Modal from "../../modal/Modal/Modal";
+import { selectSelectedDate } from "../../../../redux/DateSlice";
 
 const DailyInfo = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -13,6 +14,17 @@ const DailyInfo = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const dayWater = useSelector(selectDayWater);
+  const selectedDate = useSelector(selectSelectedDate);
+  const formatDateWithoutYear = (dateString) => {
+    const date = new Date(dateString);
+    const day = date.getDate(); // Число
+    const month = date.toLocaleString("en-US", { month: "long" }); // Місяць словом
+    return `${day}, ${month}`;
+  };
+
+  const today = new Date().toISOString().split("T")[0];
+  const title =
+    selectedDate === today ? "Today" : formatDateWithoutYear(selectedDate);
 
   const openAddModal = () => setModalIsOpen(true);
   const closeAddModal = () => setModalIsOpen(false);
@@ -38,7 +50,7 @@ const DailyInfo = () => {
   return (
     <div className={s.container}>
       <div className={s.qwe}>
-        <h2 className={s.header}>Today</h2>
+        <h2 className={s.header}>{title}</h2>
 
         <button onClick={openAddModal} className={s.btn}>
           <svg className={s.iconPlus}>
