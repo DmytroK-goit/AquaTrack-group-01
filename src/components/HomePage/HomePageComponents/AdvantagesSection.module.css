@@ -10,6 +10,9 @@
 }
 
 .background {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   width: 100%;
   height: 353px;
   background-size: cover;
@@ -18,6 +21,41 @@
   border-radius: 30px;
   width: 343px;
   background-image: url("../../../images/AdvantagesSection/AdvantagesSection_mobil_1x.webp");
+}
+
+.happyCustomers {
+  border-radius: 30px;
+  /* padding: 10px 14px; */
+  padding-left: 14px;
+  width: 190px;
+  height: 48px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 117%;
+  color: #2f2f2f;
+  background-color: #ffffff;
+  margin-top: 209px;
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.highlight {
+  color: #9be1a0;
+}
+.conteinerAvatar {
+  display: flex;
+  margin-right: 0;
+}
+.avatar {
+  width: 26.4px;
+  height: 28px;
+  overflow: hidden;
+  margin-left: -8px;
+  flex-shrink: 0;
+}
+.conteinerSpan {
+  margin-left: 10px;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 2),
@@ -36,6 +74,24 @@
     height: 446px;
     background-image: url("../../../images/AdvantagesSection/AdvantagesSection_tab_1x.webp");
   }
+  .happyCustomers {
+    padding-left: 20px;
+    font-size: 15px;
+    line-height: 149%;
+    margin-top: 283px;
+    margin-left: 32px;
+    width: 260px;
+    height: 67px;
+    gap: 20px;
+  }
+  .avatar {
+    width: 47px;
+    height: 47px;
+    margin-left: -15px;
+  }
+  .conteinerSpan {
+    margin-left: 15px;
+  }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 192dpi),
@@ -52,6 +108,9 @@
     width: 672px;
     height: 736px;
     background-image: url("../../../images/AdvantagesSection/AdvantagesSection_pc_1x.webp");
+  }
+  .happyCustomers {
+    margin-top: 537px;
   }
 
   @media screen and (-webkit-min-device-pixel-ratio: 2),
