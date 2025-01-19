@@ -26,7 +26,8 @@ export const editWater = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Water updated successfully!");
-      console.log(data);
+      const date = new Date().toISOString().split("T")[0];
+      await thunkApi.dispatch(dayWater(date));
       return data;
     } catch (error) {
       toast.error(error.message);
