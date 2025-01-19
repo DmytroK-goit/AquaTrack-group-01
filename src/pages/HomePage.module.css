@@ -3,6 +3,7 @@
   max-width: 375px;
   background-color: #ffffff;
   padding: 16px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -22,5 +23,7 @@
     width: 100%;
     flex-direction: row;
     gap: 32px;
+    margin: 0 auto;
+    align-items: center;
   }
 }
