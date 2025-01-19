@@ -1,14 +1,31 @@
 import { useState } from "react";
 import s from "../MonthInfo/MonthInfo.module.css";
 import Schedule from "./Schedule";
+import { useDispatch, useSelector } from "react-redux";
+import { waterSelectors } from "../../../../../redux/Water/selectors";
+import { dayWater } from "../../../../../redux/Water/operatios";
 
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [showSchedule, setShowShedule] = useState(true);
-  const [percent, setPercent] = useState(0);
 
+  const dispatch = useDispatch();
+
+  // const dayWaterinfo = (day) => {
+  //   dispatch(dayWater(day));
+  // };
+
+  const totalPerDay = useSelector(waterSelectors.selectWaterPercentage);
+  const waterData = useSelector(waterSelectors.selectMonthWater);
+  const dayWaterInfo = useSelector(waterSelectors.selectDayWater);
+
+  const waterMap = waterData.reduce((acc, { date, waterPercentage }) => {
+    acc[date] = waterPercentage;
+    return acc;
+  }, {});
+  const today = new Date().toISOString().split("T")[0];
   const getButtonClass = (percent) => {
-    if (percent === 0) {
+    if (percent <= 0) {
       return s.white;
     } else if (percent > 0 && percent <= 99) {
       return s.grey;
@@ -50,6 +67,7 @@ const MonthInfo = () => {
   const monthName = monthNames[currentDate.getMonth()];
   const year = currentDate.getFullYear();
   const daysInMonth = getDaysInMonth();
+  console.log(daysInMonth);
 
   const toggleView = () => {
     setShowShedule(!showSchedule);
@@ -78,18 +96,28 @@ const MonthInfo = () => {
         </div>
         {showSchedule ? (
           <div className={s.calendar}>
-            {daysInMonth.map((date, index) => (
-              <a key={index} className={s.a}>
-                <div className={s.date_block}>
-                  <p
-                    className={`${s.calendar_date} ${getButtonClass(percent)}`}
-                  >
-                    {date.getDate()}
-                  </p>
-                  <span>{percent}%</span>
-                </div>
-              </a>
-            ))}
+            {daysInMonth.map((date, index) => {
+              const formattedDate = date.toISOString().split("T")[0];
+              const waterAmount = waterMap[formattedDate] || 0;
+
+              return (
+                <a key={index}>
+                  <div className={s.date_block}>
+                    <p
+                      className={`${s.calendar_date} ${getButtonClass(
+                        waterAmount
+                      )} ${
+                        formattedDate === today ? s.calendar_date_today : ""
+                      }`}
+                    >
+                      {date.getDate()}
+                    </p>
+
+                    <span>{waterAmount}%</span>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         ) : (
           <Schedule />
@@ -99,3 +127,7 @@ const MonthInfo = () => {
   );
 };
 export default MonthInfo;
+
+//  className={`${
+//                         formattedDate === today ? s.calendar_date_today : ""
+//                       }`}

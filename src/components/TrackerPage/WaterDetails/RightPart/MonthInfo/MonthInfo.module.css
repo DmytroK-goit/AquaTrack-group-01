@@ -60,10 +60,7 @@
   width: 38px;
   border-radius: 50%;
 }
-.calendar_date:hover {
-  color: #9be1a0;
-  background-color: #323f47;
-}
+
 .white {
   background-color: #ffffff;
 }
@@ -116,4 +113,9 @@
     padding-top: 6px;
     font-size: 10px;
   }
+}
+
+.calendar_date_today {
+  color: #9be1a0;
+  background-color: #323f47;
 }
