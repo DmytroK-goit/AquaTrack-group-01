@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import css from "./AddWaterBtn.module.css";
+import css from "./AddWaterModal.module.css";
 
 export const EditWaterModal = ({ isOpen, onClose, data, onSave }) => {
   const [state, setState] = useState({

@@ -10,8 +10,8 @@ import toast from "react-hot-toast";
 const DeleteWaterModal = ({ closeModal, _id }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-  const selectedDay = useSelector(selectDayWater);
-  const selectedMonth = selectedDay.split("-");
+  // const selectedDay = useSelector(selectDayWater);
+  // const selectedMonth = selectedDay.split("-");
   const handleDelete = () => {
     dispatch(delWater(_id))
       .unwrap()
