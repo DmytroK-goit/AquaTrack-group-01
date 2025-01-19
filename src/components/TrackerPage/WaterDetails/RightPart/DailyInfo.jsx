@@ -70,10 +70,10 @@ const DailyInfo = () => {
                   <use href="icons.svg#icon-edit"></use>
                 </svg>
               </button>
-              <EditWaterModal
+              {/* <EditWaterModal
                 isOpen={modalEditIsOpen}
                 onClose={closeEditModal}
-              />
+              /> */}
               <button onClick={() => openDeleteModal(item._id)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-dell"></use>
