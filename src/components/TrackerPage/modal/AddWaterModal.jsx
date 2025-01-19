@@ -37,6 +37,15 @@ export default function AddWaterModal({ openModal, closeModal }) {
   const handleSave = () => {
     const data = { date: dateHours, volume: water.count };
     dispatch(addWater(data));
+    closeModal();
+    setWater({
+      count: 50,
+      time: new Date().toLocaleTimeString("ua-UA", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "UTC",
+      }),
+    });
   };
 
   return (
