@@ -5,9 +5,7 @@ import css from "./AddWaterModal.module.css";
 import { editWater } from "../../../redux/Water/operatios";
 
 export const EditWaterModal = ({ isOpen, onClose, data }) => {
-  console.log(data.data);
   const dispatch = useDispatch();
-
   const [state, setState] = useState({
     time: data ? data.date.split("T")[1] : "",
     count: data ? data.volume : 50,

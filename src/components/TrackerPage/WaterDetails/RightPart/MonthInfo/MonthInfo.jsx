@@ -4,27 +4,26 @@ import Schedule from "./Schedule";
 import { useDispatch, useSelector } from "react-redux";
 import { waterSelectors } from "../../../../../redux/Water/selectors";
 import { dayWater } from "../../../../../redux/Water/operatios";
+import { setSelectedDate } from "../../../../../redux/DateSlice";
 
 const MonthInfo = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [showSchedule, setShowShedule] = useState(true);
-
   const dispatch = useDispatch();
+  const selectedDate = useSelector((state) => state.date.selectedDate);
 
-  // const dayWaterinfo = (day) => {
-  //   dispatch(dayWater(day));
-  // };
-
-  const totalPerDay = useSelector(waterSelectors.selectWaterPercentage);
   const waterData = useSelector(waterSelectors.selectMonthWater);
-  const dayWaterInfo = useSelector(waterSelectors.selectDayWater);
-
   const waterMap = waterData.reduce((acc, { date, waterPercentage }) => {
     acc[date] = waterPercentage;
     return acc;
   }, {});
+
   const today = new Date().toISOString().split("T")[0];
-  const getButtonClass = (percent) => {
+
+  const getButtonClass = (percent, formattedDate) => {
+    if (formattedDate === selectedDate) {
+      return `${s.selected} ${s.selected_date}`;
+    }
     if (percent <= 0) {
       return s.white;
     } else if (percent > 0 && percent <= 99) {
@@ -67,7 +66,6 @@ const MonthInfo = () => {
   const monthName = monthNames[currentDate.getMonth()];
   const year = currentDate.getFullYear();
   const daysInMonth = getDaysInMonth();
-  console.log(daysInMonth);
 
   const toggleView = () => {
     setShowShedule(!showSchedule);
@@ -75,60 +73,61 @@ const MonthInfo = () => {
 
   const handleDateClick = (date) => {
     const formattedDate = date.toISOString().split("T")[0];
+    console.log("Selected date:", formattedDate);
+    dispatch(setSelectedDate({ data: formattedDate }));
     dispatch(dayWater(formattedDate));
   };
 
   return (
-    <>
-      <div className={s.month_info}>
-        <div className={s.block_manth}>
-          {showSchedule ? (
-            <h2 className={s.title}>Month</h2>
-          ) : (
-            <h2 className={s.title}>Statistics</h2>
-          )}
-
-          <div className={s.block_manth_year}>
-            <button onClick={() => changeMonth(-1)}>{"<"}</button>
-            <h2 className={s.name_manth}>{`${monthName} ${year}`}</h2>
-            <button onClick={() => changeMonth(1)}>{">"}</button>
-            <button onClick={toggleView}>
-              <svg className={s.svg_pie}>
-                <use href="/icons.svg#icon-pie-chart-02" />
-              </svg>
-            </button>
-          </div>
-        </div>
+    <div className={s.month_info}>
+      <div className={s.block_manth}>
         {showSchedule ? (
-          <div className={s.calendar}>
-            {daysInMonth.map((date, index) => {
-              const formattedDate = date.toISOString().split("T")[0];
-              const waterAmount = waterMap[formattedDate] || 0;
-
-              return (
-                <a key={index} onClick={() => handleDateClick(date)}>
-                  <div className={s.date_block}>
-                    <p
-                      className={`${s.calendar_date} ${getButtonClass(
-                        waterAmount
-                      )} ${
-                        formattedDate === today ? s.calendar_date_today : ""
-                      }`}
-                    >
-                      {date.getDate()}
-                    </p>
-
-                    <span>{waterAmount}%</span>
-                  </div>
-                </a>
-              );
-            })}
-          </div>
+          <h2 className={s.title}>Month</h2>
         ) : (
-          <Schedule />
+          <h2 className={s.title}>Statistics</h2>
         )}
+
+        <div className={s.block_manth_year}>
+          <button onClick={() => changeMonth(-1)}>{"<"}</button>
+          <h2 className={s.name_manth}>{`${monthName} ${year}`}</h2>
+          <button onClick={() => changeMonth(1)}>{">"}</button>
+          <button onClick={toggleView}>
+            <svg className={s.svg_pie}>
+              <use href="/icons.svg#icon-pie-chart-02" />
+            </svg>
+          </button>
+        </div>
       </div>
-    </>
+      {showSchedule ? (
+        <div className={s.calendar}>
+          {daysInMonth.map((date, index) => {
+            const formattedDate = date.toISOString().split("T")[0];
+            const waterAmount = waterMap[formattedDate] || 0;
+
+            return (
+              <div
+                key={index}
+                className={s.date_block}
+                onClick={() => handleDateClick(date)}
+              >
+                <p
+                  className={`${s.calendar_date} ${getButtonClass(
+                    waterAmount,
+                    formattedDate
+                  )} ${formattedDate === today ? s.calendar_date_today : ""}`}
+                >
+                  {date.getDate()}
+                </p>
+                <span>{waterAmount}%</span>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <Schedule />
+      )}
+    </div>
   );
 };
+
 export default MonthInfo;
