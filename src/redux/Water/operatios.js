@@ -2,14 +2,24 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
 import { aquaTrack } from "../UserAuth/operations";
 
+import { selectSelectedDate } from "../DateSlice";
+
 export const addWater = createAsyncThunk("addWater", async (body, thunkApi) => {
   try {
     const token = localStorage.getItem("token");
     const { data } = await aquaTrack.post("/water", body, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    const date = new Date().toISOString().split("T")[0];
+    const state = thunkApi.getState();
+    const date = selectSelectedDate(state);
     await thunkApi.dispatch(dayWater(date));
+    const month = new Date();
+    const formattedDate = `${month.getFullYear()}-${String(
+      month.getMonth() + 1
+    ).padStart(2, "0")}`;
+
+    await thunkApi.dispatch(monthWater(formattedDate));
+
     toast.success("Water added");
     return data;
   } catch (error) {
@@ -26,8 +36,14 @@ export const editWater = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success("Water updated successfully!");
-      const date = new Date().toISOString().split("T")[0];
+      const state = thunkApi.getState();
+      const date = selectSelectedDate(state);
       await thunkApi.dispatch(dayWater(date));
+      const month = new Date();
+      const formattedDate = `${month.getFullYear()}-${String(
+        month.getMonth() + 1
+      ).padStart(2, "0")}`;
+      await thunkApi.dispatch(monthWater(formattedDate));
       return data;
     } catch (error) {
       toast.error(error.message);
@@ -42,8 +58,15 @@ export const delWater = createAsyncThunk("delWater", async (_id, thunkApi) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     toast.success("Water Deleted");
-    const date = new Date().toISOString().split("T")[0];
+    const state = thunkApi.getState();
+    const date = selectSelectedDate(state);
     await thunkApi.dispatch(dayWater(date));
+    const month = new Date();
+    const formattedDate = `${month.getFullYear()}-${String(
+      month.getMonth() + 1
+    ).padStart(2, "0")}`;
+
+    await thunkApi.dispatch(monthWater(formattedDate));
     return _id;
   } catch (error) {
     toast.error(error.message);
@@ -57,7 +80,6 @@ export const dayWater = createAsyncThunk("dayWater", async (date, thunkApi) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     toast.success(`Water data for ${date} fetched successfully.`);
-    console.log(data);
     return data;
   } catch (error) {
     if (error.response?.status === 404) {
@@ -74,8 +96,7 @@ export const monthWater = createAsyncThunk(
       const { data } = await aquaTrack.get(`/water/month/${date}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      toast.success(`Water data for ${date} fetched successfully.`);
-      console.log(data);
+      // toast.success(`Water data for ${date} fetched successfully.`);
       return data;
     } catch (error) {
       toast.error(error.message);
