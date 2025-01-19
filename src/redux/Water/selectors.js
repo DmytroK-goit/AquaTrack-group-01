@@ -10,3 +10,4 @@ export const waterSelectors = {
 export const { selectTotalWaterPerDay } = waterSelectors;
 export const { selectIsLoading } = waterSelectors;
 export const { selectDayWater } = waterSelectors;
+export const { selectMonthWater } = waterSelectors;

@@ -6,14 +6,15 @@ import {
 } from "../../../../redux/Water/selectors";
 import css from "./DeleteWaterModal.module.css";
 import toast from "react-hot-toast";
+import { selectMonthWater } from "../../../../redux/Water/selectors";
 
-const DeleteWaterModal = ({ closeModal, _id }) => {
+const DeleteWaterModal = ({ closeModal, waterId }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
-  // const selectedDay = useSelector(selectDayWater);
-  // const selectedMonth = selectedDay.split("-");
+  const selectedMonth = useSelector(selectMonthWater);
+
   const handleDelete = () => {
-    dispatch(delWater(_id))
+    dispatch(delWater(waterId))
       .unwrap()
       .then(() => {
         dispatch(monthWater(`${selectedMonth[0]}-${selectedMonth[1]}`));

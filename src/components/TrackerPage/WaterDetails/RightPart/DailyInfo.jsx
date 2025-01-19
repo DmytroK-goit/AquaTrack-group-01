@@ -3,40 +3,35 @@ import { selectDayWater } from "../../../../redux/Water/selectors";
 import s from "../RightPart/DailyInfo.module.css";
 import AddWaterModal from "../../modal/AddWaterModal";
 import DeleteWaterModal from "../../modal/DeleteWaterModal/DeleteWaterModal";
-import { useState } from "react";
 import { EditWaterModal } from "../../modal/EditDrinkedWater";
+import { useState } from "react";
+import Modal from "../../modal/Modal/Modal";
 
 const DailyInfo = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const dayWater = useSelector(selectDayWater);
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openDeleteModal(id) {
-    setSelectedId(id);
-    setDeleteModalIsOpen(true);
-    setSelectedId(null);
-  }
-
-  function closeDeleteModal() {
-    setDeleteModalIsOpen(false);
-    setSelectedId(null);
-  }
+  const openAddModal = () => setModalIsOpen(true);
+  const closeAddModal = () => setModalIsOpen(false);
 
   const openEditModal = (id) => {
-    setDeleteModalIsOpen(false);
     setSelectedId(id);
+    setIsEditModalOpen(true);
+  };
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedId(null);
   };
 
-  const closeEditModal = () => {
+  const handleDelete = (id) => {
+    setSelectedId(id);
+    setIsDeleteModalOpen(true);
+  };
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
     setSelectedId(null);
   };
 
@@ -45,13 +40,13 @@ const DailyInfo = () => {
       <div className={s.qwe}>
         <h2 className={s.header}>Today</h2>
 
-        <button onClick={openModal} className={s.btn}>
+        <button onClick={openAddModal} className={s.btn}>
           <svg className={s.iconPlus}>
             <use href="icons.svg#icon-plus"></use>
           </svg>
           Add Water
         </button>
-        <AddWaterModal openModal={modalIsOpen} closeModal={closeModal} />
+        <AddWaterModal openModal={modalIsOpen} closeModal={closeAddModal} />
       </div>
       <ul className={s.scrollContainer}>
         {dayWater.map((item) => (
@@ -71,14 +66,14 @@ const DailyInfo = () => {
                   <use href="icons.svg#icon-edit"></use>
                 </svg>
               </button>
-              {selectedId === item._id && (
+              {isEditModalOpen && selectedId === item._id && (
                 <EditWaterModal
-                  isOpen={selectedId === item._id}
+                  isOpen={isEditModalOpen}
                   onClose={closeEditModal}
                   data={item}
                 />
               )}
-              <button onClick={() => openDeleteModal(item._id)}>
+              <button onClick={() => handleDelete(item._id)}>
                 <svg className={s.iconDelete}>
                   <use href="icons.svg#icon-dell"></use>
                 </svg>
@@ -87,8 +82,13 @@ const DailyInfo = () => {
           </li>
         ))}
       </ul>
-      {deleteModalIsOpen && (
-        <DeleteWaterModal closeModal={closeDeleteModal} _id={selectedId} />
+      {isDeleteModalOpen && (
+        <Modal isOpen={isDeleteModalOpen} onClose={handleCloseDeleteModal}>
+          <DeleteWaterModal
+            closeModal={handleCloseDeleteModal}
+            waterId={selectedId}
+          />
+        </Modal>
       )}
     </div>
   );
