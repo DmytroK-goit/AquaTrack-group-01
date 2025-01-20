@@ -15,18 +15,21 @@ export default function AddWaterModal({ openModal, closeModal }) {
       timeZone: "UTC",
     }),
   });
-
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
+
   function increment() {
     if (water.count < 5000) {
       setWater({ ...water, count: water.count + 50 });
     }
   }
+
   function decrement() {
     if (water.count > 50) {
       setWater({ ...water, count: water.count - 50 });
     }
   }
+
   const change = (event) => {
     setWater({ ...water, time: event.target.value });
   };
@@ -34,7 +37,24 @@ export default function AddWaterModal({ openModal, closeModal }) {
   const date = new Date().toISOString().split("T")[0];
   const dateHours = `${date}T${water.time}`;
 
+  const validateInputs = () => {
+    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/; // Формат HH:mm
+    if (water.count < 50 || water.count > 5000) {
+      setError("The water amount must be between 50 ml and 5000 ml.");
+      return false;
+    }
+    if (!timeRegex.test(water.time)) {
+      setError("Time must be in the format HH:mm.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const handleSave = () => {
+    if (!validateInputs()) {
+      return;
+    }
     const data = { date: dateHours, volume: water.count };
     dispatch(addWater(data));
     closeModal();
@@ -62,6 +82,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
         X
       </button>
       <h2 className={css.water}>Add water</h2>
+      {error && <p className={css.error}>{error}</p>}
       <p className={css.choose}>Choose a value</p>
       <p className={css.amount}>Amount of water</p>
       <div className={css.countsum}>
@@ -82,7 +103,14 @@ export default function AddWaterModal({ openModal, closeModal }) {
       />
 
       <p className={css.enter}>Enter the value of the water used:</p>
-      <input className={css.inputtime} type="string" value={water.count} />
+      <input
+        className={css.inputtime}
+        type="number"
+        min="50"
+        max="5000"
+        value={water.count}
+        onChange={(e) => setWater({ ...water, count: Number(e.target.value) })}
+      />
       <button className={css.btnsave} onClick={handleSave}>
         Save
       </button>
