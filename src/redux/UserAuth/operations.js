@@ -101,7 +101,6 @@ export const currentUser = createAsyncThunk(
       if (response.status !== 200) {
         throw new Error("Failed to fetch user data");
       }
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -163,6 +162,7 @@ export const refresh = createAsyncThunk("auth/refresh", async (_, thunkApi) => {
     });
     localStorage.setItem("token", data.accessToken);
     setAuthHeader(data.accessToken);
+    console.log(`refresh${data}`);
     return data;
   } catch (error) {
     localStorage.removeItem("token");
