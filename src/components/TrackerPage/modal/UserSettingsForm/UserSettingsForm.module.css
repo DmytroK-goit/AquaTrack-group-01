@@ -8,6 +8,50 @@
 	flex-direction: column;
 	gap: 24px;
 }
+.settings {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	height: 147px;
+}
+.userPhotoInitial {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 100%;
+	width: 75px;
+	height: 75px;
+	background: gray;
+	font-size: 50px;
+	color: white;
+	font-weight: bold;
+}
+.userPhoto {
+	width: 75px;
+	height: 75px;
+	border-radius: 100%;
+}
+.fileInputPhoto {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+}
+.fileInputPhoto input[type="file"] {
+	display: none;
+	opacity: 0;
+}
+.fileInputPhotoLabel {
+	display: flex;
+	gap: 8px;
+	cursor: pointer;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 1.28571;
+	letter-spacing: -0.01em;
+	color: #2f2f2f;
+}
 .userSettings__title {
 	font-family: var(--font-family);
 	font-weight: 700;
@@ -286,6 +330,28 @@
 }
 
 @media screen and (min-width: 768px) {
+	.settings {
+		width: 568px;
+		height: 186px;
+	}
+	.userPhotoInitial {
+		width: 100px;
+		height: 100px;
+	}
+	.userPhoto {
+		width: 100px;
+		height: 100px;
+	}
+	.fileInputPhoto {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 10px;
+	}
+	.fileInputPhotoLabel {
+		font-size: 16px;
+		line-height: 1.5;
+	}
 	.userSettings__inputStyle {
 		width: 568px;
 		height: 56px;
@@ -319,6 +385,9 @@
 	}
 }
 @media screen and (min-width: 1440px) {
+	.settings {
+		width: 840px;
+	}
 	.userSettings__Form {
 		display: flex;
 		flex-direction: column;

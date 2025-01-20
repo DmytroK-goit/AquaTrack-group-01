@@ -52,3 +52,6 @@
 		padding: 40px;
 	}
 }
+body .modal-open {
+	overflow: hidden;
+}
