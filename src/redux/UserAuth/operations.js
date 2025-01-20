@@ -113,13 +113,16 @@ export const updateUser = createAsyncThunk(
   "updateUser",
   async (updateData, thunkApi) => {
     try {
-      console.log(localStorage.getItem("token"));
       const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("No token found");
       }
       setAuthHeader(token);
-      const { data } = await aquaTrack.patch("users/update", updateData);
+      const { data } = await aquaTrack.patch("users/update", updateData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       const date = new Date().toISOString().split("T")[0];
       await thunkApi.dispatch(dayWater(date));
       toast.success(`User updated ${data.data.name}`);
