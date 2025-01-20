@@ -12,7 +12,6 @@ export default function AddWaterModal({ openModal, closeModal }) {
     time: new Date().toLocaleTimeString("ua-UA", {
       hour: "2-digit",
       minute: "2-digit",
-      timeZone: "UTC",
     }),
   });
   const [error, setError] = useState("");
@@ -56,7 +55,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
       return;
     }
     const data = { date: dateHours, volume: water.count };
-        
+
     dispatch(addWater(data));
     closeModal();
     setWater({
@@ -64,7 +63,6 @@ export default function AddWaterModal({ openModal, closeModal }) {
       time: new Date().toLocaleTimeString("ua-UA", {
         hour: "2-digit",
         minute: "2-digit",
-        timeZone: "UTC",
       }),
     });
   };
@@ -77,10 +75,10 @@ export default function AddWaterModal({ openModal, closeModal }) {
       closeTimeoutMS={300}
       onRequestClose={closeModal}
       ariaHideApp={false}
-    >      
+    >
       <svg className={css.mclose} onClick={closeModal}>
-										<use href="/icons.svg#icon-x"></use>
-									</svg>
+        <use href="/icons.svg#icon-x"></use>
+      </svg>
       <h2 className={css.water}>Add water</h2>
       {error && <p className={css.error}>{error}</p>}
       <p className={css.choose}>Choose a value</p>
@@ -109,7 +107,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
         type="number"
         min="50"
         max="5000"
-        value={water.count}        
+        value={water.count}
         onChange={(e) => setWater({ ...water, count: Number(e.target.value) })}
       />
       <button className={css.btnsave} onClick={handleSave}>
