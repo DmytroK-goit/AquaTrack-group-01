@@ -1,9 +1,20 @@
 import s from "./UserSettingsModal.module.css";
 import UserSettingsForm from "../UserSettingsForm/UserSettingsForm.jsx";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const UserSettingsModal = ({ isOpen, onClose }) => {
 	const modalRef = useRef(null);
+
+	useEffect(() => {
+		if (isOpen) {
+			document.body.classList.add("modal-open");
+		} else {
+			document.body.classList.remove("modal-open");
+		}
+		return () => {
+			document.body.classList.remove("modal-open");
+		};
+	}, [isOpen]);
 
 	if (!isOpen) return null;
 

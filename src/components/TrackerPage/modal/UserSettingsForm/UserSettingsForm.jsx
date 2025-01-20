@@ -4,11 +4,13 @@ import s from "./UserSettingsForm.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../../../redux/UserAuth/selectors.js";
 import { updateUser } from "../../../../redux/UserAuth/operations.js";
+import { useState } from "react";
 
 const UserSettingsForm = ({ onClose }) => {
+	const [previewAvatar, setPreviewAvatar] = useState(null);
 	const dispatch = useDispatch();
 
-	const { name, email, gender, weight, activeTime, dailyNorm } =
+	const { name, email, gender, weight, activeTime, dailyNorm, avatar } =
 		useSelector(selectUser);
 
 	const validationSchema = Yup.object({
@@ -25,6 +27,7 @@ const UserSettingsForm = ({ onClose }) => {
 			.max(24, "Activity level cannot exceed 24 hours")
 			.integer("Activity level must be a whole number"),
 		dailyNorm: Yup.number().positive(),
+		avatar: Yup.string().nullable(),
 	});
 
 	const initialValues = {
@@ -34,19 +37,20 @@ const UserSettingsForm = ({ onClose }) => {
 		weight: weight || 0,
 		activeTime: activeTime || 0,
 		dailyNorm,
+		avatar,
 	};
 
-	const handleSubmit = async (values) => {
-		const formData = {
-			name: values.name,
-			gender: values.gender,
-			weight: values.weight,
-			activeTime: values.activeTime,
-			dailyNorm: values.dailyNorm,
-		};
-		await dispatch(updateUser(formData));
-		onClose();
-	};
+	// const handleSubmit = async (values) => {
+	// 	const formData = {
+	// 		name: values.name,
+	// 		gender: values.gender,
+	// 		weight: values.weight,
+	// 		activeTime: values.activeTime,
+	// 		dailyNorm: values.dailyNorm,
+	// 	};
+	// 	await dispatch(updateUser(formData));
+	// 	onClose();
+	// };
 
 	const formatMillilitersToLiters = (milliliters) =>
 		(milliliters / 1000).toFixed(1);
@@ -59,6 +63,35 @@ const UserSettingsForm = ({ onClose }) => {
 			: (weight * 0.04 + activeTime * 0.6).toFixed(1);
 	};
 
+	const handleAvatarFileChange = (e, setFieldValue) => {
+		const file = e.target.files[0];
+		if (file) {
+			setFieldValue("avatar", file);
+			setPreviewAvatar(URL.createObjectURL(file));
+		}
+	};
+
+	const handleSubmit = async (values) => {
+		const formData = new FormData();
+
+		Object.entries(values).forEach(([key, value]) => {
+			// Если файл, то добавляем его, иначе обычное значение
+			if (key === "avatar" && value instanceof File) {
+				formData.append(key, value);
+			} else {
+				formData.append(key, value);
+			}
+		});
+
+		console.log("formData:", formData);
+
+		// Отправка данных через Redux или напрямую
+		await dispatch(updateUser(formData));
+		onClose();
+	};
+
+	const firstLetter = name ? name.slice(0, 1) : "";
+
 	return (
 		<div className={s.userSettingsWraper}>
 			<Formik
@@ -70,13 +103,49 @@ const UserSettingsForm = ({ onClose }) => {
 					<Form className={s.userSettings__Form}>
 						<div className={s.userSettings__block}>
 							<h3 className={s.userSettings__title}>Setting</h3>
-							<div className={s.userProfile}>
+							{/* <div className={s.userProfile}>
 								<img src="/userSettingsModalImg/user_x1.png" alt="" />
 								<div className={s.userProfileUpload}>
 									<svg className={s.uploadIcon}>
 										<use href="/icons.svg#icon-upload"></use>
 									</svg>
 									<p className={s.profileText}>Upload a photo</p>
+								</div>
+							</div> */}
+
+							<div className={s.settings}>
+								{previewAvatar ? (
+									<img
+										name="avatar"
+										src={previewAvatar}
+										alt={`${name} avatar`}
+										className={s.userPhoto}
+									/>
+								) : avatar ? (
+									<img
+										name="avatar"
+										src={avatar}
+										alt={`${name} avatar`}
+										className={s.userPhoto}
+									/>
+								) : (
+									<span className={s.userPhotoInitial}>{firstLetter}</span>
+								)}
+
+								<div className={s.fileInputPhoto}>
+									<label htmlFor="avatar" className={s.fileInputPhotoLabel}>
+										<svg className={s.uploadIcon} width={21} height={20}>
+											<use href="/icons.svg#icon-upload"></use>
+										</svg>
+										Upload a photo
+									</label>
+
+									<input
+										type="file"
+										id="avatar"
+										name="avatar"
+										onChange={(e) => handleAvatarFileChange(e, setFieldValue)}
+									/>
 								</div>
 							</div>
 						</div>
