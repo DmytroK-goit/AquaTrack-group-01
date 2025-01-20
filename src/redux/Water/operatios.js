@@ -82,11 +82,13 @@ export const dayWater = createAsyncThunk("dayWater", async (date, thunkApi) => {
     return data;
   } catch (error) {
     if (error.response?.status === 404) {
-      toast.error(`No water data available for ${date}.`);
+      return null;
     }
+    toast.error(error.message);
     return thunkApi.rejectWithValue(error.message);
   }
 });
+
 export const monthWater = createAsyncThunk(
   "monthWater",
   async (date, thunkApi) => {
@@ -95,9 +97,11 @@ export const monthWater = createAsyncThunk(
       const { data } = await aquaTrack.get(`/water/month/${date}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      // toast.success(`Water data for ${date} fetched successfully.`);
       return data;
     } catch (error) {
+      if (error.response?.status === 404) {
+        return null;
+      }
       toast.error(error.message);
       return thunkApi.rejectWithValue(error.message);
     }

@@ -47,7 +47,7 @@ export const registerUser = createAsyncThunk(
 
       toast.success("Registration successful");
       const loginResponse = await thunkApi.dispatch(login(credentials));
-      return loginResponse.payload;
+      return data;
     } catch (error) {
       console.error("Registration error details:", error.response?.data);
 
