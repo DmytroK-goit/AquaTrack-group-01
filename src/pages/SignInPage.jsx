@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/UserAuth/operations";
 import { selectIsLoading } from "../redux/UserAuth/selectors";
+
 import { selectUserCount } from "../redux/UserAuth/selectors.js";
 import UserCount from "../components/UserCount/UserCount.jsx";
 import css from "./SignInPage.module.css";
@@ -167,19 +168,8 @@ const SignInForm = () => {
           </div>
         </form>
 
-        <div className={css["advantages-section"]}>
-          {/* <div className={css["userCount"]}>
-            <UserCount />
-          </div> */}
-
-          <div className={css["advantages-container"]}>
-            <AdvantagesSection />
-            {/* <ul className={css.advantagesList}>
-              <li className={css.advantagesHabit}></li>
-              <li className={css.advantagesStatistics}></li>
-              <li className={css.advantagesSetting}></li>
-            </ul> */}
-          </div>
+        <div className={css["advantages-container"]}>
+          <AdvantagesSection userCount={userCount} />
         </div>
       </div>
     </section>

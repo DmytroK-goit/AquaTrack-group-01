@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserCount } from "../redux/UserAuth/selectors.js";
+
 import UserCount from "../components/UserCount/UserCount.jsx";
 import { registerUser } from "../redux/UserAuth/operations";
 import css from "./SignUpPage.module.css";
@@ -213,19 +214,8 @@ const SignUpForm = () => {
           </div>
         </form>
 
-        <div className={css["advantages-section"]}>
-          {/* <div className={css["userCount"]}>
-            <UserCount />
-          </div> */}
-
-          <div className={css["advantages-container"]}>
-            <AdvantagesSection />
-            {/* <ul className={css.advantagesList}>
-              <li className={css.advantagesHabit}></li>
-              <li className={css.advantagesStatistics}></li>
-              <li className={css.advantagesSetting}></li>
-            </ul> */}
-          </div>
+        <div className={css["advantages-container"]}>
+          <AdvantagesSection userCount={userCount} />
         </div>
       </div>
     </section>
