@@ -56,6 +56,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
       return;
     }
     const data = { date: dateHours, volume: water.count };
+        
     dispatch(addWater(data));
     closeModal();
     setWater({
@@ -76,22 +77,21 @@ export default function AddWaterModal({ openModal, closeModal }) {
       closeTimeoutMS={300}
       onRequestClose={closeModal}
       ariaHideApp={false}
-    >
-      <button className={css.mclose} onClick={closeModal}>
-        {" "}
-        X
-      </button>
+    >      
+      <svg className={css.mclose} onClick={closeModal}>
+										<use href="/icons.svg#icon-x"></use>
+									</svg>
       <h2 className={css.water}>Add water</h2>
       {error && <p className={css.error}>{error}</p>}
       <p className={css.choose}>Choose a value</p>
       <p className={css.amount}>Amount of water</p>
       <div className={css.countsum}>
-        <button className={css.incrbut} onClick={increment}>
-          +
-        </button>
-        <span className={css.incrcount}>{water.count} ml</span>
         <button className={css.incrbut} onClick={decrement}>
           -
+        </button>
+        <span className={css.incrcount}>{water.count} ml</span>
+        <button className={css.incrbut} onClick={increment}>
+          +
         </button>
       </div>
       <p className={css.recording}>Recording time</p>
@@ -99,6 +99,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
         className={css.inputtime}
         onChange={change}
         type="string"
+        maxlength="5"
         value={water.time}
       />
 
@@ -108,7 +109,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
         type="number"
         min="50"
         max="5000"
-        value={water.count}
+        value={water.count}        
         onChange={(e) => setWater({ ...water, count: Number(e.target.value) })}
       />
       <button className={css.btnsave} onClick={handleSave}>

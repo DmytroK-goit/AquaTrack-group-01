@@ -51,7 +51,7 @@ export const EditWaterModal = ({ isOpen, onClose, data }) => {
       date: `${data.date.split("T")[0]}T${state.time}`,
       volume: state.count,
     };
-
+    
     dispatch(editWater({ _id: data._id, updateData: updatedData }));
     onClose();
   };
@@ -68,16 +68,19 @@ export const EditWaterModal = ({ isOpen, onClose, data }) => {
       <button className={css.mclose} onClick={onClose}>
         X
       </button>
+      {/* <svg className={css.mclose} onClick={closeModal}>
+                          <use href="/icons.svg#icon-x"></use>
+                        </svg> */}
       <h2 className={css.water}>Edit the entered amount of water</h2>
       <p className={css.choose}>Correct entered data</p>
       <p className={css.amount}>Amount of water</p>
       <div className={css.countsum}>
-        <button className={css.incrbut} onClick={increment}>
-          +
-        </button>
-        <span className={css.incrcount}>{state.count} ml</span>
         <button className={css.incrbut} onClick={decrement}>
           -
+        </button>
+        <span className={css.incrcount}>{state.count} ml</span>
+        <button className={css.incrbut} onClick={increment}>
+          +
         </button>
       </div>
       <p className={css.recording}>Recording time</p>
