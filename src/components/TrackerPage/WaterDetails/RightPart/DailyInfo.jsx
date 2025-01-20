@@ -18,9 +18,10 @@ const DailyInfo = () => {
   const formatDateWithoutYear = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate(); // Число
-    const month = date.toLocaleString("en-US", { month: "long" }); // Місяць словом
+    const month = date.toLocaleString("en-US", { month: "long" });
     return `${day}, ${month}`;
   };
+  console.log(dayWater);
 
   const today = new Date().toISOString().split("T")[0];
   const title =
@@ -69,7 +70,10 @@ const DailyInfo = () => {
             <div className={s.info}>
               <p className={s.ml}>{item.volume} ml</p>
               <p className={s.time}>
-                {new Date(item.date).toLocaleTimeString()}
+                {new Date(item.date).toLocaleTimeString("ua-UA", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </p>
             </div>
             <div className={s.change}>
