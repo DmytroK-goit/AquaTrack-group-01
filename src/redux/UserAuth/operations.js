@@ -77,7 +77,6 @@ export const login = createAsyncThunk(
       const formattedDate = `${month.getFullYear()}-${String(
         month.getMonth() + 1
       ).padStart(2, "0")}`;
-
       await thunkApi.dispatch(monthWater(formattedDate));
       return data;
     } catch (error) {

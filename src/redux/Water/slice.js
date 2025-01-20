@@ -26,7 +26,7 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addWater.fulfilled, (state, action) => {
-        state.itemsDay.push(action.payload);
+        state.itemsDay.push(action.payload.data.data);
       })
       .addCase(editWater.fulfilled, (state, action) => {
         state.itemsDay = state.itemsDay.map((water) =>

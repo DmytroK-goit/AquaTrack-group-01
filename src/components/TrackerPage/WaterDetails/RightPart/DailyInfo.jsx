@@ -17,12 +17,10 @@ const DailyInfo = () => {
   const selectedDate = useSelector(selectSelectedDate);
   const formatDateWithoutYear = (dateString) => {
     const date = new Date(dateString);
-    const day = date.getDate(); // Число
+    const day = date.getDate();
     const month = date.toLocaleString("en-US", { month: "long" });
     return `${day}, ${month}`;
   };
-  console.log(dayWater);
-
   const today = new Date().toISOString().split("T")[0];
   const title =
     selectedDate === today ? "Today" : formatDateWithoutYear(selectedDate);

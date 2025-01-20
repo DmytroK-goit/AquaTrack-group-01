@@ -11,17 +11,16 @@ export const addWater = createAsyncThunk("addWater", async (body, thunkApi) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const state = thunkApi.getState();
-    const date = selectSelectedDate(state);
-    await thunkApi.dispatch(dayWater(date));
+    const dateDay = selectSelectedDate(state);
+    await thunkApi.dispatch(dayWater(dateDay));
     const month = new Date();
     const formattedDate = `${month.getFullYear()}-${String(
       month.getMonth() + 1
     ).padStart(2, "0")}`;
-
     await thunkApi.dispatch(monthWater(formattedDate));
-
     toast.success("Water added");
-    return data;
+    console.log("add water");
+    return data.data;
   } catch (error) {
     toast.error(error.message);
     return thunkApi.rejectWithValue(error.message);
