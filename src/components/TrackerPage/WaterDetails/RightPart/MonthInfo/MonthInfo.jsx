@@ -1,8 +1,9 @@
 import { useState } from "react";
 import s from "../MonthInfo/MonthInfo.module.css";
 import Schedule from "./Schedule";
+import { DateTime } from "luxon";
 import { useDispatch, useSelector } from "react-redux";
-import { waterSelectors } from "../../../../../redux/Water/selectors";
+import { selectMonthWater } from "../../../../../redux/Water/selectors";
 import { dayWater } from "../../../../../redux/Water/operatios";
 import { setSelectedDate } from "../../../../../redux/DateSlice";
 
@@ -12,13 +13,13 @@ const MonthInfo = () => {
   const dispatch = useDispatch();
   const selectedDate = useSelector((state) => state.date.selectedDate);
 
-  const waterData = useSelector(waterSelectors.selectMonthWater);
+  const waterData = useSelector(selectMonthWater);
   const waterMap = waterData.reduce((acc, { date, waterPercentage }) => {
     acc[date] = waterPercentage;
     return acc;
   }, {});
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = DateTime.now().setZone("Europe/Kiev").toISODate();
 
   const getButtonClass = (percent, formattedDate) => {
     if (formattedDate === selectedDate) {
@@ -72,13 +73,9 @@ const MonthInfo = () => {
   };
 
   const handleBackendDate = (dateString) => {
-    const date = new Date(dateString);
-    const localDate = new Date(
-      date.getTime() - date.getTimezoneOffset() * 60000
-    );
-    return localDate.toISOString().split("T")[0];
+    const date = DateTime.fromISO(dateString).setZone("Europe/Kiev");
+    return date.toISODate();
   };
-
   const handleDateClick = (date) => {
     const formattedDate = handleBackendDate(date.toISOString());
     dispatch(setSelectedDate({ data: formattedDate }));
