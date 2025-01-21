@@ -57,7 +57,7 @@ const slice = createSlice({
       })
       .addCase(refresh.fulfilled, (state, action) => {
         state.user = action.payload.user;
-        state.token = action.payload.accessToken;
+        state.token = action.payload.data.accessToken;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })

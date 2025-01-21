@@ -108,7 +108,7 @@
   }
   .calendar {
     grid-template-columns: repeat(7, 1fr);
-    grid-row-gap: 20px;
+    grid-row-gap: 10px;
     grid-column-gap: 18px;
   }
   .calendar_date {
@@ -116,6 +116,7 @@
     height: 28px;
     width: 28px;
   }
+
   .date_block span {
     padding-top: 6px;
     font-size: 10px;

@@ -47,7 +47,7 @@ export const registerUser = createAsyncThunk(
 
       toast.success("Registration successful");
       const loginResponse = await thunkApi.dispatch(login(credentials));
-      return loginResponse.payload;
+      return data;
     } catch (error) {
       console.error("Registration error details:", error.response?.data);
 
@@ -77,7 +77,6 @@ export const login = createAsyncThunk(
       const formattedDate = `${month.getFullYear()}-${String(
         month.getMonth() + 1
       ).padStart(2, "0")}`;
-
       await thunkApi.dispatch(monthWater(formattedDate));
       return data;
     } catch (error) {
@@ -102,7 +101,6 @@ export const currentUser = createAsyncThunk(
       if (response.status !== 200) {
         throw new Error("Failed to fetch user data");
       }
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -113,7 +111,6 @@ export const updateUser = createAsyncThunk(
   "updateUser",
   async (updateData, thunkApi) => {
     try {
-      console.log(localStorage.getItem("token"));
       const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("No token found");
@@ -165,6 +162,7 @@ export const refresh = createAsyncThunk("auth/refresh", async (_, thunkApi) => {
     });
     localStorage.setItem("token", data.accessToken);
     setAuthHeader(data.accessToken);
+    console.log(`refresh${data}`);
     return data;
   } catch (error) {
     localStorage.removeItem("token");
