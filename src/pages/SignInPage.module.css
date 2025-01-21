@@ -1,7 +1,9 @@
 .container {
-  min-width: 343px;
   margin: 0 auto;
   height: auto;
+  padding: 16px;
+  min-width: 320px;
+  max-width: 375px;
 }
 
 .sign-in-page {
@@ -18,6 +20,7 @@
   justify-content: center;
   background-color: #f7f9fc;
   border-radius: 30px;
+  height: calc(100vh - 64px);
 }
 
 .toaster-container {
@@ -70,6 +73,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 200px 16px;
+  margin: 0 auto;
 }
 
 /* -------------------TITLE SIGN IN-------------------- */
@@ -219,6 +223,7 @@
 }
 
 .advantages-section {
+  display: none;
   position: relative;
 }
 
@@ -249,14 +254,19 @@
     flex-direction: column;
     width: 100%;
   }
+  .advantages-section {
+    display: block;
+  }
 
   .container {
-    min-width: 704px;
+    min-width: 768px;
+    padding: 32px;
   }
 
   .sign-in-page .logo {
     top: 32px;
     left: 32px;
+    font-size: 24px;
   }
 
   .form-wrapper {
@@ -284,17 +294,26 @@
 /* ------------------------Десктоп----------------- */
 
 @media screen and (min-width: 1440px) {
+  .advantages-section {
+    display: block;
+  }
   .container {
+    min-width: 1440px;
+    height: 100vh;
+    width: 100%;
     flex-direction: row;
     gap: 32px;
-    min-width: 1440px;
-    height: 100%;
+    margin: 0 auto;
+    padding: 32px;
+    justify-content: center;
   }
 
   .sign-in-page .logo {
     font-size: 24px;
     top: 32px;
+
     left: 33px;
+    margin-bottom: 126px;
   }
   .sign-in-page .advantages-container {
     display: block;
@@ -302,23 +321,27 @@
     z-index: 1;
   }
 
-
   .sign-in-page {
     display: flex;
-    width: 1440px;
+    align-items: center;
+
+    min-width: 1440px;
+    height: 100vh;
     width: 100%;
     flex-direction: row;
-    gap: 32px;
+
+    margin: 0 auto;
   }
 
   .sign-in-form {
     width: 672px;
     height: 736px;
+    margin-right: 32px;
   }
 
   .form-wrapper {
     width: 436px;
-    margin-top: 130px;
+    margin-top: 113px;
     margin-bottom: 100px;
   }
 }
