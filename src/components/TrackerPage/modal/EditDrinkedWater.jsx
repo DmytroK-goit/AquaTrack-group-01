@@ -64,13 +64,9 @@ export const EditWaterModal = ({ isOpen, onClose, data }) => {
       closeTimeoutMS={300}
       onRequestClose={onClose}
       ariaHideApp={false}
-    >
-      <button className={css.mclose} onClick={onClose}>
-        X
-      </button>
-      {/* <svg className={css.mclose} onClick={closeModal}>
-                          <use href="/icons.svg#icon-x"></use>
-                        </svg> */}
+    > 
+     <svg className={css.mclose} onClick={onClose}>
+        <use href="/icons.svg#icon-x"></use></svg>
       <h2 className={css.water}>Edit the entered amount of water</h2>
       <p className={css.choose}>Correct entered data</p>
       <p className={css.amount}>Amount of water</p>
