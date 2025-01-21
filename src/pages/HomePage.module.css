@@ -24,6 +24,6 @@
     flex-direction: row;
     gap: 32px;
     margin: 0 auto;
-    /* align-items: center; */
+    align-items: center;
   }
 }
