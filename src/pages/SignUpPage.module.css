@@ -290,6 +290,7 @@
   }
   .sign-up-page {
     display: flex;
+    align-items: center;
     width: 1440px;
     width: 100%;
     flex-direction: row;
