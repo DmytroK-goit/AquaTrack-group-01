@@ -11,6 +11,8 @@ export const EditWaterModal = ({ isOpen, onClose, data }) => {
     count: data ? data.volume : 50,
   });
 
+  const [error, setError] = useState("");
+  
   useEffect(() => {
     if (data && data.date) {
       const timePart = data.date.split("T")[1];
@@ -44,9 +46,25 @@ export const EditWaterModal = ({ isOpen, onClose, data }) => {
     setState({ ...state, count: Number(event.target.value) });
   };
 
+  const validateInputs = () => {
+    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/; // Формат HH:mm
+    if (state.count < 50 || state.count > 5000) {
+      setError("The water amount must be between 50 ml and 5000 ml.");
+      return false;
+    }
+    if (!timeRegex.test(state.time)) {
+      setError("Time must be in the format HH:mm.");
+      return false;
+    }
+    setError("");
+    return true;
+  };
+
   const handleSubmit = () => {
     if (!data || !data._id) return;
-
+    if (!validateInputs()) {
+      return;
+    }
     const updatedData = {
       date: `${data.date.split("T")[0]}T${state.time}`,
       volume: state.count,
@@ -64,14 +82,11 @@ export const EditWaterModal = ({ isOpen, onClose, data }) => {
       closeTimeoutMS={300}
       onRequestClose={onClose}
       ariaHideApp={false}
-    >
-      <button className={css.mclose} onClick={onClose}>
-        X
-      </button>
-      {/* <svg className={css.mclose} onClick={closeModal}>
-                          <use href="/icons.svg#icon-x"></use>
-                        </svg> */}
+    > 
+     <svg className={css.mclose} onClick={onClose}>
+        <use href="/icons.svg#icon-x"></use></svg>
       <h2 className={css.water}>Edit the entered amount of water</h2>
+       {error && <p className={css.error}>{error}</p>}
       <p className={css.choose}>Correct entered data</p>
       <p className={css.amount}>Amount of water</p>
       <div className={css.countsum}>
