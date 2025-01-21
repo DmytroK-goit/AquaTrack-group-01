@@ -53,7 +53,7 @@ const UserBar = () => {
           <div className={s.avatarFallback}>{getFallbackAvatar()}</div>
         )}
         <svg className={`${s.icon} ${isPopoverOpen ? s.iconRotated : ""}`}>
-          <use href="../../../../../../public/icons.svg#icon-down"></use>
+          <use href="icons.svg#icon-down"></use>
         </svg>
       </button>
       {isPopoverOpen && <UserBarPopover />}
