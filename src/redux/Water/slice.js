@@ -26,7 +26,12 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(addWater.fulfilled, (state, action) => {
-        state.itemsDay.push(action.payload.data.data);
+        const isDuplicate = state.itemsDay.some(
+          (item) => item.id === action.payload.id
+        );
+        if (!isDuplicate) {
+          state.itemsDay.push(action.payload);
+        }
       })
       .addCase(editWater.fulfilled, (state, action) => {
         state.itemsDay = state.itemsDay.map((water) =>
