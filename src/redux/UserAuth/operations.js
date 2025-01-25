@@ -49,14 +49,9 @@ export const registerUser = createAsyncThunk(
       const loginResponse = await thunkApi.dispatch(login(credentials));
       return data;
     } catch (error) {
-      console.error("Registration error details:", error.response?.data);
-
       if (error.response && error.response.status === 409) {
         toast.error("Email is already in use. Please try another one.");
-      } else {
-        toast.error("Sign-up failed. Please try again.");
       }
-
       return thunkApi.rejectWithValue(error.message);
     }
   }
@@ -119,6 +114,11 @@ export const updateUser = createAsyncThunk(
       const { data } = await aquaTrack.patch("users/update", updateData);
       const date = new Date().toISOString().split("T")[0];
       await thunkApi.dispatch(dayWater(date));
+      const month = new Date();
+      const formattedDate = `${month.getFullYear()}-${String(
+        month.getMonth() + 1
+      ).padStart(2, "0")}`;
+      await thunkApi.dispatch(monthWater(formattedDate));
       toast.success(`User updated ${data.data.name}`);
       await thunkApi.dispatch(currentUser());
       return data;

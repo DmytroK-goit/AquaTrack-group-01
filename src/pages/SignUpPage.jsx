@@ -5,7 +5,6 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserCount } from "../redux/UserAuth/selectors.js";
-
 import UserCount from "../components/UserCount/UserCount.jsx";
 import { registerUser } from "../redux/UserAuth/operations";
 import css from "./SignUpPage.module.css";
@@ -73,11 +72,22 @@ const SignUpForm = () => {
     };
   }, []);
 
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error(`Invalid email: ${email}`);
+      return false;
+    }
+    return true;
+  }
+
   const onSubmit = async (data) => {
     try {
       const { confirmPassword, ...restData } = data;
+      if (!isValidEmail(restData.email)) {
+        return;
+      }
       const result = await dispatch(registerUser(restData));
-
       if (registerUser.fulfilled.match(result)) {
         toast.success("Registration successful! 🎉");
         navigate("/tracker");

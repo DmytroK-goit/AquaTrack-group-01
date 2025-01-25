@@ -1,12 +1,14 @@
 import Modal from "react-modal";
 import css from "../../TrackerPage/modal/AddWaterModal.module.css";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addWater } from "../../../redux/Water/operatios";
 
 Modal.setAppElement("#root");
 
 export default function AddWaterModal({ openModal, closeModal }) {
+  const selectedDate = useSelector((state) => state.date.selectedDate);
+
   const [water, setWater] = useState({
     count: 50,
     time: new Date().toLocaleTimeString("ua-UA", {
@@ -34,10 +36,10 @@ export default function AddWaterModal({ openModal, closeModal }) {
   };
 
   const date = new Date().toISOString().split("T")[0];
-  const dateHours = `${date}T${water.time}`;
+  const dateHours = `${selectedDate}T${water.time}`;
 
   const validateInputs = () => {
-    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/; // Формат HH:mm
+    const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/;
     if (water.count < 50 || water.count > 5000) {
       setError("The water amount must be between 50 ml and 5000 ml.");
       return false;
