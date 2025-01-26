@@ -72,7 +72,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
   return (
     <Modal
       isOpen={openModal}
-      overlayClassName={css.moverlay}
+      overlayClassName={`${css.moverlay} ${openModal ? css.open : ""}`}
       className={css.mcontent}
       closeTimeoutMS={300}
       onRequestClose={closeModal}
@@ -99,7 +99,7 @@ export default function AddWaterModal({ openModal, closeModal }) {
         className={css.inputtime}
         onChange={change}
         type="string"
-        maxlength="5"
+        maxLength="5"
         value={water.time}
       />
 

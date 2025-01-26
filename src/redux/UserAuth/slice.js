@@ -42,12 +42,17 @@ const slice = createSlice({
         state.user = user;
         state.token = accessToken;
         state.isLoggedIn = true;
+        state.isLoadingLogin = false;
+      })
+      .addCase(login.pending, (state) => {
+        state.isLoadingLogin = true;
       })
 
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
         state.token = null;
         state.isLoggedIn = false;
+        state.isLoadingLogin = false;
       })
       .addCase(countUser.fulfilled, (state, action) => {
         state.userCount = action.payload.data;
