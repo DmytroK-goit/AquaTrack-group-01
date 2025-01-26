@@ -5,9 +5,7 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/UserAuth/operations";
-import { selectIsLoading } from "../redux/UserAuth/selectors";
-
-import { selectUserCount } from "../redux/UserAuth/selectors.js";
+import { selectIsLoading, selectUserCount } from "../redux/UserAuth/selectors";
 import UserCount from "../components/UserCount/UserCount.jsx";
 import css from "./SignInPage.module.css";
 import Logo from "../components/HomePage/HomePageComponents/Logo.jsx";
@@ -24,11 +22,10 @@ const schema = yup.object().shape({
 const SignInForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector((state) => state.auth);
-  const [isLoading, setIsLoading] = useState(true);
-  const [showPassword, setShowPassword] = useState(false);
-  const [isPageLoaded, setIsPageLoaded] = useState(false);
+  const { isLoggedIn, isLoadingLogin } = useSelector((state) => state.auth);
   const userCount = useSelector(selectUserCount);
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -37,14 +34,6 @@ const SignInForm = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  useEffect(() => {
-    setIsPageLoaded(true);
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -80,9 +69,10 @@ const SignInForm = () => {
     navigate("/");
   };
 
-  if (!isPageLoaded || isLoading) {
+  if (isLoadingLogin) {
     return <LoaderComponent />;
   }
+
   return (
     <section className={css["container"]}>
       <div className={css["sign-in-page"]}>
@@ -136,7 +126,7 @@ const SignInForm = () => {
                     }
                     role="button"
                     tabIndex="0"
-                    onKeyPress={(e) => {
+                    onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         setShowPassword(!showPassword);
                       }

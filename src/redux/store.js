@@ -7,7 +7,7 @@ import dateReducer from "./DateSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "isLoggedIn"],
+  whitelist: ["user", "isLoggedIn", "isLoadingLogin"],
 };
 
 const persistedReducer = persistReducer(persistConfig, authSlice);

@@ -1,15 +1,15 @@
-import { Circles } from "react-loader-spinner";
+import { DNA } from "react-loader-spinner";
 import css from "./LoaderComponent.module.css";
 
 const LoaderComponent = () => (
   <div className={css.loaderContainer}>
-    <Circles
+    <DNA
+      visible={true}
       height="80"
       width="80"
-      color="#4fa94d"
-      ariaLabel="circles-loading"
+      ariaLabel="dna-loading"
       wrapperStyle={{}}
-      visible={true}
+      wrapperClass="dna-wrapper"
     />
   </div>
 );
