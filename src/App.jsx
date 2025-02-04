@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(countUser());
-  });
+  }, []);
 
   return (
     <Routes>

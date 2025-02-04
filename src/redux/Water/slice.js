@@ -52,11 +52,11 @@ const slice = createSlice({
       })
       .addCase(dayWater.fulfilled, (state, action) => {
         state.itemsDay = action.payload?.data || [];
-        state.totalWaterPerDay = action.payload?.totalWaterPerDay || 0;
-        state.waterPercentage = action.payload?.waterPercentage || "0";
+        state.totalWaterPerDay = action.payload?.totalWaterPerDay ?? 0;
+        state.waterPercentage = action.payload?.waterPercentage ?? "0";
       })
       .addCase(monthWater.fulfilled, (state, action) => {
-        state.itemsMonth = action.payload.data;
+        state.itemsMonth = action.payload?.data || [];
       })
       .addMatcher(
         isAnyOf(dayWater.pending, monthWater.pending, addWater.pending),
